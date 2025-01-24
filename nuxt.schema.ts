@@ -15,9 +15,17 @@ export default defineNuxtSchema({
             primary: field({
               type: 'string',
               title: 'Primary',
-              description: 'Primary color of your UI.',
+              description: 'Primary color of the UI.',
               icon: 'i-mdi-palette-outline',
               default: 'green',
+              required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
+            }),
+            secondary: field({
+              type: 'string',
+              title: 'Secondary',
+              description: 'Accent color for the UI.',
+              icon: 'i-mdi-palette-outline',
+              default: 'fuchsia',
               required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
             }),
             neutral: field({
@@ -145,8 +153,15 @@ export default defineNuxtSchema({
         links: field({
           type: 'array',
           title: 'Links',
-          description: 'Array of link object displayed in header.',
+          description: 'Array of link objects displayed in header right hand side.',
           icon: 'i-mdi-link-variant',
+          default: []
+        }),
+        menu: field({
+          type: 'array',
+          title: 'Menu',
+          description: 'Array of link objects displayed in header.',
+          icon: 'i-mdi-menu',
           default: []
         })
       }
@@ -220,6 +235,7 @@ export default defineNuxtSchema({
           }
         })
       }
-    })
+    }),
   }
 })
+
