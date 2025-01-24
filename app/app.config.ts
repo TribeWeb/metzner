@@ -1,11 +1,11 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'purple',
+      primary: 'teal',
       neutral: 'zinc',
     },
     icons: {
-      chevronDown: 'i-lucide-chevron-right'
+      chevronDown: 'i-lucide-chevron-down'
     },
   },
   uiPro: {
