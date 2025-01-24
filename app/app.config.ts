@@ -5,7 +5,12 @@ export default defineAppConfig({
       neutral: 'zinc',
     },
     icons: {
-      chevronDown: 'i-lucide-chevron-down'
+      chevronDown: 'i-lucide-chevron-down',
+      dark: 'i-lucide-moo',
+      external: 'i-lucide-arrow-up-righ',
+      hash: 'i-lucide-has',
+      light: 'i-lucide-su',
+      search: 'i-lucide-searc'
     },
   },
   uiPro: {
