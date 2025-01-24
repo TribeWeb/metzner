@@ -40,10 +40,10 @@ export default defineNuxtSchema({
               icon: 'i-mdi-arrow-top-right',
               default: 'i-lucide-external-link'
             }),
-            chevron: field({
+            chevronDown: field({
               type: 'icon',
-              title: 'Chevron',
-              description: 'Icon for chevron.',
+              title: 'Chevron down',
+              description: 'Icon for chevron down.',
               icon: 'i-mdi-chevron-down',
               default: 'i-lucide-chevron-down'
             }),
@@ -56,21 +56,28 @@ export default defineNuxtSchema({
             })
           }
         }),
-        primary: field({
-          type: 'string',
-          title: 'Primary',
-          description: 'Primary color of your UI.',
+        colors: group({
+          title: 'Colours',
+          description: 'Manage colours used in UI Pro.',
           icon: 'i-mdi-palette-outline',
-          default: 'green',
-          required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
-        }),
-        gray: field({
-          type: 'string',
-          title: 'Gray',
-          description: 'Gray color of your UI.',
-          icon: 'i-mdi-palette-outline',
-          default: 'slate',
-          required: ['slate', 'cool', 'zinc', 'neutral', 'stone']
+          fields: {
+            primary: field({
+              type: 'string',
+              title: 'Primary',
+              description: 'Primary color of your UI.',
+              icon: 'i-mdi-palette-outline',
+              default: 'green',
+              required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
+            }),
+            gray: field({
+              type: 'string',
+              title: 'Gray',
+              description: 'Gray color of your UI.',
+              icon: 'i-mdi-palette-outline',
+              default: 'slate',
+              required: ['slate', 'cool', 'zinc', 'neutral', 'stone']
+            })
+          }
         })
       }
     }),
