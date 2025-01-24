@@ -30,8 +30,8 @@ const { header } = useAppConfig()
         />
       </template>
       <template v-else>
-        Nuxt UI Pro <UBadge
-          label="Docs"
+        Metzner <UBadge
+          label="UK"
           variant="subtle"
           class="mb-0.5"
         />
