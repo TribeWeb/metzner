@@ -3,7 +3,14 @@ export default defineAppConfig({
     colors: {
       primary: 'green',
       neutral: 'slate'
-    }
+    },
+
+    icons: {
+      chevron: 'i-lucide-chevron-right'
+    },
+
+    primary: 'purple',
+    gray: 'zinc'
   },
   uiPro: {
     footer: {
