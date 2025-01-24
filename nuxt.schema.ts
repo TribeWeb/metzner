@@ -7,6 +7,29 @@ export default defineNuxtSchema({
       description: 'UI Customization.',
       icon: 'i-mdi-palette-outline',
       fields: {
+        colors: group({
+          title: 'Colours',
+          description: 'Manage colours used in UI Pro.',
+          icon: 'i-mdi-palette-outline',
+          fields: {
+            primary: field({
+              type: 'string',
+              title: 'Primary',
+              description: 'Primary color of your UI.',
+              icon: 'i-mdi-palette-outline',
+              default: 'green',
+              required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
+            }),
+            neutral: field({
+              type: 'string',
+              title: 'Gray',
+              description: 'Gray color of your UI.',
+              icon: 'i-mdi-palette-outline',
+              default: 'slate',
+              required: ['slate', 'cool', 'zinc', 'neutral', 'stone']
+            })
+          }
+        }),
         icons: group({
           title: 'Icons',
           description: 'Manage icons used in UI Pro.',
@@ -56,29 +79,6 @@ export default defineNuxtSchema({
             })
           }
         }),
-        colors: group({
-          title: 'Colours',
-          description: 'Manage colours used in UI Pro.',
-          icon: 'i-mdi-palette-outline',
-          fields: {
-            primary: field({
-              type: 'string',
-              title: 'Primary',
-              description: 'Primary color of your UI.',
-              icon: 'i-mdi-palette-outline',
-              default: 'green',
-              required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
-            }),
-            gray: field({
-              type: 'string',
-              title: 'Gray',
-              description: 'Gray color of your UI.',
-              icon: 'i-mdi-palette-outline',
-              default: 'slate',
-              required: ['slate', 'cool', 'zinc', 'neutral', 'stone']
-            })
-          }
-        })
       }
     }),
     seo: group({

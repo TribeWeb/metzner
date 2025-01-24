@@ -2,8 +2,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'purple',
-      neutral: 'slate',
-      gray: 'zinc'
+      neutral: 'zinc',
     },
     icons: {
       chevronDown: 'i-lucide-chevron-right'
