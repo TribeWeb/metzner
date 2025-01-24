@@ -22,7 +22,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'Nuxt UI Pro - Docs template'
+    siteName: 'Metzner UK'
   },
   header: {
     logo: {
@@ -40,7 +40,7 @@ export default defineAppConfig({
     }]
   },
   footer: {
-    credits: 'Copyright © 2023',
+    credits: 'Copyright © 2025',
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-nuxtdotjs',
