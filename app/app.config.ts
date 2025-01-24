@@ -6,11 +6,11 @@ export default defineAppConfig({
     },
     icons: {
       chevronDown: 'i-lucide-chevron-down',
-      dark: 'i-lucide-moo',
-      external: 'i-lucide-arrow-up-righ',
-      hash: 'i-lucide-has',
-      light: 'i-lucide-su',
-      search: 'i-lucide-searc'
+      dark: 'i-lucide-moon',
+      external: 'i-lucide-arrow-up-right',
+      hash: 'i-lucide-hash',
+      light: 'i-lucide-sun',
+      search: 'i-lucide-search'
     },
   },
   uiPro: {
