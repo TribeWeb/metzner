@@ -9,13 +9,19 @@ export default defineNuxtConfig({
     'nuxt-og-image'
   ],
 
+  content: {
+    preview: {
+      api: 'https://api.nuxt.studio'
+    }
+  },
+
   devtools: {
     enabled: true
   },
 
   css: ['~/assets/css/main.css'],
 
-  future: {
+  future: { 
     compatibilityVersion: 4
   },
 
