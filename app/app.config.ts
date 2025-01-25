@@ -30,9 +30,9 @@ export default defineAppConfig({
 
   header: {
     logo: {
-      alt: '',
-      light: '',
-      dark: ''
+      alt: 'Metzner logo',
+      light: '/logo.svg',
+      dark: '/logo-dark.svg'
     },
     search: false,
     colorMode: true,
