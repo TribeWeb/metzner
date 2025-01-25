@@ -47,84 +47,53 @@ export default defineAppConfig({
         to: '/',
       },
       {
-        label: 'Guide',
-        icon: 'i-lucide-book-open',
-        to: '/guide',
+        label: 'About us',
+        icon: 'lucide-smile-plus',
+        to: '/about-us',
         children: [
           {
-            label: 'Introduction',
-            description: 'Fully styled and customizable components for Nuxt.',
-            icon: 'i-lucide-house'
+            label: 'About us',
+            description: 'We are lovely.',
+            icon: 'lucide-person-standing',
+            to: '/about-us'
           },
           {
-            label: 'Installation',
-            description: 'Learn how to install and configure Nuxt UI in your application.',
-            icon: 'i-lucide-cloud-download'
-          },
-          {
-            label: 'Icons',
-            icon: 'i-lucide-smile',
-            description: 'You have nothing to do, @nuxt/icon will handle it automatically.'
-          },
-          {
-            label: 'Colors',
-            icon: 'i-lucide-swatch-book',
-            description: 'Choose a primary and a neutral color from your Tailwind CSS theme.'
-          },
-          {
-            label: 'Theme',
-            icon: 'i-lucide-cog',
-            description: 'You can customize components by using the `class` / `ui` props or in your app.config.ts.'
+            label: 'Contact us',
+            description: 'Talk to our team.',
+            icon: 'lucide-megaphone',
+            to: '/about-us/contact-us'
           }
         ]
       },
       {
-        label: 'Components',
-        icon: 'i-lucide-box',
-        to: '/components',
+        label: 'Products',
+        icon: 'i-lucide-pocket-knife',
+        to: '/products/corrugated-tube-cutting',
         children: [
           {
-            label: 'Link',
-            icon: 'i-lucide-file-text',
-            description: 'Use NuxtLink with superpowers.',
-            to: '/components/link'
+            label: 'Corrugated tube cutting',
+            icon: 'gravity-ui-pipeline',
+            description: 'Cut and slit corrugated rubber tubes.',
+            to: '/products/corrugated-tube-cutting'
           },
           {
-            label: 'Modal',
-            icon: 'i-lucide-file-text',
-            description: 'Display a modal within your application.',
-            to: '/components/modal'
+            label: 'Tube cutting',
+            icon: 'guidance-fire-hose',
+            description: 'Rubber and plastic tubes, hoses & profiles.',
+            to: '/products/tube-cutting'
           },
           {
-            label: 'NavigationMenu',
-            icon: 'i-lucide-file-text',
-            description: 'Display a list of links.',
-            to: '/components/navigation-menu'
-          },
-          {
-            label: 'Pagination',
-            icon: 'i-lucide-file-text',
-            description: 'Display a list of pages.',
-            to: '/components/pagination'
-          },
-          {
-            label: 'Popover',
-            icon: 'i-lucide-file-text',
-            description: 'Display a non-modal dialog that floats around a trigger element.',
-            to: '/components/popover'
-          },
-          {
-            label: 'Progress',
-            icon: 'i-lucide-file-text',
-            description: 'Show a horizontal bar to indicate task progression.',
-            to: '/components/progress'
+            label: 'Reinforced tube cutting',
+            icon: 'icon-park-outline-muscle',
+            description: 'Process reinforced rubber profiles & hoses.',
+            to: '/products/reinforced-tube-cutting'
           }
         ]
       },
       {
-        label: 'Blog',
+        label: 'Latest',
         icon: 'i-lucide-file-text',
-        to: '/blog',
+        to: '/latest',
       }
     ]
   },

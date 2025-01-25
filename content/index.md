@@ -1,6 +1,6 @@
 ---
 seo:
-  title: Nuxt UI Pro - Docs template.
+  title: Welcome
   description: Nuxt UI Pro is a collection of premium Vue components built on top
     of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
 ---
@@ -37,7 +37,7 @@ Create your documentation in seconds with this template!
   :::u-button
   ---
   size: xl
-  to: /getting-started
+  to: /products
   trailing-icon: i-lucide-arrow-right
   ---
   Get started
@@ -66,7 +66,7 @@ All-in-one docs template
   color: neutral
   size: lg
   target: _blank
-  to: /getting-started
+  to: /products
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---

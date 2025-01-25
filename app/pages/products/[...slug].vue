@@ -11,8 +11,8 @@ const { toc, seo } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { data } = await useAsyncData(route.path, () => Promise.all([
-  queryCollection('docs').path(route.path).first(),
-  queryCollectionItemSurroundings('docs', route.path, {
+  queryCollection('products').path(route.path).first(),
+  queryCollectionItemSurroundings('products', route.path, {
     fields: ['title', 'description']
   })
 ]), {
