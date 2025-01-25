@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 
+const { header } = useAppConfig()
+const menu: Ref<ContentNavigationItem[]> = computed(() => header.menu)
+
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-const { header } = useAppConfig()
 // , root: 'bg-[var(--ui-primary)]/75', title: 'text-[var(--ui-text-highlighted)]'
 </script>
 
@@ -24,11 +26,9 @@ const { header } = useAppConfig()
     </UContentSearchButton>
 
     <UNavigationMenu
-      v-if="header?.menu"
-      :items="header.menu"
+      v-if="menu"
+      :items="menu"
       highlight
-      orientation="horizontal"
-      class="data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-48"
     />
 
     <template #title>
@@ -74,9 +74,18 @@ const { header } = useAppConfig()
     </template>
 
     <template #content>
+      <UNavigationMenu
+        orientation="vertical"
+        :items="menu"
+        class="-mx-2.5"
+      />
+      <USeparator
+        type="dashed"
+        class="my-4"
+      />
       <UContentNavigation
         highlight
-        :navigation="header.menu"
+        :navigation="navigation"
       />
     </template>
   </UHeader>
