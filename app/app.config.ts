@@ -3,7 +3,7 @@ export default defineAppConfig({
     colors: {
       primary: 'teal',
       secondary: 'indigo',
-      neutral: 'zinc',
+      neutral: 'zinc'
     },
     icons: {
       chevronDown: 'i-lucide-chevron-down',
@@ -12,7 +12,7 @@ export default defineAppConfig({
       hash: 'i-lucide-hash',
       light: 'i-lucide-sun',
       search: 'i-lucide-search'
-    },
+    }
   },
 
   uiPro: {
@@ -47,7 +47,7 @@ export default defineAppConfig({
       {
         label: 'Home',
         icon: 'i-lucide-home',
-        to: '/',
+        to: '/'
       },
       {
         label: 'About us',
@@ -96,7 +96,7 @@ export default defineAppConfig({
       {
         label: 'Latest',
         icon: 'i-lucide-file-text',
-        to: '/latest',
+        to: '/latest'
       }
     ]
   },
@@ -152,10 +152,10 @@ export default defineAppConfig({
   },
 
   icon: {
-    provider: 'server ',
-    iconifyApiEndpoint: 'https://api.iconify.design ',
+    provider: 'server',
+    iconifyApiEndpoint: 'https://api.iconify.design',
     size: '20',
-    customCollections: ' ',
-    customize: ' '
+    customCollections: null,
+    customize: ''
   }
 })

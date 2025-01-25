@@ -4,15 +4,27 @@ export default defineNuxtConfig({
     '@nuxt/ui-pro',
     '@nuxt/content',
     '@nuxt/eslint',
-    '@nuxt/fonts',
     '@nuxt/image',
     'nuxt-og-image'
   ],
 
   content: {
+    database: {
+      type: 'd1',
+      bindingName: 'DB'
+    },
     preview: {
+      dev: true,
       api: 'https://api.nuxt.studio'
     }
+  },
+
+  image: {
+    provider: 'ipx',
+  },
+
+  ogImage: {
+    zeroRuntime: true,
   },
 
   devtools: {
