@@ -37,7 +37,7 @@ Create your documentation in seconds with this template!
   :::u-button
   ---
   size: xl
-  to: /products
+  to: /latest
   trailing-icon: i-lucide-arrow-right
   ---
   Get started
@@ -66,7 +66,7 @@ All-in-one docs template
   color: neutral
   size: lg
   target: _blank
-  to: /products
+  to: /latest
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
