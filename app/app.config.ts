@@ -14,6 +14,7 @@ export default defineAppConfig({
       search: 'i-lucide-search'
     },
   },
+
   uiPro: {
     footer: {
       slots: {
@@ -22,9 +23,11 @@ export default defineAppConfig({
       }
     }
   },
+
   seo: {
     siteName: 'Metzner UK'
   },
+
   header: {
     logo: {
       alt: '',
@@ -97,6 +100,7 @@ export default defineAppConfig({
       }
     ]
   },
+
   footer: {
     credits: 'Copyright © 2025',
     colorMode: false,
@@ -122,6 +126,7 @@ export default defineAppConfig({
       'aria-label': 'Nuxt UI on GitHub'
     }]
   },
+
   toc: {
     title: 'Table of Contents',
     bottom: {
@@ -144,5 +149,13 @@ export default defineAppConfig({
         target: '_blank'
       }]
     }
+  },
+
+  icon: {
+    provider: 'server ',
+    iconifyApiEndpoint: 'https://api.iconify.design ',
+    size: '20',
+    customCollections: ' ',
+    customize: ' '
   }
 })
