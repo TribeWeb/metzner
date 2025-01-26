@@ -10,7 +10,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
 
 <template>
-  <UHeader :ui="{ center: 'flex-1', title: 'text-3xl' }">
+  <UHeader :ui="{ center: 'flex-1', title: 'font-display text-2xl text-[var(--ui-primary)]' }">
     <UContentSearchButton
       v-if="header?.search"
       label="Search..."

@@ -24,15 +24,21 @@ export default defineAppConfig({
     }
   },
 
+  fonts: {
+    experimental: {
+      processCSSVariables: true
+    }
+  },
+
   seo: {
     siteName: 'Metzner UK'
   },
 
   header: {
     logo: {
-      alt: 'Metzner logo',
-      light: '/logo.svg',
-      dark: '/logo-dark.svg'
+      alt: '',
+      light: '',
+      dark: ''
     },
     search: false,
     colorMode: true,
@@ -155,7 +161,6 @@ export default defineAppConfig({
     provider: 'server',
     iconifyApiEndpoint: 'https://api.iconify.design',
     size: '20',
-    customCollections: null,
-    customize: ''
+    customCollections: null
   }
 })

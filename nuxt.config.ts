@@ -8,10 +8,16 @@ export default defineNuxtConfig({
     'nuxt-og-image'
   ],
 
+  devtools: {
+    enabled: true
+  },
+
+  css: ['~/assets/css/main.css'],
+
   content: {
     database: {
       type: 'd1',
-      bindingName: 'DB'
+      binding: 'DB'
     },
     preview: {
       dev: true,
@@ -19,21 +25,7 @@ export default defineNuxtConfig({
     }
   },
 
-  image: {
-    provider: 'ipx',
-  },
-
-  ogImage: {
-    zeroRuntime: true,
-  },
-
-  devtools: {
-    enabled: true
-  },
-
-  css: ['~/assets/css/main.css'],
-
-  future: { 
+  future: {
     compatibilityVersion: 4
   },
 
@@ -48,6 +40,10 @@ export default defineNuxtConfig({
     }
   },
 
+  // hub: {
+  //   database: true
+  // },
+
   eslint: {
     config: {
       stylistic: {
@@ -55,5 +51,13 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  image: {
+    provider: 'ipx'
+  },
+
+  ogImage: {
+    zeroRuntime: true
   }
 })
