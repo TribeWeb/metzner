@@ -41,7 +41,7 @@ export default defineAppConfig({
       dark: ''
     },
     search: false,
-    colorMode: true,
+    colorMode: false,
     links: [{
       'label': '02476 1231234',
       'icon': 'i-lucide-phone',
