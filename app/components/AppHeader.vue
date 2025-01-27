@@ -2,7 +2,9 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const { header } = useAppConfig()
-const menu: Ref<ContentNavigationItem[]> = computed(() => header.menu)
+const menu = computed(() => header.menu || [])
+const menuWithoutIcons = computed(() => menu.value.map(({ icon, ...menu }) => menu))
+
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
@@ -25,28 +27,26 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
       </template>
     </UContentSearchButton>
 
-    <UNavigationMenu
+    <UNavigationMenu :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
       v-if="menu"
-      :items="menu"
+      :items="menuWithoutIcons"
       highlight
     />
 
     <template #title>
-      <template v-if="header?.logo?.dark || header?.logo?.light">
+      <!-- <template v-if="header?.logo?.dark || header?.logo?.light">
         <UColorModeImage
           v-bind="header?.logo"
           class="h-6 w-auto"
         />
-      </template>
-      <template v-else>
-        Metzner
-        <UBadge
-          :ui="{ base: 'mb-1.5' }"
-          color="primary"
-          label="UK"
-          variant="solid"
-        />
-      </template>
+      </template> -->
+      Metzner
+      <UBadge
+        :ui="{ base: 'mb-1.5' }"
+        color="primary"
+        label="UK"
+        variant="solid"
+      />
     </template>
 
     <template #right>
