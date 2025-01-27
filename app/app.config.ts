@@ -161,6 +161,7 @@ export default defineAppConfig({
     provider: 'server',
     iconifyApiEndpoint: 'https://api.iconify.design',
     size: '20',
-    customCollections: null
+    customCollections: null,
+    fallbackToApi: true
   }
 })
