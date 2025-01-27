@@ -155,13 +155,5 @@ export default defineAppConfig({
         target: '_blank'
       }]
     }
-  },
-
-  icon: {
-    provider: 'server',
-    iconifyApiEndpoint: 'https://api.iconify.design',
-    size: '20',
-    customCollections: null,
-    fallbackToApi: true
   }
 })
