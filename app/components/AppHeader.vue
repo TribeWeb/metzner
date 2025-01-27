@@ -42,7 +42,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
       </template> -->
       Metzner
       <UBadge
-        :ui="{ base: 'mb-1.5' }"
+        :ui="{ base: 'mb-1.5', label: 'text-xs font-bold font-sans' }"
         color="primary"
         label="UK"
         variant="solid"
