@@ -14,6 +14,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  icon: {
+    provider: 'iconify',
+    serverBundle: false,
+  },
+
   content: {
     database: {
       type: 'd1',
