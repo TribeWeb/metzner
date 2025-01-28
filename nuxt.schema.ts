@@ -18,6 +18,7 @@ export default defineNuxtSchema({
               description: 'Primary color of the UI.',
               icon: 'i-mdi-palette-outline',
               default: 'green',
+              // eslint-disable-next-line @stylistic/max-len
               required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
             }),
             secondary: field({
@@ -26,6 +27,7 @@ export default defineNuxtSchema({
               description: 'Accent color for the UI.',
               icon: 'i-mdi-palette-outline',
               default: 'fuchsia',
+              // eslint-disable-next-line @stylistic/max-len
               required: ['sky', 'mint', 'rose', 'amber', 'violet', 'emerald', 'fuchsia', 'indigo', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'yellow', 'green', 'blue', 'cyan', 'gray', 'white', 'black']
             }),
             neutral: field({
@@ -86,7 +88,7 @@ export default defineNuxtSchema({
               default: 'i-lucide-hash'
             })
           }
-        }),
+        })
       }
     }),
     seo: group({
@@ -235,7 +237,6 @@ export default defineNuxtSchema({
           }
         })
       }
-    }),
+    })
   }
 })
-

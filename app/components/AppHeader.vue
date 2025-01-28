@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { UCard } from '#components';
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const { header } = useAppConfig()
 const menu = computed(() => header.menu || [])
 const menuWithoutIcons = computed(() => menu.value.map(({ icon, ...menu }) => menu))
-
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
@@ -28,8 +26,9 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
       </template>
     </UContentSearchButton>
 
-    <UNavigationMenu :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
+    <UNavigationMenu
       v-if="menu"
+      :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
       :items="menuWithoutIcons"
       highlight
     />
@@ -52,7 +51,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
         />
         <div class="absolute text-[var(--ui-text)] left-0 -bottom-1 text-xs font-light font-sans tracking-[0.38em] md:tracking-[0.56em]">
           ENGINEERING
-        </div>  
+        </div>
       </div>
     </template>
 

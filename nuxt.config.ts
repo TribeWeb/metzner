@@ -14,15 +14,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  icon: {
-    provider: 'iconify',
-    serverBundle: false,
-    customCollections: [{
-      prefix: 'custom',
-      dir: './app/assets/icons'
-    }]
-  },
-
   content: {
     database: {
       type: 'd1',
@@ -60,6 +51,15 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  icon: {
+    provider: 'iconify',
+    serverBundle: false,
+    customCollections: [{
+      prefix: 'custom',
+      dir: './app/assets/icons'
+    }]
   },
 
   image: {
