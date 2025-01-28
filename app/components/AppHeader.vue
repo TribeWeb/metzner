@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UCard } from '#components';
 import type { ContentNavigationItem } from '@nuxt/content'
 
 const { header } = useAppConfig()
@@ -12,7 +13,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
 
 <template>
-  <UHeader :ui="{ center: 'flex-1', title: 'font-display text-2xl text-[var(--ui-primary)]' }">
+  <UHeader :ui="{ center: 'flex-1', title: 'font-display text-xl md:text-2xl text-[var(--ui-primary)]' }">
     <UContentSearchButton
       v-if="header?.search"
       label="Search..."
@@ -40,13 +41,19 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
           class="h-6 w-auto"
         />
       </template> -->
-      Metzner
-      <UBadge
-        :ui="{ base: 'mb-1.5', label: 'text-xs font-bold font-sans' }"
-        color="primary"
-        label="UK"
-        variant="solid"
-      />
+      <div class="relative">
+        Metzner
+        <UBadge
+          :ui="{ base: 'mb-1.5 ', label: 'text-xs font-bold font-sans' }"
+          color="primary"
+          label="UK"
+          variant="solid"
+          size="sm"
+        />
+        <div class="absolute text-[var(--ui-text)] left-0 -bottom-1 text-xs font-light font-sans tracking-[0.56em]">
+          ENGINEERING
+        </div>  
+      </div>
     </template>
 
     <template #right>
