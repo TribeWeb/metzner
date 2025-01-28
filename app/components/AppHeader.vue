@@ -50,7 +50,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
           variant="solid"
           size="sm"
         />
-        <div class="absolute text-[var(--ui-text)] left-0 -bottom-1 text-xs font-light font-sans tracking-[0.56em]">
+        <div class="absolute text-[var(--ui-text)] left-0 -bottom-1 text-xs font-light font-sans tracking-[0.38em] md:tracking-[0.56em]">
           ENGINEERING
         </div>  
       </div>
