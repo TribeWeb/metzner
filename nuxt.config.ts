@@ -14,9 +14,16 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // icon: {
+  //   provider: 'iconify',
+  //   serverBundle: false,
+  // },
+
   icon: {
-    provider: 'iconify',
-    serverBundle: false,
+    customCollections: [{
+      prefix: 'custom',
+      dir: './app/assets/icons'
+    }]
   },
 
   content: {
