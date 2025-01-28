@@ -43,9 +43,9 @@ export default defineAppConfig({
     search: false,
     colorMode: false,
     links: [{
-      'label': '02476 1231234',
+      'label': '02476 214799',
       'icon': 'i-lucide-phone',
-      'to': 'tel:+4424761231234',
+      'to': 'tel:+442476214799',
       'target': '_blank',
       'aria-label': 'Call our friendly team'
     }],
@@ -81,19 +81,19 @@ export default defineAppConfig({
         children: [
           {
             label: 'Corrugated tube cutting',
-            icon: 'gravity-ui-pipeline',
+            icon: 'i-custom-pipe-corrug',
             description: 'Cut and slit corrugated rubber tubes.',
             to: '/products/corrugated-tube-cutting'
           },
           {
             label: 'Tube cutting',
-            icon: 'guidance-fire-hose',
+            icon: 'i-custom-pipe-plain',
             description: 'Rubber and plastic tubes, hoses & profiles.',
             to: '/products/tube-cutting'
           },
           {
             label: 'Reinforced tube cutting',
-            icon: 'icon-park-outline-muscle',
+            icon: 'i-icon-park-outline-muscle',
             description: 'Process reinforced rubber profiles & hoses.',
             to: '/products/reinforced-tube-cutting'
           }
@@ -108,29 +108,55 @@ export default defineAppConfig({
   },
 
   footer: {
-    credits: 'Copyright © 2025',
+    credits: 'Copyright CP Power & Automation © 2025',
     colorMode: true,
-    links: [{
-      'icon': 'i-simple-icons-nuxtdotjs',
-      'to': 'https://nuxt.com',
-      'target': '_blank',
-      'aria-label': 'Nuxt Website'
-    }, {
-      'icon': 'i-simple-icons-discord',
-      'to': 'https://discord.com/invite/ps2h6QT',
-      'target': '_blank',
-      'aria-label': 'Nuxt UI on Discord'
-    }, {
-      'icon': 'i-simple-icons-x',
-      'to': 'https://x.com/nuxt_js',
-      'target': '_blank',
-      'aria-label': 'Nuxt on X'
-    }, {
-      'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt/ui',
-      'target': '_blank',
-      'aria-label': 'Nuxt UI on GitHub'
-    }]
+    links: [
+      {
+        label: 'Website',
+        children: [
+          {
+            'label': 'Terms & conditions',
+            'to': 'https://cppowerautomation.com/terms.aspx',
+            'target': '_blank',
+            'aria-label': 'Terms and conditions'
+          },
+          {
+            'label': 'Privacy policy',
+            'to': 'https://cppowerautomation.com/security-privacy.aspx',
+            'target': '_blank',
+            'aria-label': 'Privacy policy'
+          },
+          {
+            'label': 'Sitemap',
+            // 'to': '/sitemap.xml',
+            'to': '/',
+            'aria-label': 'Metzner UK sitemap'
+          }
+        ]
+      },
+      {
+        label: 'Company',
+        children: [
+          {
+            'label': 'Contact us',
+            'to': '/about-us/contact-us',
+            'aria-label': 'Contact details'
+          },
+          {
+            'label': 'Metzner, Germany',
+            'to': 'https://www.metzner.com',
+            'target': '_blank',
+            'aria-label': 'Metzner, Germany'
+          },
+          {
+            'label': 'CP Power & Automation',
+            'to': 'https://cppowerautomation.com',
+            'target': '_blank',
+            'aria-label': 'CP Power & Automation main site'
+          }
+        ]
+      }
+    ]
   },
 
   toc: {
