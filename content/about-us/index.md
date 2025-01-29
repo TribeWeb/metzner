@@ -7,4 +7,6 @@ Established in 1999, CP Power and Automation has provided advice and technical e
 
 With experience in a variety of industries and an extensive knowledgebase from time spent with our manufacturers and customers in the DC power sector, we can offer advice based upon years of understanding. With numerous manufacturers and suppliers available, we offer genuine advice on product selection to ensure the best solution is suggested for your task. We are always interested to hear from manufacturers of DC power products to add more options to our extensive product base.
 
+## CP Power & Automation
+
 At CP Power and Automation, we strive to partner with customers on their projects. If you have an ongoing requirement for DC power products, or if you just need advice on your requirements, contact us so we can help you further.
