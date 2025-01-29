@@ -40,11 +40,11 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
           </div>
         </div>
         <UBadge
-          :ui="{ base: 'h-full items-start rounded-none', label: 'text-xs font-bold font-sans' }"
+          :ui="{ base: 'h-full items-start rounded-none mt-0.5 md:text-[10px]/3 md:px-1.5 md:py-1 md:mt-0', label: 'text-xs font-bold font-sans' }"
           color="primary"
           label="UK"
           variant="solid"
-          size="sm"
+          size="xs"
         />
       </div>
     </template>
