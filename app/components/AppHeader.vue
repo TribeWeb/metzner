@@ -32,7 +32,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
     />
 
     <template #title>
-      <div class="flex flex-row gap-2">
+      <div class="flex flex-row gap-1.5">
         <div class="flex flex-col">
           Metzner
           <div class="text-[var(--ui-text)] text-xs font-light font-sans tracking-[0.56em]">
