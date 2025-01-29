@@ -6,12 +6,10 @@ const menu = computed(() => header.menu || [])
 const menuWithoutIcons = computed(() => menu.value.map(({ icon, ...menu }) => menu))
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
-
-// , root: 'bg-[var(--ui-primary)]/75', title: 'text-[var(--ui-text-highlighted)]'
 </script>
 
 <template>
-  <UHeader :ui="{ center: 'flex-1', title: 'font-display text-xl md:text-2xl text-[var(--ui-primary)]' }">
+  <UHeader :ui="{ center: 'flex-1', title: 'font-display text-xl/7 md:text-2xl/7 text-[var(--ui-primary)]' }">
     <UContentSearchButton
       v-if="header?.search"
       label="Search..."
@@ -34,24 +32,20 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
     />
 
     <template #title>
-      <!-- <template v-if="header?.logo?.dark || header?.logo?.light">
-        <UColorModeImage
-          v-bind="header?.logo"
-          class="h-6 w-auto"
-        />
-      </template> -->
-      <div class="relative">
-        Metzner
+      <div class="flex flex-row gap-2">
+        <div class="flex flex-col">
+          Metzner
+          <div class="text-[var(--ui-text)] text-xs font-light font-sans tracking-[0.56em]">
+            MACHINES
+          </div>
+        </div>
         <UBadge
-          :ui="{ base: 'mb-1.5 ', label: 'text-xs font-bold font-sans' }"
+          :ui="{ base: 'h-full items-start rounded-none', label: 'text-xs font-bold font-sans' }"
           color="primary"
           label="UK"
           variant="solid"
           size="sm"
         />
-        <div class="absolute text-[var(--ui-text)] left-0 -bottom-1 text-xs font-light font-sans tracking-[0.38em] md:tracking-[0.56em]">
-          ENGINEERING
-        </div>
       </div>
     </template>
 
@@ -67,7 +61,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
         <UButton
           v-for="(link, index) of header.links"
           :key="index"
-          v-bind="{ color: 'primary', variant: 'solid', size: 'sm', ...link }"
+          v-bind="{ color: 'primary', variant: 'outline', size: 'sm', ...link }"
         >
           {{ link.label }}
           <UBadge
