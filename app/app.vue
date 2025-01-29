@@ -8,10 +8,15 @@ const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSe
 
 useHead({
   meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'apple-mobile-web-app-title', content: 'Metzner UK' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'shortcut icon', href: '/favicon.ico' },
+    { rel: 'icon', type: 'image/svg+xml', href: '/icons/favicon.svg' },
+    { rel: 'manifest', href: '/icons/site.webmanifest' },
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/icons/apple-touch-icon.png' },
+    { rel: 'manifest', href: '/icons/site.webmanifest' }
   ],
   htmlAttrs: {
     lang: 'en'
