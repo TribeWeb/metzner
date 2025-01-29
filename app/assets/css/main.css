@@ -7,16 +7,16 @@
   --font-sans: 'Public Sans', sans-serif;
   --font-display: 'Nord', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  --color-metzner-50: #E5FEFF;
+  --color-metzner-100: #C2FCFF;
+  --color-metzner-200: #7AF8FF;
+  --color-metzner-300: #33F4FF;
+  --color-metzner-400: #00DDEA;
+  --color-metzner-500: #009AA3;
+  --color-metzner-600: #007D84;
+  --color-metzner-700: #006066;
+  --color-metzner-800: #004347;
+  --color-metzner-900: #002629;
+  --color-metzner-950: #001819;
 }
 
