@@ -49,62 +49,52 @@ export default defineAppConfig({
       'target': '_blank',
       'aria-label': 'Call our friendly team'
     }],
-    menu: [
-      {
-        label: 'Home',
-        icon: 'i-lucide-home',
-        to: '/'
-      },
-      {
+    menu: [{
+      label: 'Home',
+      icon: 'i-lucide-home',
+      to: '/'
+    }, {
+      label: 'About us',
+      icon: 'lucide-smile-plus',
+      to: '/about-us',
+
+      children: [{
         label: 'About us',
-        icon: 'lucide-smile-plus',
-        to: '/about-us',
-        children: [
-          {
-            label: 'About us',
-            description: 'We are lovely.',
-            icon: 'lucide-person-standing',
-            to: '/about-us'
-          },
-          {
-            label: 'Contact us',
-            description: 'Talk to our team.',
-            icon: 'lucide-megaphone',
-            to: '/about-us/contact-us'
-          }
-        ]
-      },
-      {
-        label: 'Products',
-        icon: 'i-lucide-pocket-knife',
-        to: '/products/corrugated-tube-cutting',
-        children: [
-          {
-            label: 'Corrugated tube cutting',
-            icon: 'i-custom-pipe-corrug',
-            description: 'Cut and slit corrugated rubber tubes.',
-            to: '/products/corrugated-tube-cutting'
-          },
-          {
-            label: 'Tube cutting',
-            icon: 'i-custom-pipe-plain',
-            description: 'Rubber and plastic tubes, hoses & profiles.',
-            to: '/products/tube-cutting'
-          },
-          {
-            label: 'Reinforced tube cutting',
-            icon: 'i-icon-park-outline-muscle',
-            description: 'Process reinforced rubber profiles & hoses.',
-            to: '/products/reinforced-tube-cutting'
-          }
-        ]
-      },
-      {
-        label: 'Latest',
-        icon: 'i-lucide-file-text',
-        to: '/latest'
-      }
-    ]
+        description: 'UK distributer for Metzner',
+        icon: 'lucide-person-standing',
+        to: '/about-us'
+      }, {
+        label: 'Contact us',
+        description: 'Talk to our team of experts',
+        icon: 'lucide-megaphone',
+        to: '/about-us/contact-us'
+      }]
+    }, {
+      label: 'Products',
+      icon: 'i-lucide-pocket-knife',
+      to: '/products/corrugated-tube-cutting',
+
+      children: [{
+        label: 'Corrugated tube cutting',
+        icon: 'i-custom-pipe-corrug',
+        description: 'Cut and slit corrugated rubber tubes.',
+        to: '/products/corrugated-tube-cutting'
+      }, {
+        label: 'Tube cutting',
+        icon: 'i-custom-pipe-plain',
+        description: 'Rubber and plastic tubes, hoses & profiles.',
+        to: '/products/tube-cutting'
+      }, {
+        label: 'Reinforced tube cutting',
+        icon: 'i-icon-park-outline-muscle',
+        description: 'Process reinforced rubber profiles & hoses.',
+        to: '/products/reinforced-tube-cutting'
+      }]
+    }, {
+      label: 'Latest',
+      icon: 'i-lucide-file-text',
+      to: '/latest'
+    }]
   },
 
   footer: {
