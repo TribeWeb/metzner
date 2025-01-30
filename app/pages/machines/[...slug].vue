@@ -11,8 +11,8 @@ const { toc, seo } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { data } = await useAsyncData(route.path, () => Promise.all([
-  queryCollection('products').path(route.path).first(),
-  queryCollectionItemSurroundings('products', route.path, {
+  queryCollection('machines').path(route.path).first(),
+  queryCollectionItemSurroundings('machines', route.path, {
     fields: ['title', 'description']
   })
 ]), {
@@ -26,15 +26,15 @@ const page = computed(() => data.value?.page)
 const surround = computed(() => data.value?.surround)
 
 useSeoMeta({
-  title: page.value.seo.title,
-  ogTitle: `${page.value.seo.title} - ${seo?.siteName}`,
-  description: page.value.seo.description,
-  ogDescription: page.value.seo.description
+  title: page.value?.seo.title,
+  ogTitle: `${page.value?.seo.title} - ${seo?.siteName}`,
+  description: page.value?.seo.description,
+  ogDescription: page.value?.seo.description
 })
 
 defineOgImageComponent('Docs')
 
-const headline = computed(() => findPageHeadline(navigation.value, page.value))
+const headline = computed(() => findPageHeadline(navigation?.value, page.value))
 
 const links = computed(() => [toc?.bottom?.edit && {
   icon: 'i-lucide-external-link',

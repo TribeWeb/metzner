@@ -70,25 +70,30 @@ export default defineAppConfig({
         to: '/about-us/contact-us'
       }]
     }, {
-      label: 'Products',
+      label: 'Machines',
       icon: 'i-lucide-pocket-knife',
-      to: '/products/corrugated-tube-cutting',
+      to: '/machines/profile-plastic-rubber-cutting-machines',
 
       children: [{
-        label: 'Corrugated tube cutting',
-        icon: 'i-custom-pipe-corrug',
-        description: 'Cut and slit corrugated rubber tubes.',
-        to: '/products/corrugated-tube-cutting'
+        label: 'Profile, Plastic and Rubber Cutting',
+        icon: 'i-lucide-star',
+        description: 'Full solutions for cutting hoses, extrusions & gaskets.',
+        to: '/machines/profile-plastic-rubber-cutting-machines'
       }, {
-        label: 'Tube cutting',
-        icon: 'i-custom-pipe-plain',
-        description: 'Rubber and plastic tubes, hoses & profiles.',
-        to: '/products/tube-cutting'
+        label: 'Cable & Wire Processing',
+        icon: 'i-lucide-star',
+        description: 'Cutting, stripping and marking cables and wires.',
+        to: '/machines/cable-and-wire-processing-machines'
       }, {
-        label: 'Reinforced tube cutting',
-        icon: 'i-icon-park-outline-muscle',
-        description: 'Process reinforced rubber profiles & hoses.',
-        to: '/products/reinforced-tube-cutting'
+        label: 'Corrugated Conduit',
+        icon: 'i-lucide-star',
+        description: 'Precision cutting of corrugated hoses, pipes and conduit.',
+        to: '/machines/corrugated-conduit'
+      }, {
+        label: 'Spare Parts & Service',
+        icon: 'i-lucide-star',
+        description: 'Advice and support for your Metzner machines.',
+        to: '/machines/spare-parts-and-service'
       }]
     }, {
       label: 'Latest',
@@ -150,7 +155,7 @@ export default defineAppConfig({
   },
 
   toc: {
-    title: 'Table of Contents',
+    title: 'On this page',
     bottom: {
       title: 'Community',
       edit: 'https://github.com/nuxt-ui-pro/docs/edit/v3/content',

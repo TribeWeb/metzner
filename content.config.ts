@@ -14,9 +14,9 @@ export default defineContentConfig({
       type: 'page',
       source: 'latest/*.md'
     }),
-    products: defineCollection({
+    machines: defineCollection({
       type: 'page',
-      source: 'products/*.md'
+      source: 'machines/**/*.md'
     })
   }
 })
