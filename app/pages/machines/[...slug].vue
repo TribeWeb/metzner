@@ -54,10 +54,18 @@ const links = computed(() => [toc?.bottom?.edit && {
     />
 
     <UPageBody>
+      <!-- <pre>{{ page }}</pre> -->
       <ContentRenderer
         v-if="page"
         :value="page"
       />
+      <UPageHero>
+        <img
+          :src="`/machines/${page.path.split('/').pop()}.webp`"
+          alt="App screenshot"
+          class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
+        >
+      </UPageHero>
 
       <USeparator v-if="surround?.length" />
 
