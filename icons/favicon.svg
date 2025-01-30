@@ -1,3 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1060)"><rect width="1000" height="1000" fill="#ffffff"></rect><g transform="matrix(28.125,0,0,28.125,50,50)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="32" height="32"><svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 64 64">
-	<path d="M4 14.5 27 14.5 32 31.5 37 14.5 60 14.5 60 49.5 43 49.5 43 32.5 37 49.5 27 49.5 21 32.5 21 49.5 4 49.5Z" fill="#009AA3"></path>
-</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1060"><rect width="1000" height="1000" x="0" y="0" rx="150" ry="150"></rect></clipPath></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><g><g transform="matrix(15.625,0,0,15.625,0,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="64" height="64"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<path d="M3 24 25 24 31 43 34 34 59 34 59 59 42 59 42 42 36 59 26 59 20 42 20 59 3 59z" stroke="none" fill="#009AA3"></path>
+	<path d="M33 10 33 23Q33 28 38 28 43 28 43 23L43 10M51 10 51 28M51 21 61 10M54 18 61 28" stroke="oklch(0.373 0.034 259.733)" stroke-width="5" stroke-linecap="round" fill="none"></path>
+</svg></svg></g></g></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1056)"><rect width="1000" height="1000" fill="#ffffff"></rect><g transform="matrix(14.0625,0,0,14.0625,50,50)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="64" height="64"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<path d="M3 24 25 24 31 43 34 34 59 34 59 59 42 59 42 42 36 59 26 59 20 42 20 59 3 59z" stroke="none" fill="#009AA3"></path>
+	<path d="M33 10 33 23Q33 28 38 28 43 28 43 23L43 10M51 10 51 28M51 21 61 10M54 18 61 28" stroke="oklch(0.373 0.034 259.733)" stroke-width="5" stroke-linecap="round" fill="none"></path>
+</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1056"><rect width="1000" height="1000" x="0" y="0" rx="100" ry="100"></rect></clipPath></defs></svg></g></svg>
