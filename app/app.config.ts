@@ -52,11 +52,13 @@ export default defineAppConfig({
     menu: [{
       label: 'Home',
       icon: 'i-lucide-home',
-      to: '/'
+      to: '/',
+      name: 'index'
     }, {
       label: 'About us',
       icon: 'lucide-smile-plus',
       to: '/about-us',
+      name: 'about-us-slug',
 
       children: [{
         label: 'About us',
@@ -72,10 +74,10 @@ export default defineAppConfig({
     }, {
       label: 'Machines',
       icon: 'i-lucide-pocket-knife',
-      to: '/machines/profile-plastic-rubber-cutting-machines',
-
+      page: false,
+      name: 'machines-landing',
       children: [{
-        label: 'Profile, Plastic and Rubber Cutting',
+        label: 'Profile, Plastic & Rubber Cutting',
         icon: 'i-lucide-star',
         description: 'Full solutions for cutting hoses, extrusions & gaskets.',
         to: '/machines/profile-plastic-rubber-cutting-machines'
@@ -98,7 +100,8 @@ export default defineAppConfig({
     }, {
       label: 'Latest',
       icon: 'i-lucide-file-text',
-      to: '/latest'
+      to: '/latest',
+      name: 'latest-slug'
     }]
   },
 

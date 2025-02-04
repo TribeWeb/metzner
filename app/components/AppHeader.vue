@@ -1,9 +1,24 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 
+const route = useRoute()
+
 const { header } = useAppConfig()
+
 const menu = computed(() => header.menu || [])
-const menuWithoutIcons = computed(() => menu.value.map(({ icon, ...menu }) => menu))
+
+const menuItemsWithActiveProp = computed(() => {
+  // add a `name` property to each menu item so that it that it can be matched to the route `name` property to show when active
+  return menu.value.map((menuItem) => {
+    const isActive = route.name === menuItem.name
+    return { ...menuItem, active: isActive }
+  })
+})
+
+const menuItemsWithRemovedProps = computed(() =>
+// remove any unecessary properties. E.g. `name` is no longer required as we don't want to display one, `icon` is also not needed
+  menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
+)
 
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
@@ -25,9 +40,9 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
     </UContentSearchButton>
 
     <UNavigationMenu
-      v-if="menu"
+      v-if="menuItemsWithRemovedProps"
       :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
-      :items="menuWithoutIcons"
+      :items="menuItemsWithRemovedProps"
       highlight
     />
 
