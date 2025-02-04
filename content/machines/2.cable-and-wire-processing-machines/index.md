@@ -2,7 +2,7 @@
 title: Cable and Wire Processing Machines
 description: Metzner produce a wide range of machines for cutting, stripping and marking cables and wires. From the smallest wire to the large cables, Metzner has a machine to handle your requirements. 
 navigation:
-    icon: 'i-lucide-star'
+    title: Introduction
 ---
 
 Including: Cut and Strip Machines, cable marking, feeders, coilers and fully automated lines.

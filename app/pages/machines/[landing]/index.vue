@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
+import PageColumns from '@nuxt/ui-pro/runtime/components/PageColumns.vue'
 import { findPageHeadline } from '#ui-pro/utils/content'
 
 definePageMeta({
@@ -12,11 +13,13 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 const { data } = await useAsyncData(route.path, () => Promise.all([
   queryCollection('machines').path(route.path).first(),
+  queryCollection('machines').select('path', 'title', 'description', 'extension').all(),
+  // queryCollection('machines').path(`/machines/:${route.params.landing}()/:slug()`).all(),
   queryCollectionItemSurroundings('machines', route.path, {
     fields: ['title', 'description']
   })
 ]), {
-  transform: ([page, surround]) => ({ page, surround })
+  transform: ([page, childPages, surround]) => ({ page, childPages, surround })
 })
 if (!data.value || !data.value.page) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
@@ -24,6 +27,7 @@ if (!data.value || !data.value.page) {
 
 const page = computed(() => data.value?.page)
 const surround = computed(() => data.value?.surround)
+const childPages = computed(() => data.value?.childPages.filter(item => item.path.includes(`${route.params.landing}/`) && item.extension === 'md'))
 
 useSeoMeta({
   title: page.value?.seo.title,
@@ -42,6 +46,8 @@ const links = computed(() => [toc?.bottom?.edit && {
   to: `${toc.bottom.edit}/${page?.value?.path}`,
   target: '_blank'
 }, ...(toc?.bottom?.links || [])].filter(Boolean))
+
+const machines = computed(() => navigation?.value?.find(item => item.path === route.path)?.children || [])
 </script>
 
 <template>
@@ -54,19 +60,15 @@ const links = computed(() => [toc?.bottom?.edit && {
     />
 
     <UPageBody>
-      <!-- <pre>{{ page }}</pre> -->
       <ContentRenderer
         v-if="page"
         :value="page"
       />
-      <UPageHero>
-        <img
-          :src="`/machines/${page.path.split('/').pop()}.webp`"
-          alt="App screenshot"
-          class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
-        >
-      </UPageHero>
-
+      <UPageSection
+        title="Checkout the rest of the range"
+        :description="page.description"
+        :features="childPages"
+      />
       <USeparator v-if="surround?.length" />
 
       <UContentSurround :surround="surround" />

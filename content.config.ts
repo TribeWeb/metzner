@@ -2,7 +2,7 @@ import { defineContentConfig, defineCollection } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
-    landing: defineCollection({
+    home: defineCollection({
       type: 'page',
       source: 'index.md'
     }),
@@ -16,7 +16,11 @@ export default defineContentConfig({
     }),
     machines: defineCollection({
       type: 'page',
-      source: 'machines/**/*.md'
+      source: 'machines/**'
     })
+    // landing: defineCollection({
+    //   type: 'page',
+    //   source: 'machines/*/index.md'
+    // })
   }
 })
