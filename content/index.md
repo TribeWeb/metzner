@@ -7,19 +7,37 @@ seo:
 
 ::u-page-hero
 ---
-orientation: horizontal
+orientation: vertical
 ---
-  :::prose-pre{filename="Terminal"}
-  ```bash
-  npx nuxi init -t github:nuxt-ui-pro/docs#v3
-  ```
+  :::u-page-marquee
+  ---
+  pause-on-hover: true
+  overlay: false
+  ---
+    :::u-page-card
+    ---
+    variant: subtle
+    icon: i-simple-icons-nuxtdotjs
+    title: Nuxt UI Pro
+    description: bob
+    ---
+    ::nuxt-img{src="/machines/st-ob.webp" width="250px"}
+    :::
+    :::u-page-card
+    ---
+    icon: i-simple-icons-nuxtdotjs
+    title: Nuxt UI Ama
+    description: bobina
+    ---
+    ::nuxt-img{src="/machines/st-ob.webp" width="250px"}
+    :::
   :::
 
 #title
-Build your docs in a few more seconds
+Machines that cut stuff really well
 
 #description
-Create your documentation in seconds with this template!
+Thery're excellent
 
 #headline
   :::u-button
@@ -27,38 +45,28 @@ Create your documentation in seconds with this template!
   class: rounded-full
   size: sm
   to: https://ui.nuxt.com/pro
-  trailingIcon: i-lucide-external-link
   variant: subtle
   ---
-  Made with Nuxt UI Pro
+  Made with German engineering
   :::
 
 #links
   :::u-button
   ---
   size: xl
-  to: /latest
-  trailing-icon: i-lucide-arrow-right
+  to: #features
+  trailing-icon: i-lucide-arrow-down
   ---
   Get started
-  :::
-
-  :::u-button
-  ---
-  color: neutral
-  icon: i-simple-icons-github
-  size: xl
-  target: _blank
-  to: https://ui.nuxt.com/pro
-  variant: subtle
-  ---
-  Use this template
   :::
 ::
 
 ::u-page-section
 #title
-All-in-one docs template
+Precision cutting. 
+
+#description
+Perfectly repeated. Again and again…
 
 #links
   :::u-button
@@ -70,85 +78,85 @@ All-in-one docs template
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
-  Explore Nuxt UI Pro
+  Explore the Metzner range
   :::
 
 #features
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
+  icon: i-emojione-monotone:flag-for-germany
   target: _blank
   to: https://nuxt.com
   ---
   #title
-  Nuxt 3
+  Engineered in Germany
   
   #description
-  Powered by Nuxt 3 for optimal performances and SEO.
+  Maximise production uptime and enjoy reliable operation year after year.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-markdown
+  icon: i-tdesign:precise-monitor
   target: _blank
   to: https://content.nuxt.com
   ---
   #title
-  Markdown
+  Optimised for accurate, repeatable cuts
   
   #description
-  Write your pages with MDC thanks to Nuxt Content.
+  Enhance the quality of your products while minimising wastage.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-sparkles
+  icon: i-game-icons:spanner
   target: _blank
   to: https://ui.nuxt.com
   ---
   #title
-  Nuxt UI 3
+  Serviceable with parts availablity
   
   #description
-  Offers a very large set of full customizable components.
+  Enjoy an assured and maximised return on investment.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-typescript
+  icon: i-streamline:user-protection-2-solid
   target: _blank
   to: https://www.typescriptlang.org
   ---
   #title
-  TypeScript
+  Safety designed in
   
   #description
-  A fully typed development experience.
+  Integrated guards and stop systems help operators work safely.
   :::
 
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxtdotjs
+  icon: i-material-symbols:machine-image
   target: _blank
   to: https://content.nuxt.com/docs/studio
   ---
   #title
-  Nuxt Studio
+  Full range of peripherals
   
   #description
-  Supported by Nuxt Studio for fast updates and previews.
+  Integrate with compatible peripherals and existing systems to automate whole sections of production.
   :::
 
   :::u-page-feature
   ---
-  icon: i-lucide-search
+  icon: i-ic:baseline-dashboard-customize
   target: _blank
   to: https://ui.nuxt.com/pro/components/docs/docs-search
   ---
   #title
-  Search
+  Customisation
   
   #description
-  A full-text search modal empowered by Fuse.js.
+  Specify special requirements. E.g. stainless steel for medical applications.
   :::
 ::
