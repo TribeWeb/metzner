@@ -16,7 +16,6 @@
     "@iconify-json/simple-icons": "^1.2.25",
     "@iconify-json/vscode-icons": "^1.2.15",
     "@nuxt/content": "^3.2.0",
-    "@nuxt/fonts": "^0.10.3",
     "@nuxt/image": "^1.9.0",
     "@nuxt/ui-pro": "3.0.0-alpha.13",
     "@nuxthub/core": "0.8.17",
@@ -33,7 +32,7 @@
   "packageManager": "pnpm@10.4.1",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "better-sqlite3"    
+      "better-sqlite3"
     ]
   }
 }
