@@ -33,8 +33,7 @@
   "packageManager": "pnpm@10.4.1",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "better-sqlite3",
-      "@parcel/watcher"
+      "better-sqlite3"    
     ]
   }
 }
