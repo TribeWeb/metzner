@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/image',
-    'nuxt-og-image'
+    'nuxt-og-image',
+    '@nuxthub/core'
   ],
 
   devtools: {
