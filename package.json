@@ -12,21 +12,26 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@iconify-json/lucide": "^1.2.24",
-    "@iconify-json/simple-icons": "^1.2.21",
-    "@iconify-json/vscode-icons": "^1.2.11",
-    "@nuxt/content": "^3.0.1",
+    "@iconify-json/lucide": "^1.2.26",
+    "@iconify-json/simple-icons": "^1.2.25",
+    "@iconify-json/vscode-icons": "^1.2.15",
+    "@nuxt/content": "^3.2.0",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/image": "^1.9.0",
-    "@nuxt/ui-pro": "https://pkg.pr.new/@nuxt/ui-pro@bd2f069",
+    "@nuxt/ui-pro": "3.0.0-alpha.13",
     "nuxt": "3.15.4",
-    "nuxt-og-image": "^4.1.2"
+    "nuxt-og-image": "^4.1.4"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^1.0.0",
-    "eslint": "^9.18.0",
+    "@nuxt/eslint": "^1.1.0",
+    "eslint": "^9.20.1",
     "typescript": "^5.7.3",
-    "vue-tsc": "^2.2.0"
+    "vue-tsc": "^2.2.2"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@10.4.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3"
+    ]
+  }
 }
