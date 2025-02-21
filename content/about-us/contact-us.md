@@ -3,19 +3,12 @@ title: Contact us
 description: Get in touch
 ---
 
-## Get in touch man
+## Get in touch with us
 
-Telephone:
-02476 214799
+Telephone: 02476 214799
 
-E-mail:
-sales@cppowerautomation.com
+E-mail: <sales@cppowerautomation.com>
 
-Address:
-3 Fairfield Court
-Seven Stars Industrial Estate
-Coventry
-CV3 4LJ
+Address: 3 Fairfield Court Seven Stars Industrial Estate Coventry CV3 4LJ
 
-CP Power & Automation Registered in England and Wales No: 3776491. Registered Address 3 Fairfield Court, Seven Stars Industrial Estate, Coventry, CV3 4LJ.
-VAT Number: GB 747 3230 36
+CP Power & Automation Registered in England and Wales No: 3776491. Registered Address 3 Fairfield Court, Seven Stars Industrial Estate, Coventry, CV3 4LJ. VAT Number: GB 747 3230 36
