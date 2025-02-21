@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: 'd1',
-      binding: 'DB'
+      bindingName: 'DB'
     },
     preview: {
       dev: true,
