@@ -8,7 +8,7 @@ export default defineContentConfig({
     }),
     about: defineCollection({
       type: 'page',
-      source: 'about-us/*.md'
+      source: 'about/*.md'
     }),
     latest: defineCollection({
       type: 'page',
@@ -18,9 +18,5 @@ export default defineContentConfig({
       type: 'page',
       source: 'machines/**'
     })
-    // landing: defineCollection({
-    //   type: 'page',
-    //   source: 'machines/*/index.md'
-    // })
   }
 })

@@ -7,6 +7,15 @@ const { seo } = useAppConfig()
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('machines'), {
   transform: data => data.find(item => item.path === '/machines')?.children || []
 })
+
+provide('navigation', navigation)
+
+const { data: aboutLinks } = await useAsyncData('aboutLinks', () => queryCollectionNavigation('about'), {
+  transform: data => data.find(item => item.path === '/about')?.children || []
+})
+
+provide('aboutLinks', aboutLinks)
+
 const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('machines'), {
   server: false
 })
@@ -41,8 +50,6 @@ useSeoMeta({
   twitterImage: 'https://docs-template.nuxt.dev/social-card.png',
   twitterCard: 'summary_large_image'
 })
-
-provide('navigation', navigation)
 </script>
 
 <template>

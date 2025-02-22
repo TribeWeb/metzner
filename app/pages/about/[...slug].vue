@@ -3,7 +3,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '#ui-pro/utils/content'
 
 definePageMeta({
-  layout: 'docs'
+  layout: 'about'
 })
 
 const route = useRoute()
@@ -35,13 +35,6 @@ useSeoMeta({
 defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation.value, page.value))
-
-const links = computed(() => [toc?.bottom?.edit && {
-  icon: 'i-lucide-external-link',
-  label: 'Edit this page',
-  to: `${toc.bottom.edit}/${page?.value?.path}`,
-  target: '_blank'
-}, ...(toc?.bottom?.links || [])].filter(Boolean))
 </script>
 
 <template>
@@ -49,7 +42,6 @@ const links = computed(() => [toc?.bottom?.edit && {
     <UPageHeader
       :title="page.title"
       :description="page.description"
-      :links="page.links"
       :headline="headline"
     />
 
@@ -69,29 +61,10 @@ const links = computed(() => [toc?.bottom?.edit && {
       #right
     >
       <UContentToc
+        highlight
         :title="toc?.title"
         :links="page.body?.toc?.links"
-      >
-        <template
-          v-if="toc?.bottom"
-          #bottom
-        >
-          <div
-            class="hidden lg:block space-y-6"
-            :class="{ '!mt-6': page.body?.toc?.links?.length }"
-          >
-            <USeparator
-              v-if="page.body?.toc?.links?.length"
-              type="dashed"
-            />
-
-            <UPageLinks
-              :title="toc.bottom.title"
-              :links="links"
-            />
-          </div>
-        </template>
-      </UContentToc>
+      />
     </template>
   </UPage>
 </template>

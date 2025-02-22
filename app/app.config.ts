@@ -55,21 +55,21 @@ export default defineAppConfig({
       to: '/',
       name: 'index'
     }, {
-      label: 'About us',
+      label: 'About',
       icon: 'lucide-smile-plus',
-      to: '/about-us',
-      name: 'about-us-slug',
+      to: '/about',
+      name: 'about-slug',
 
       children: [{
-        label: 'About us',
+        label: 'About',
         description: 'UK distributer for Metzner',
         icon: 'lucide-person-standing',
-        to: '/about-us'
+        to: '/about'
       }, {
-        label: 'Contact us',
+        label: 'Contact',
         description: 'Talk to our team of experts',
         icon: 'lucide-megaphone',
-        to: '/about-us/contact-us'
+        to: '/about/contact'
       }]
     }, {
       label: 'Machines',
@@ -137,7 +137,7 @@ export default defineAppConfig({
         children: [
           {
             'label': 'Contact us',
-            'to': '/about-us/contact-us',
+            'to': '/about/contact',
             'aria-label': 'Contact details'
           },
           {
