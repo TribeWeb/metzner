@@ -173,10 +173,24 @@ export default defineNuxtSchema({
       description: 'Footer configuration.',
       icon: 'i-mdi-page-layout-footer',
       fields: {
+        copyright: field({
+          type: 'string',
+          title: 'Footer copyright section',
+          description: 'Text to display as copyright holder in the footer.',
+          icon: 'i-mdi-circle-edit-outline',
+          default: ''
+        }),
         credits: field({
           type: 'string',
           title: 'Footer credits section',
           description: 'Text to display as credits in the footer.',
+          icon: 'i-mdi-circle-edit-outline',
+          default: ''
+        }),
+        creditsLink: field({
+          type: 'string',
+          title: 'Footer credits section',
+          description: 'Link to display along with the credits in the footer.',
           icon: 'i-mdi-circle-edit-outline',
           default: ''
         }),
@@ -187,10 +201,10 @@ export default defineNuxtSchema({
           icon: 'i-mdi-moon-waning-crescent',
           default: false
         }),
-        links: field({
+        columnHeaders: field({
           type: 'array',
           title: 'Links',
-          description: 'Array of link object displayed in footer.',
+          description: 'Array of link objects displayed in footer.',
           icon: 'i-mdi-link-variant',
           default: []
         })

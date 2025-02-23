@@ -61,15 +61,15 @@ export default defineAppConfig({
       name: 'about-slug',
 
       children: [{
-        label: 'About',
+        label: 'About us',
         description: 'UK distributer for Metzner',
         icon: 'lucide-person-standing',
         to: '/about'
       }, {
-        label: 'Contact',
+        label: 'Contact us',
         description: 'Talk to our team of experts',
         icon: 'lucide-megaphone',
-        to: '/about/contact'
+        to: '/contact'
       }]
     }, {
       label: 'Machines',
@@ -106,55 +106,21 @@ export default defineAppConfig({
   },
 
   footer: {
-    credits: 'Copyright CP Power & Automation © 2025',
+    copyright: `Copyright CP Power & Automation © ${new Date().getFullYear()}`,
+    credits: 'Website by TribeWeb',
+    creditsLink: 'https://tribeweb.co.uk',
     colorMode: true,
-    links: [
-      {
-        label: 'Website',
-        children: [
-          {
-            'label': 'Terms & conditions',
-            'to': 'https://cppowerautomation.com/terms.aspx',
-            'target': '_blank',
-            'aria-label': 'Terms and conditions'
-          },
-          {
-            'label': 'Privacy policy',
-            'to': 'https://cppowerautomation.com/security-privacy.aspx',
-            'target': '_blank',
-            'aria-label': 'Privacy policy'
-          },
-          {
-            'label': 'Sitemap',
-            // 'to': '/sitemap.xml',
-            'to': '/',
-            'aria-label': 'Metzner UK sitemap'
-          }
-        ]
-      },
-      {
-        label: 'Company',
-        children: [
-          {
-            'label': 'Contact us',
-            'to': '/about/contact',
-            'aria-label': 'Contact details'
-          },
-          {
-            'label': 'Metzner, Germany',
-            'to': 'https://www.metzner.com',
-            'target': '_blank',
-            'aria-label': 'Metzner, Germany'
-          },
-          {
-            'label': 'CP Power & Automation',
-            'to': 'https://cppowerautomation.com',
-            'target': '_blank',
-            'aria-label': 'CP Power & Automation main site'
-          }
-        ]
-      }
-    ]
+    columnHeaders: [{
+      id: 'company',
+      title: 'Company',
+      label: 'Company',
+      icon: 'i-lucide-building'
+    }, {
+      id: 'website',
+      title: 'Website',
+      label: 'Website',
+      icon: 'i-lucide-globe'
+    }]
   },
 
   toc: {

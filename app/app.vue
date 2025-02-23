@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
-import type ContentNavigation from '@nuxt/ui-pro/runtime/components/content/ContentNavigation.vue'
-
 const { seo } = useAppConfig()
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('machines'), {
@@ -10,9 +7,7 @@ const { data: navigation } = await useAsyncData('navigation', () => queryCollect
 
 provide('navigation', navigation)
 
-const { data: aboutLinks } = await useAsyncData('aboutLinks', () => queryCollectionNavigation('about'), {
-  transform: data => data.find(item => item.path === '/about')?.children || []
-})
+const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
 
 provide('aboutLinks', aboutLinks)
 
@@ -20,10 +15,10 @@ const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSe
   server: false
 })
 
-const route = useRoute()
-const activeNav = computed(() => navigation.value.map((obj: ContentNavigationItem, i: number) => ({
-  ...obj, active: route.path.includes(obj.path), defaultOpen: route.path.includes(obj.path), key: i
-})))
+// const route = useRoute()
+// const activeNav = computed(() => (navigation.value ?? []).map((obj: ContentNavigationItem, i: number) => ({
+//   ...obj, active: route.path.includes(obj.path), defaultOpen: route.path.includes(obj.path), key: i
+// })))
 
 // https://realfavicongenerator.net/
 useHead({

@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 
-const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks')
+const { footer } = useAppConfig()
+const columnHeaders = footer.columnHeaders || []
+
+const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks') || ref<ContentNavigationItem[]>([])
+const columns = computed(() => {
+  return columnHeaders.map((header) => {
+    return {
+      ...header,
+      children: aboutLinks.value.filter(item => item.column === header.id)
+    }
+  })
+})
 </script>
 
 <template>
@@ -10,9 +21,9 @@ const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks')
       <template #left>
         <UPageAside>
           <UContentNavigation
-            type="single"
             highlight
-            :navigation="aboutLinks"
+            :navigation="columns"
+            :collapsible="false"
           />
         </UPageAside>
       </template>

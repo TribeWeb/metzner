@@ -1,4 +1,4 @@
-import { defineContentConfig, defineCollection } from '@nuxt/content'
+import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
@@ -8,7 +8,13 @@ export default defineContentConfig({
     }),
     about: defineCollection({
       type: 'page',
-      source: 'about/*.md'
+      source: {
+        include: 'about/*',
+        prefix: '/'
+      },
+      schema: z.object({
+        column: z.enum(['company', 'website'])
+      })
     }),
     latest: defineCollection({
       type: 'page',
