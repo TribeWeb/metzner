@@ -20,6 +20,8 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  site: { url: 'metzner.nuxt.dev' },
+
   content: {
     database: {
       type: 'd1',
