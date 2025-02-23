@@ -33,12 +33,5 @@ export default defineContentConfig({
         source: 'machines/**'
       })
     )
-    // content: defineCollection(
-    //   // adds the robots frontmatter key to the collection
-    //   asSitemapCollection({
-    //     type: 'page',
-    //     source: '**/*.md'
-    //   })
-    // )
   }
 })
