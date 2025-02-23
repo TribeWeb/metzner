@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/ui-pro',
+    '@nuxtjs/sitemap',
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/image',

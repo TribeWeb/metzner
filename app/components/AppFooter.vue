@@ -14,14 +14,6 @@ const columns = computed(() => {
     }
   })
 })
-// const labels = computed(() => mapContentNavigation(aboutLinks.value).map(({ stem, ...link }) => link))
-// const columns = computed(() => labels.value.map((item) => {
-//   return {
-//     ...item,
-//     children: mapContentNavigation(item.children as ContentNavigationItem[]).map(({ stem, ...link }) => link)
-//   }
-// }
-// )) as ComputedRef<FooterColumnLink[]>
 </script>
 
 <template>
