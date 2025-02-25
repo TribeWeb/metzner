@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     'nuxt-og-image',
-    '@nuxthub/core'
+    '@nuxthub/core',
+    '@nuxt/scripts'
   ],
 
   devtools: {
