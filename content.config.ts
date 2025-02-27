@@ -1,6 +1,5 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
-import type { isModuleName } from 'typescript'
 
 export default defineContentConfig({
   collections: {
