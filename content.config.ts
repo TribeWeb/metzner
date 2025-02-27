@@ -35,7 +35,7 @@ export default defineContentConfig({
     ),
     machinemap: defineCollection({
       type: 'data',
-      source: 'data/machinemap.json',
+      source: 'data/machinemap.yml',
       schema: z.object({
         modelId: z.string(),
         modelName: z.string(),
