@@ -9,28 +9,25 @@ seo:
 ---
 orientation: vertical
 ---
-  :::u-page-marquee
-  ---
-  pause-on-hover: true
-  overlay: false
-  ---
-    :::u-page-card
+  :::u-page-marquee{:overlay='false' pause-on-hover}
+    ::::u-page-card
     ---
-    variant: subtle
+    description: bob
     icon: i-simple-icons-nuxtdotjs
     title: Nuxt UI Pro
-    description: bob
+    variant: subtle
     ---
-    ::nuxt-img{src="/machines/st-ob.webp" width="250px"}
-    :::
-    :::u-page-card
+    :nuxt-img{alt="undefined" src="/machines/st-ob.webp" width="250px"}
+    ::::
+  
+    ::::u-page-card
     ---
+    description: bobina
     icon: i-simple-icons-nuxtdotjs
     title: Nuxt UI Ama
-    description: bobina
     ---
-    ::nuxt-img{src="/machines/st-ob.webp" width="250px"}
-    :::
+    :nuxt-img{alt="undefined" src="/machines/st-ob.webp" width="250px"}
+    ::::
   :::
 
 #title
@@ -51,19 +48,14 @@ Thery're excellent
   :::
 
 #links
-  :::u-button
-  ---
-  size: xl
-  to: #features
-  trailing-icon: i-lucide-arrow-down
-  ---
+  :::u-button{:to='null' size="xl" trailing-icon="i-lucide-arrow-down"}
   Get started
   :::
 ::
 
 ::u-page-section
 #title
-Precision cutting. 
+Precision cutting.
 
 #description
 Perfectly repeated. Again and again…
