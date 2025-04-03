@@ -18,7 +18,6 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
-
   css: ['~/assets/css/main.css'],
 
   site: { url: 'metzner.nuxt.dev' },
@@ -32,6 +31,13 @@ export default defineNuxtConfig({
       dev: true,
       api: 'https://api.nuxt.studio'
     }
+  },
+  runtimeConfig: {
+    // Private keys are only available on the server
+    googleApiKey: ''
+    // spreadsheetId: '',
+    // googleServiceAccountEmail: '',
+    // googlePrivateKey: ''
   },
 
   future: {
