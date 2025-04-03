@@ -3,7 +3,7 @@ import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt({
   rules: {
-    '@stylistic/max-len': ['error', { code: 160 }],
+    '@stylistic/max-len': ['error', { code: 180 }],
     '@stylistic/eol-last': ['error', 'always']
   }
 })
