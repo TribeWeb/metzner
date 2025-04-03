@@ -2,7 +2,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'metzner',
-      secondary: 'indigo',
+      secondary: 'sky',
       neutral: 'zinc'
     },
     icons: {
@@ -11,7 +11,10 @@ export default defineAppConfig({
       external: 'i-lucide-arrow-up-right',
       hash: 'i-lucide-hash',
       light: 'i-lucide-sun',
-      search: 'i-lucide-search'
+      search: 'i-lucide-search',
+      minus: 'i-lucide-minus',
+      plus: 'i-lucide-plus',
+      check: 'i-lucide-check'
     }
   },
 
@@ -145,5 +148,10 @@ export default defineAppConfig({
         target: '_blank'
       }]
     }
+  },
+  toaster: {
+    position: 'bottom-right' as const,
+    expand: true,
+    duration: 5000
   }
 })

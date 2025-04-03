@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { seo } = useAppConfig()
+const { seo, toaster } = useAppConfig()
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('machines'), {
   transform: data => data.find(item => item.path === '/machines')?.children || []
@@ -48,7 +48,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
+  <UApp :toaster="toaster">
     <NuxtLoadingIndicator />
 
     <AppHeader />
@@ -67,5 +67,5 @@ useSeoMeta({
         :navigation="navigation"
       />
     </ClientOnly>
-  </div>
+  </UApp>
 </template>
