@@ -5,6 +5,31 @@ seo:
     of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
 ---
 
+::material-Picker
+---
+headerCopy:
+  title: Material Picker
+  description: Specify the material you need to cut, and we'll identify the most suitable cutting machines from our range.
+formItemsCopy:
+  shape:
+    category: Cross section
+    legend: Shape
+    description: Is the material a pipe, hose, conduit or cord with a round cross section or does it have a more complex profile?
+  core:
+    category: Cross section
+    legend: Core
+    description: Is the core of the material solid or hollow? Complex profiles may have both solid and hollow portions.
+  reinforced:
+    category: Cross section
+    legend: Reinforced
+    description: Is there steel reinforcement running along the length of the material?
+  stiffness:
+    category: Longitudinal section
+    legend: Stiffness
+    description: Is the material a flexible hose, cord or profile or a rigid pipe or extrusion?
+---
+::
+
 ::u-page-hero
 ---
 orientation: vertical

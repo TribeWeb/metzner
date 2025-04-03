@@ -1,5 +1,6 @@
-import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+import { defineContentConfig, defineCollection } from '@nuxt/content'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+import { schemas } from './app/utils/schemas'
 
 export default defineContentConfig({
   collections: {
@@ -16,9 +17,7 @@ export default defineContentConfig({
           include: 'about/*',
           prefix: '/'
         },
-        schema: z.object({
-          column: z.enum(['company', 'website'])
-        })
+        schema: schemas.about
       })
     ),
     latest: defineCollection(
@@ -30,23 +29,14 @@ export default defineContentConfig({
     machines: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: 'machines/**'
+        source: 'machines/**',
+        schema: schemas.machines
       })
     ),
-    machinemap: defineCollection({
+    materialMap: defineCollection({
       type: 'data',
-      source: 'data/machinemap.yml',
-      schema: z.object({
-        modelId: z.string(),
-        modelName: z.string(),
-        type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
-        stiffness: z.enum(['flexible', 'rigid']).optional(),
-        shape: z.enum(['round', 'complex']),
-        core: z.array(z.enum(['hollow', 'solid'])).optional(),
-        reinforced: z.boolean().optional(),
-        material: z.array(z.enum(['rubber', 'plastic', 'epdm', 'pvc', 'silicone', 'sponge'])),
-        config: z.enum(['standard', 'optional'])
-      })
+      source: 'data/material-map/**',
+      schema: schemas.materialMap
     })
   }
 })
