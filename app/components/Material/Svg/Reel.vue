@@ -8,11 +8,9 @@ const { shape } = defineProps<Props>()
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="200"
-    height="100"
-    viewbox="0 0 64 32"
+    width="100%"
+    viewBox="0 0 64 32"
     :color="shape === 'complex' ? 'var(--ui-primary)' : 'var(--ui-secondary)'"
-    class="w-full"
   >
     <!-- <rect width="100%" height="100%" stroke="red" fill="none" /> -->
     <g>
