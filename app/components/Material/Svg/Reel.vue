@@ -26,12 +26,9 @@ const { shape } = defineProps<Props>()
           repeatCount="indefinite"
           attributeName="d"
           dur="1.5s"
-          attributeType="XML"
-          values="
-                m 53 15 q 0 22 -24 6 q -6 -4 -15 0 q -3 1 -6 0;
-                m 53 15 q 0 6 -24 6 q -6 0 -15 0 q -3 0 -6 0;
-                m 53 15 q 0 22 -24 6 q -6 -4 -15 0 q -3 1 -6 0;
-              "
+          values="m 53 15 q 0 22 -24 6 q -6 -4 -15 0 q -3 1 -6 0;
+          m 53 15 q 0 6 -24 6 q -6 0 -15 0 q -3 0 -6 0;
+          m 53 15 q 0 22 -24 6 q -6 -4 -15 0 q -3 1 -6 0;"
         />
       </path>
     </g>
