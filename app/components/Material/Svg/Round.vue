@@ -36,34 +36,25 @@ const svg = {
     :color="color"
   >
     <g>
-      <g
-        fill="none"
-        stroke="currentColor"
-        stroke-width="4"
-        stroke-linecap="round"
-      ><MaterialSvgShape :svg />
+      <g>
+        <circle
+          :cx="width/2"
+          :cy="height/2"
+          :r="height/2-margin"
+          class="transition duration-500 ease-in-out"
+          stroke="currentColor"
+          stroke-width="4"
+          :fill="core?.includes('solid') ? 'currentColor' : 'background'"
+        />
       </g>
       <g
         stroke-dasharray="6 6"
         fill="none"
         stroke-width="1"
         stroke-linecap="round"
-        :class="[reinforced? 'opacity-100' : 'opacity-0']"
-        class="steel transition duration-500 ease-in-out -z-10"
-      ><MaterialSvgShape :svg />
-      </g>
-      <g
-        color="currentColor"
-        :class="[core?.includes('solid') ? 'opacity-100' : 'opacity-0']"
-        class="transition duration-500 ease-in-out -z-10"
-      >
-        <path
-          fill="currentColor"
-          d="M 22 26 A 1 1 0 0 1 28 26 Z"
-          :class="[core?.includes('solid') && core?.includes('hollow') ? 'opacity-100' : 'opacity-0']"
-          class="transition duration-500 ease-in-out"
-        />
-        <path d="M 44 26 C 45 17 49 13 58 12 V 26 Z" />
+        :class="[reinforced ? 'opacity-100' : 'opacity-0']"
+        class="steel transition duration-500 ease-in-out"
+      ><MaterialSvgCircle :svg />
       </g>
     </g>
   </svg>

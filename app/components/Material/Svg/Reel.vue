@@ -1,8 +1,10 @@
 <script setup lang="ts">
-interface Props {
-  shape: string
-}
-const { shape } = defineProps<Props>()
+const { color } = defineProps({
+  color: {
+    type: String,
+    default: 'currentColor'
+  }
+})
 </script>
 
 <template>
@@ -10,9 +12,8 @@ const { shape } = defineProps<Props>()
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
     viewBox="0 0 64 32"
-    :color="shape === 'complex' ? 'var(--ui-primary)' : 'var(--ui-secondary)'"
+    :color="color"
   >
-    <!-- <rect width="100%" height="100%" stroke="red" fill="none" /> -->
     <g>
       <path
         d="m 53 15 q 0 22 -24 6 q -6 -4 -15 0 q -3 1 -6 0"
