@@ -4,7 +4,6 @@ import type { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { CheckboxGroupRoot } from 'reka-ui'
 import { materialMap } from '#imports'
-import { UPageCard } from '#components'
 
 const { headerCopy, formItemsCopy } = defineProps({
   headerCopy: {
@@ -22,7 +21,6 @@ const state = reactive<Partial<Schema>>({})
 
 const router = useRouter()
 const route = useRoute()
-// this.$router.replace({ ...this.$router.currentRoute, query: this.filters });
 function go() {
   router.push({ query: state })
   // router.replace({ ...router.currentRoute, query: state })
@@ -106,150 +104,206 @@ function countValues(objArr = {} as MaterialMapCollectionItem[], key: keyof Mate
   })
   return values.filter(x => x === true).length
 }
+
+watchEffect(() => {
+  router.replace({ query: state })
+})
 </script>
 
 <template>
-  <UContainer>
-    <UPageCard
-      :title="headerCopy?.title"
-      :description="headerCopy?.description"
-      orientation="horizontal"
-      variant="naked"
-    >
-      <MaterialSvgViewer :shapes="state" />
-
-      <template #footer>
-        <UForm
-          :state="state"
-          :schema="schema"
-          class="space-y-4 mb-6"
-          @submit="onSubmit"
+  <ClientOnly>
+    <UContainer>
+      <UForm
+        :state="state"
+        :schema="schema"
+        class="space-y-4 mb-6"
+        @submit="onSubmit"
+      >
+        <ProseH3 id="bob">
+          {{ formItemsCopy?.shape?.category }}
+        </ProseH3>
+        <Teleport defer to="div#shape > fieldset > div:has(div):has([value*='complex'])">
+          <MaterialSvgProfile
+            :color="'var(--ui-primary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': state.shape === 'complex',
+                      'opacity-20': state.shape === 'round' }"
+          />
+        </Teleport>
+        <Teleport defer to="div#shape > fieldset > div:has(div):has([value*='round'])">
+          <MaterialSvgRound
+            :color="'var(--ui-secondary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': state.shape === 'round',
+                      'opacity-20': state.shape === 'complex' }"
+          />
+        </Teleport>
+        <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description">
+          <UButtonGroup>
+            <URadioGroup
+              id="shape"
+              v-model="state.shape"
+              name="shape"
+              orientation="horizontal"
+              :items="normalizedItems.shape.items"
+              :ui="{ root: 'grow',
+                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
+                     wrapper: 'min-w-18' }"
+            />
+            <UButton
+              v-if="state.shape"
+              class="ml-2"
+              color="neutral"
+              variant="link"
+              size="md"
+              icon="i-lucide-circle-x"
+              aria-label="Clear input"
+              @click="delete state.shape"
+            />
+          </UButtonGroup>
+        </UFormField>
+        <UFormField name="core" :label="formItemsCopy?.core?.legend" :description="formItemsCopy?.core?.description">
+          <CheckboxGroupRoot v-model="state.core">
+            <UButtonGroup>
+              <UBadge v-for="item in normalizedItems.core.items" :key="item.value" variant="outline" :ui="{ base: 'py-2 px-4 gap-2 rounded-[calc(var(--ui-radius)*1.5)]' }">
+                <UCheckbox
+                  name="core"
+                  :ui="{ root: 'grow', wrapper: 'min-w-22' }"
+                  :model-value="state.core?.includes(item.value)"
+                  :value="item.value"
+                  :label="item.label"
+                  :disabled="item.disabled"
+                  :description="item.description"
+                />
+                <MaterialSvgProfile
+                  v-if="item.value==='complex'"
+                  :color="'var(--ui-primary)'"
+                  class="w-32 transition-opacity duration-300 ease-in-out"
+                  :class="{ 'opacity-100': state.shape === 'complex',
+                            'opacity-20': state.shape === 'round' }"
+                />
+                <MaterialSvgRound
+                  v-else
+                  :color="'var(--ui-secondary)'"
+                  class="w-32 transition-opacity duration-300 ease-in-out"
+                  :class="{ 'opacity-100': state.shape === 'round',
+                            'opacity-20': state.shape === 'complex' }"
+                />
+              </UBadge>
+              <UButton
+                v-if="state.core && state.core.length > 0"
+                class="ml-2"
+                color="neutral"
+                variant="link"
+                size="md"
+                icon="i-lucide-circle-x"
+                aria-label="Clear input"
+                @click="delete state.core"
+              />
+            </UButtonGroup>
+          </CheckboxGroupRoot>
+        </UFormField>
+        <Teleport
+          v-for="item in normalizedItems.reinforced.items"
+          :key="item.value"
+          defer
+          :to="`div#reinforced > fieldset > div:has(div):has([value*='${item.value}'])`"
         >
-          <ProseH3>{{ formItemsCopy?.shape?.category }}</ProseH3>
-          <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description">
-            <!-- <UTabs v-model="state.shape" :items="normalizedItems.shape.items" /> -->
+          <MaterialSvgProfile
+            v-if="state.shape==='complex'"
+            :reinforced="item.value==='steel'"
+            :color="'var(--ui-primary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': !state.reinforced || state.reinforced === item.value,
+                      'opacity-20': state.reinforced !== item.value }"
+          />
+          <MaterialSvgRound
+            v-else
+            :reinforced="item.value==='steel'"
+            :color="'var(--ui-secondary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': !state.reinforced || state.reinforced === item.value,
+                      'opacity-20': state.reinforced !== item.value }"
+          />
+        </Teleport>
+        <UFormField name="reinforced" :label="formItemsCopy?.reinforced?.legend" :description="formItemsCopy?.reinforced?.description">
+          <UButtonGroup>
+            <URadioGroup
+              id="reinforced"
+              v-model="state.reinforced"
+              name="reinforced"
+              orientation="horizontal"
+              :items="normalizedItems.reinforced.items"
+              :ui="{ root: 'grow',
+                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
+                     wrapper: 'min-w-18' }"
+            />
+            <UButton
+              v-if="state.reinforced"
+              class="ml-2"
+              color="neutral"
+              variant="link"
+              size="md"
+              icon="i-lucide-circle-x"
+              aria-label="Clear input"
+              @click="delete state.reinforced"
+            />
+          </UButtonGroup>
+        </UFormField>
 
-            <UBadge variant="outline" :ui="{ base: 'py-2 px-4 min-w-84' }">
-              <template #trailing>
-                <UButton
-                  :disabled="!state.shape"
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="i-lucide-circle-x"
-                  aria-label="Clear input"
-                  @click="state.shape = undefined"
-                />
-              </template>
-              <URadioGroup
-                v-model="state.shape"
-                orientation="horizontal"
-                :items="normalizedItems.shape.items"
-                :ui="{ root: 'grow', item: 'basis-1/2' }"
-                :disabled="normalizedItems.shape.disabled"
-              />
-            </UBadge>
-          </UFormField>
-          <UFormField name="core" :label="formItemsCopy?.core?.legend" :description="formItemsCopy?.core?.description">
-            <CheckboxGroupRoot
-              v-model="state.core"
-            >
-              <UButtonGroup>
-                <UBadge variant="outline" :ui="{ base: 'py-2 px-4 min-w-84' }">
-                  <template #trailing>
-                    <UButton
-                      :disabled="!state.core"
-                      color="neutral"
-                      variant="link"
-                      size="sm"
-                      icon="i-lucide-circle-x"
-                      aria-label="Clear input"
-                      @click="state.core = []"
-                    />
-                  </template>
-                  <UCheckbox
-                    v-for="item in normalizedItems.core.items"
-                    :key="item.value"
-                    name="core"
-                    :ui="{ root: 'grow' }"
-                    :model-value="state.core?.includes(item.value)"
-                    :value="item.value"
-                    :label="item.label"
-                    :disabled="item.disabled"
-                    :description="item.description"
-                  />
-                </UBadge>
-              </UButtonGroup>
-            </CheckboxGroupRoot>
-          </UFormField>
-          <UFormField name="reinforced" :label="formItemsCopy?.reinforced?.legend" :description="formItemsCopy?.reinforced?.description">
-            <UBadge variant="outline" :ui="{ base: 'py-2 px-4 min-w-84' }">
-              <template #trailing>
-                <UButton
-                  :disabled="!state.reinforced"
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="i-lucide-circle-x"
-                  aria-label="Clear input"
-                  @click="state.reinforced = undefined"
-                />
-              </template>
-              <URadioGroup
-                v-model="state.reinforced"
-                name="reinforced"
-                orientation="horizontal"
-                :items="normalizedItems.reinforced.items"
-                :ui="{ root: 'grow', item: 'basis-1/2' }"
-              />
-            </UBadge>
-          </UFormField>
-        </Uform>
-      </template>
-    </UPageCard>
-
-    <UPageCard orientation="horizontal" variant="naked">
-      <div class="flex flex-row gap-4">
-        <MaterialSvgReel :shape="state.shape || 'complex'" class="basis-1/2 w-full" />
-        <MaterialSvgRollers :shape="state.shape || 'complex'" class="basis-1/2 w-full" />
-      </div>
-      <template #footer>
-        <UForm
-          :state="state"
-          :schema="schema"
-          class="space-y-4 mb-6"
-          @submit="onSubmit"
+        <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
+        <Teleport
+          v-for="item in normalizedItems.stiffness.items"
+          :key="item.value"
+          defer
+          :to="`div#stiffness > fieldset > div:has(div):has([value*='${item.value}'])`"
         >
-          <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
-          <UFormField name="stiffness" :label="formItemsCopy?.stiffness?.legend" :description="formItemsCopy?.stiffness?.description">
-            <UBadge variant="outline" :ui="{ base: 'py-2 px-4 min-w-84' }">
-              <template #trailing>
-                <UButton
-                  :disabled="!state.stiffness"
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  icon="i-lucide-circle-x"
-                  aria-label="Clear input"
-                  @click="state.stiffness = undefined"
-                />
-              </template>
-              <URadioGroup
-                v-model="state.stiffness"
-                name="stiffness"
-                orientation="horizontal"
-                :items="normalizedItems.stiffness.items"
-                :ui="{ root: 'grow', item: 'basis-1/2' }"
-              />
-            </UBadge>
-          </UFormField>
-        </UForm>
-      </template>
-    </UPageCard>
-    <UButton label="go" @click="go()" />
-    <pre>{{ filtered?.length }}</pre>
-    <pre>{{ filtered?.map((m) => m.modelId) }}</pre>
-  </UContainer>
+          <MaterialSvgReel
+            v-if="item.value==='flexible'"
+            :color="state.shape==='round' ? 'var(--ui-secondary)' : 'var(--ui-primary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': state.stiffness === 'flexible',
+                      'opacity-20': state.stiffness === 'rigid' }"
+          />
+          <MaterialSvgRollers
+            v-else
+            :color="state.shape==='round' ? 'var(--ui-secondary)' : 'var(--ui-primary)'"
+            class="w-32 transition-opacity duration-300 ease-in-out"
+            :class="{ 'opacity-100': state.stiffness === 'rigid',
+                      'opacity-20': state.stiffness === 'flexible' }"
+          />
+        </Teleport>
+        <UFormField name="stiffness" :label="formItemsCopy?.stiffness?.legend" :description="formItemsCopy?.stiffness?.description">
+          <UButtonGroup>
+            <URadioGroup
+              id="stiffness"
+              v-model="state.stiffness"
+              name="stiffness"
+              orientation="horizontal"
+              :items="normalizedItems.stiffness.items"
+              :ui="{ root: 'grow',
+                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
+                     wrapper: 'min-w-18' }"
+            />
+            <UButton
+              v-if="state.stiffness"
+              class="ml-2"
+              color="neutral"
+              variant="link"
+              size="md"
+              icon="i-lucide-circle-x"
+              aria-label="Clear input"
+              @click="delete state.stiffness"
+            />
+          </UButtonGroup>
+        </UFormField>
+      </UForm>
+
+      <UButton label="go" @click="go()" />
+      <pre>{{ filtered?.length }}</pre>
+      <pre>{{ filtered?.map((m) => m.modelId) }}</pre>
+    </UContainer>
+  </ClientOnly>
 </template>
 
 <style scoped>
