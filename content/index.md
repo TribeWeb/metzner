@@ -14,7 +14,7 @@ formItemsCopy:
   shape:
     category: Cross section
     legend: Shape
-    description: Is the material a pipe, hose, conduit or cord with a round cross section or does it have a more complex profile?
+    description: Is the material a pipe, hose, conduit - or cord with a round cross section or does it have a more complex profile?
   core:
     category: Cross section
     legend: Core
@@ -26,7 +26,7 @@ formItemsCopy:
   stiffness:
     category: Longitudinal section
     legend: Stiffness
-    description: Is the material a flexible hose, cord or profile or a rigid pipe or extrusion?
+    description: Is the material a flexible hose, cord or profile - or a rigid pipe or extrusion?
 ---
 ::
 
