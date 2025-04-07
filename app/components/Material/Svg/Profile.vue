@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { color } = defineProps({
+const { color, core, reinforced } = defineProps({
   color: {
     type: String,
     default: 'currentColor'

@@ -1,0 +1,27 @@
+<template>
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+      <mask id="roundSolidReinforced">
+        <circle cx="16" cy="16" r="15" fill="white" />
+        <circle
+          fill="none"
+          stroke="black"
+          stroke-width="1"
+          stroke-dasharray="6.8 3.4"
+          stroke-dashoffset="3.4"
+          stroke-linecap="round"
+          cx="16"
+          cy="16"
+          r="13"
+        />
+      </mask>
+    </defs>
+    <circle
+      fill="currentColor"
+      cx="16"
+      cy="16"
+      r="15"
+      mask="url(#roundSolidReinforced)"
+    />
+  </svg>
+</template>

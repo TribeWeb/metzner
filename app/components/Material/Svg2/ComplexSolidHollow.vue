@@ -1,0 +1,20 @@
+<template>
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <path
+      d="M 5 29 L 5 21 L 11 21 L 11 29 Z M 3 29 L 5 29 M 11 29 L 17 29 M 29 17 L 29 3 M 29 7 L 21 7"
+      fill="currentColor"
+      stroke="currentColor"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M 17 29 C 17 22 21 17 29 17 L 29 29 Z "
+      fill="none"
+      stroke="currentColor"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</template>
