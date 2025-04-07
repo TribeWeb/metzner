@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     provider: 'iconify',
     serverBundle: false,
     customCollections: [{
-      prefix: 'custom',
+      prefix: 'c',
       dir: './app/assets/icons'
     }]
   },
