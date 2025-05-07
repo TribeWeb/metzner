@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { MaterialMapCollectionItem } from '@nuxt/content'
-import type { z } from 'zod'
+import { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { CheckboxGroupRoot } from 'reka-ui'
 import { materialMap } from '#imports'
 
 const { headerCopy, formItemsCopy } = defineProps({
@@ -14,24 +13,29 @@ const { headerCopy, formItemsCopy } = defineProps({
   }
 })
 
-const schema = materialMap.pick({ type: true, stiffness: true, shape: true, reinforced: true, core: true, material: true })
+const schema = materialMap.pick({ stiffness: true, shape: true, reinforced: true, core: true })
 export type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({})
 
-const router = useRouter()
-const route = useRoute()
-function go() {
-  router.push({ query: state })
-  // router.replace({ ...router.currentRoute, query: state })
-}
+const coreSchema = z.array(z.union([z.literal('hollow'), z.literal('solid')])).optional()
+const querySchema = schema.omit({ core: true })
+  .extend({ core: z.preprocess((val) => {
+    return typeof val === 'string' ? [val] : val
+  }, coreSchema) })
 
+const route = useRoute()
 onMounted(() => {
-  const parsedRoute = route.query
+  const parsedRoute = querySchema.parse(route.query) as Partial<Schema>
   Object.assign(state, parsedRoute)
 })
+const router = useRouter()
+watchEffect(() => {
+  router.replace({ query: state })
+})
 
-const keys: (keyof MaterialMapCollectionItem)[] = ['slug', 'type', 'stiffness', 'shape', 'core', 'material', 'config', 'reinforced', 'modelId', 'modelName']
+const itemKeys: (keyof MaterialMapCollectionItem)[] = ['shape', 'core', 'reinforced', 'stiffness']
+const allKeys: (keyof MaterialMapCollectionItem)[] = [...itemKeys, 'slug', 'type', 'material', 'config', 'modelId', 'modelName']
 
 const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
@@ -41,24 +45,87 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 const { data: materials } = await useAsyncData('materials', () => {
   return queryCollection('materialMap')
-    .select(...keys)
+    .select(...allKeys)
     .all()
 })
 
+// TODO: create a method which filters the list of `materials` based on the provided current `state`, a `state` property and an associated value.
+// It should return the count of unique modelIds and an array of values that are still present in the filtered list.
+// It should adjust the filter based on the type of the `state` property (e.g. use `some` for arrays, `===` for strings, if undefined then skip etc.)
+// If provided, the `state` property and value should be added to the filter even if the `state` property is not present in the `schema`.
+
+function filter(
+  materials: MaterialMapCollectionItem[] = [],
+  filterState: Partial<Schema>
+): MaterialMapCollectionItem[] {
+  return materials?.filter((m) => {
+    return Object.entries(filterState).every(([key, filterValue]) => {
+      if (filterValue === undefined) return true
+      if (Array.isArray(filterValue) && filterValue.length === 0) return true
+
+      const itemValue = m[key as keyof MaterialMapCollectionItem]
+
+      // Handle array values (like 'core')
+      if (Array.isArray(itemValue)) {
+        return Array.isArray(filterValue)
+          ? (itemValue as string[]).some(v => (filterValue as string[]).includes(v))
+          : (itemValue as string[]).includes(filterValue)
+      }
+
+      // Handle special case for wildcard
+      if (itemValue === '*') return true
+
+      // Handle simple value comparison
+      return itemValue === filterValue
+    })
+  }) || []
+}
+
+function getMaterialsResults(
+  materials: MaterialMapCollectionItem[] = [],
+  currentState: Partial<Schema> = {},
+  property?: keyof MaterialMapCollectionItem,
+  value?: any
+) {
+  const filterState = { ...currentState }
+
+  if (property && value !== undefined) {
+    filterState[property as keyof Schema] = value
+  }
+
+  const filtered = filter(materials, filterState)
+
+  // Get unique model IDs from filtered results
+  const uniqueModelIds = Array.from(new Set(filtered.map(item => item.modelId)))
+
+  // Get all possible values for the specified property in filtered results
+  const remainingValues = property
+    ? Array.from(new Set(filtered.map((item) => {
+        const val = item[property]
+        return Array.isArray(val) ? val : [val]
+      }).flat()))
+    : []
+
+  return {
+    count: uniqueModelIds.length,
+    modelIds: uniqueModelIds,
+    remainingValues,
+    filtered
+  }
+}
+
 const normalizedItems = computed(() => {
-  const map = keys.map((key: keyof MaterialMapCollectionItem) => {
+  const map = itemKeys.map((key: keyof MaterialMapCollectionItem) => {
     return {
       [key]: {
-        disabled: getAllPossibleValues(key).map((val) => {
-          return countValues(filtered.value, key, val) === 0
-        }).some(Boolean),
-        items: getAllPossibleValues(key).map((val) => {
+        items: getAllPossibleValues(materials.value as MaterialMapCollectionItem[], key).map((val) => {
           if (val === '*') return
+          const filtered = getMaterialsResults(materials.value, state, key, val)
           return {
             label: String(val).charAt(0).toUpperCase() + String(val).slice(1),
             value: val,
-            description: `(${countValues(filtered.value, key, val)} of ${countValues(materials.value, key, val)})`,
-            disabled: filtered.value?.length < 2 ? true : false
+            description: `(${filtered.count} of ${getMaterialsResults(materials.value, { [key]: val }).count})`,
+            disabled: filtered.count < 1 ? true : false
           }
         }).filter(Boolean)
       }
@@ -77,8 +144,16 @@ const filtered = computed(() => {
   }) || []
 })
 
-function getAllPossibleValues(key: keyof MaterialMapCollectionItem): string[] {
-  const values = materials.value?.map((item) => {
+const filtered1 = computed(() => {
+  return getMaterialsResults(materials.value, state)
+})
+
+// const bob = computed(() => {
+//   return filterMaterials(materials.value, state, 'core', 'hollow')
+// })
+
+function getAllPossibleValues(allValues: MaterialMapCollectionItem[], key: keyof MaterialMapCollectionItem): string[] {
+  const values = allValues?.map((item) => {
     const val = item[key]
     if (val === null || val === undefined) {
       return []
@@ -104,206 +179,131 @@ function countValues(objArr = {} as MaterialMapCollectionItem[], key: keyof Mate
   })
   return values.filter(x => x === true).length
 }
-
-watchEffect(() => {
-  router.replace({ query: state })
-})
 </script>
 
 <template>
-  <ClientOnly>
-    <UContainer>
-      <UForm
-        :state="state"
-        :schema="schema"
-        class="space-y-4 mb-6"
-        @submit="onSubmit"
-      >
-        <ProseH3 id="bob">
-          {{ formItemsCopy?.shape?.category }}
-        </ProseH3>
-        <Teleport defer to="div#shape > fieldset > div:has(div):has([value*='complex'])">
-          <MaterialSvgProfile
-            :color="'var(--ui-primary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': state.shape === 'complex',
-                      'opacity-20': state.shape === 'round' }"
-          />
-        </Teleport>
-        <Teleport defer to="div#shape > fieldset > div:has(div):has([value*='round'])">
-          <MaterialSvgRound
-            :color="'var(--ui-secondary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': state.shape === 'round',
-                      'opacity-20': state.shape === 'complex' }"
-          />
-        </Teleport>
-        <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description">
-          <UButtonGroup>
-            <URadioGroup
-              id="shape"
-              v-model="state.shape"
-              name="shape"
-              orientation="horizontal"
-              :items="normalizedItems.shape.items"
-              :ui="{ root: 'grow',
-                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
-                     wrapper: 'min-w-18' }"
-            />
-            <UButton
-              v-if="state.shape"
-              class="ml-2"
-              color="neutral"
-              variant="link"
-              size="md"
-              icon="i-lucide-circle-x"
-              aria-label="Clear input"
-              @click="delete state.shape"
-            />
-          </UButtonGroup>
-        </UFormField>
-        <UFormField name="core" :label="formItemsCopy?.core?.legend" :description="formItemsCopy?.core?.description">
-          <CheckboxGroupRoot v-model="state.core">
-            <UButtonGroup>
-              <UBadge v-for="item in normalizedItems.core.items" :key="item.value" variant="outline" :ui="{ base: 'py-2 px-4 gap-2 rounded-[calc(var(--ui-radius)*1.5)]' }">
-                <UCheckbox
-                  name="core"
-                  :ui="{ root: 'grow', wrapper: 'min-w-22' }"
-                  :model-value="state.core?.includes(item.value)"
-                  :value="item.value"
-                  :label="item.label"
-                  :disabled="item.disabled"
-                  :description="item.description"
-                />
-                <MaterialSvgProfile
-                  v-if="item.value==='complex'"
-                  :color="'var(--ui-primary)'"
-                  class="w-32 transition-opacity duration-300 ease-in-out"
-                  :class="{ 'opacity-100': state.shape === 'complex',
-                            'opacity-20': state.shape === 'round' }"
-                />
-                <MaterialSvgRound
-                  v-else
-                  :color="'var(--ui-secondary)'"
-                  class="w-32 transition-opacity duration-300 ease-in-out"
-                  :class="{ 'opacity-100': state.shape === 'round',
-                            'opacity-20': state.shape === 'complex' }"
-                />
-              </UBadge>
-              <UButton
-                v-if="state.core && state.core.length > 0"
-                class="ml-2"
-                color="neutral"
-                variant="link"
-                size="md"
-                icon="i-lucide-circle-x"
-                aria-label="Clear input"
-                @click="delete state.core"
-              />
-            </UButtonGroup>
-          </CheckboxGroupRoot>
-        </UFormField>
-        <Teleport
-          v-for="item in normalizedItems.reinforced.items"
-          :key="item.value"
-          defer
-          :to="`div#reinforced > fieldset > div:has(div):has([value*='${item.value}'])`"
+  <UContainer>
+    <UForm
+      :state="state"
+      :schema="schema"
+      class="space-y-4 mb-6"
+      @submit="onSubmit"
+    >
+      <ProseH2>
+        {{ headerCopy?.title }}
+      </ProseH2>
+      <ProseP>
+        {{ headerCopy?.description }}
+      </ProseP>
+      <ProseH3>
+        {{ formItemsCopy?.shape?.category }}
+      </ProseH3>
+      <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description" :ui="{ root: 'md:w-120' }">
+        <URadioGroup
+          v-model="state.shape"
+          name="shape"
+          :items="normalizedItems.shape.items"
+          variant="table"
         >
-          <MaterialSvgProfile
-            v-if="state.shape==='complex'"
-            :reinforced="item.value==='steel'"
-            :color="'var(--ui-primary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': !state.reinforced || state.reinforced === item.value,
-                      'opacity-20': state.reinforced !== item.value }"
-          />
-          <MaterialSvgRound
-            v-else
-            :reinforced="item.value==='steel'"
-            :color="'var(--ui-secondary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': !state.reinforced || state.reinforced === item.value,
-                      'opacity-20': state.reinforced !== item.value }"
-          />
-        </Teleport>
-        <UFormField name="reinforced" :label="formItemsCopy?.reinforced?.legend" :description="formItemsCopy?.reinforced?.description">
-          <UButtonGroup>
-            <URadioGroup
-              id="reinforced"
-              v-model="state.reinforced"
-              name="reinforced"
-              orientation="horizontal"
-              :items="normalizedItems.reinforced.items"
-              :ui="{ root: 'grow',
-                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
-                     wrapper: 'min-w-18' }"
+          <template #label="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <UIcon
+              :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}-hollow-none`"
+              class="absolute right-5 size-10 text-muted"
+              :class="{
+                'bg-primary':
+                  state.shape === (typeof item === 'object' && 'value' in item ? item.value : item)
+              }"
             />
-            <UButton
-              v-if="state.reinforced"
-              class="ml-2"
-              color="neutral"
-              variant="link"
-              size="md"
-              icon="i-lucide-circle-x"
-              aria-label="Clear input"
-              @click="delete state.reinforced"
-            />
-          </UButtonGroup>
-        </UFormField>
-
-        <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
-        <Teleport
-          v-for="item in normalizedItems.stiffness.items"
-          :key="item.value"
-          defer
-          :to="`div#stiffness > fieldset > div:has(div):has([value*='${item.value}'])`"
+          </template>
+          <template #description="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+          </template>
+        </URadioGroup>
+      </UFormField>
+      <UFormField name="core" :label="formItemsCopy?.core?.legend" :description="formItemsCopy?.core?.description" :ui="{ root: 'md:w-120' }">
+        <UCheckboxGroup
+          v-model="state.core"
+          name="core"
+          orientation="vertical"
+          variant="table"
+          :items="normalizedItems.core.items"
+          :ui="{
+            item: 'p-3.5 border border-muted first-of-type:rounded-t-lg last-of-type:rounded-b-lg has-data-[state=checked]:bg-primary/10 has-data-[state=checked]:border-primary/50 has-data-[state=checked]:z-[1]',
+            fieldset: 'gap-y-0 -space-y-px'
+          }"
         >
-          <MaterialSvgReel
-            v-if="item.value==='flexible'"
-            :color="state.shape==='round' ? 'var(--ui-secondary)' : 'var(--ui-primary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': state.stiffness === 'flexible',
-                      'opacity-20': state.stiffness === 'rigid' }"
-          />
-          <MaterialSvgRollers
-            v-else
-            :color="state.shape==='round' ? 'var(--ui-secondary)' : 'var(--ui-primary)'"
-            class="w-32 transition-opacity duration-300 ease-in-out"
-            :class="{ 'opacity-100': state.stiffness === 'rigid',
-                      'opacity-20': state.stiffness === 'flexible' }"
-          />
-        </Teleport>
-        <UFormField name="stiffness" :label="formItemsCopy?.stiffness?.legend" :description="formItemsCopy?.stiffness?.description">
-          <UButtonGroup>
-            <URadioGroup
-              id="stiffness"
-              v-model="state.stiffness"
-              name="stiffness"
-              orientation="horizontal"
-              :items="normalizedItems.stiffness.items"
-              :ui="{ root: 'grow',
-                     item: 'inline-flex items-center gap-1 rounded-[calc(var(--ui-radius)*1.5)] ring ring-inset ring-(--ui-primary)/50 py-2 px-4',
-                     wrapper: 'min-w-18' }"
+          <template #label="{ item }">
+            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }} </span>
+            <UIcon
+              :name="`c-${state.shape || 'round'}-${typeof item === 'object' && 'value' in item ? item.value : item}-none`"
+              class="absolute right-5 size-10 text-muted"
+              :class="{
+                'bg-primary':
+                  state.core?.includes(
+                    (typeof item === 'object' && 'value' in item && item.value !== undefined
+                      ? item.value
+                      : item) as 'hollow' | 'solid'
+                  )
+              }"
             />
-            <UButton
-              v-if="state.stiffness"
-              class="ml-2"
-              color="neutral"
-              variant="link"
-              size="md"
-              icon="i-lucide-circle-x"
-              aria-label="Clear input"
-              @click="delete state.stiffness"
+          </template>
+          <template #description="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+          </template>
+        </UCheckboxGroup>
+      </UFormField>
+      <UFormField name="reinforced" :label="formItemsCopy?.reinforced?.legend" :description="formItemsCopy?.reinforced?.description" :ui="{ root: 'md:w-120' }">
+        <URadioGroup
+          v-model="state.reinforced"
+          name="reinforced"
+          :items="normalizedItems.reinforced.items"
+          variant="table"
+        >
+          <template #label="{ item }">
+            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <UIcon
+              :name="`c-${state.shape || 'round'}-${state.core?.sort().join('-') || 'hollow'}-${typeof item === 'object' && 'value' in item ? item.value : item || 'none'}`"
+              class="absolute right-5 size-10 text-muted"
+              :class="{ 'bg-primary': state.reinforced === (typeof item === 'object' && 'value' in item ? item.value : item) }"
             />
-          </UButtonGroup>
-        </UFormField>
-      </UForm>
+          </template>
+          <template #description="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+          </template>
+        </URadioGroup>
+      </UFormField>
 
-      <UButton label="go" @click="go()" />
-      <pre>{{ filtered?.length }}</pre>
-      <pre>{{ filtered?.map((m) => m.modelId) }}</pre>
-    </UContainer>
-  </ClientOnly>
+      <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
+      <UFormField name="stiffness" :label="formItemsCopy?.stiffness?.legend" :description="formItemsCopy?.stiffness?.description" :ui="{ root: 'md:w-120' }">
+        <URadioGroup
+          v-model="state.stiffness"
+          name="stiffness"
+          :items="normalizedItems.stiffness.items"
+          variant="table"
+        >
+          <template #label="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <UIcon
+              :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
+              class="absolute -mt-3 right-3 h-15 w-30 text-muted"
+              :class="{ 'bg-primary': state.stiffness === (typeof item === 'object' && 'value' in item ? item.value : item) }"
+            />
+          </template>
+          <template #description="{ item }">
+            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+          </template>
+        </URadioGroup>
+      </UFormField>
+    </UForm>
+
+    <pre>{{ filtered1.count }}</pre>
+    <pre>{{ filtered1.modelIds }}</pre>
+    <pre>{{ filtered1.remainingValues }}</pre>
+    <pre>{{ filtered1.filtered }}</pre>
+    <!-- <pre>{{ filtered?.length }}</pre>
+    <pre>{{ filtered?.map((m) => m.modelId) }}</pre> -->
+  </UContainer>
 </template>
 
 <style scoped>
