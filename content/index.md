@@ -5,7 +5,7 @@ seo:
     of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
 ---
 
-::material-Picker
+::material-picker
 ---
 headerCopy:
   title: Material Picker
