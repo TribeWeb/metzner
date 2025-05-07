@@ -43,13 +43,13 @@ export const materialMap = z.strictObject({
   modelId: z.string(),
   modelName: z.string(),
   type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
-  stiffness: z.enum(['flexible', 'rigid', '*']),
-  shape: z.enum(['round', 'complex']),
+  stiffness: z.enum(['flexible', 'rigid', '*']).optional(),
+  shape: z.enum(['round', 'complex']).optional(),
   core: z.array(z.union([
     z.literal('hollow'),
     z.literal('solid')
-  ])),
-  reinforced: z.enum(['steel', 'none']),
+  ])).optional(),
+  reinforced: z.enum(['steel', 'none']).optional(),
   material: z.array(z.union([
     z.literal('rubber'),
     z.literal('plastic'),
