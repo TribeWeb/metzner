@@ -67,6 +67,10 @@ function filter(
 
       // Handle array values (like 'core')
       if (Array.isArray(itemValue)) {
+        // if (Array.isArray(filterValue) && filterState.shape === 'round') {
+        //   console.log('round', itemValue, filterValue, (itemValue as string[]).includes(filterValue[0]))
+        //   return (itemValue as string[]).includes(filterValue[0])
+        // }
         return Array.isArray(filterValue)
           ? (itemValue as string[]).some(v => (filterValue as string[]).includes(v))
           : (itemValue as string[]).includes(filterValue)
@@ -85,6 +89,7 @@ function getMaterialsResults(
   materials: MaterialMapCollectionItem[] = [],
   currentState: Partial<Schema> = {},
   property?: keyof MaterialMapCollectionItem,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value?: any
 ) {
   const filterState = { ...currentState }
@@ -124,8 +129,12 @@ const normalizedItems = computed(() => {
           return {
             label: String(val).charAt(0).toUpperCase() + String(val).slice(1),
             value: val,
-            description: `(${filtered.count} of ${getMaterialsResults(materials.value, { [key]: val }).count})`,
-            disabled: filtered.count < 1 ? true : false
+            description: `(${filtered.count} of ${getMaterialsResults(materials.value, { [key]: val }).count} machines)`,
+            disabled:
+            filtered.count < 1
+            || (state.shape === 'round' && (state.core ?? []).length === 1 && !(state.core ?? []).includes(val as 'hollow' | 'solid') && key === 'core')
+              ? true
+              : false
           }
         }).filter(Boolean)
       }
@@ -135,22 +144,8 @@ const normalizedItems = computed(() => {
 })
 
 const filtered = computed(() => {
-  return materials.value?.filter((m) => {
-    return (state.stiffness ? m.stiffness === state.stiffness || m.stiffness === '*' : true)
-      && (state.shape ? m.shape === state.shape : true)
-      && (state.type ? m.type === state.type : true)
-      && (state.core && state.core.length > 0 ? m.core.some(val => state.core?.includes(val)) : true)
-      && (state.reinforced ? m.reinforced === state.reinforced : true)
-  }) || []
-})
-
-const filtered1 = computed(() => {
   return getMaterialsResults(materials.value, state)
 })
-
-// const bob = computed(() => {
-//   return filterMaterials(materials.value, state, 'core', 'hollow')
-// })
 
 function getAllPossibleValues(allValues: MaterialMapCollectionItem[], key: keyof MaterialMapCollectionItem): string[] {
   const values = allValues?.map((item) => {
@@ -165,19 +160,6 @@ function getAllPossibleValues(allValues: MaterialMapCollectionItem[], key: keyof
     }
   }).flat()
   return Array.from(new Set(values))
-}
-
-function countValues(objArr = {} as MaterialMapCollectionItem[], key: keyof MaterialMapCollectionItem, value: string): number {
-  if (!value || !objArr) return 0
-  const values = objArr.map((item) => {
-    const val = key in item ? item[key] : undefined
-    if (Array.isArray(val)) {
-      return val.some(v => value?.includes(v))
-    } else {
-      return val === value
-    }
-  })
-  return values.filter(x => x === true).length
 }
 </script>
 
@@ -198,95 +180,114 @@ function countValues(objArr = {} as MaterialMapCollectionItem[], key: keyof Mate
       <ProseH3>
         {{ formItemsCopy?.shape?.category }}
       </ProseH3>
-      <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description" :ui="{ root: 'md:w-120' }">
-        <URadioGroup
-          v-model="state.shape"
-          name="shape"
-          :items="normalizedItems.shape.items"
-          variant="table"
-        >
-          <template #label="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
-            <UIcon
-              :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}-hollow-none`"
-              class="absolute right-5 size-10 text-muted"
-              :class="{
-                'bg-primary':
-                  state.shape === (typeof item === 'object' && 'value' in item ? item.value : item)
-              }"
-            />
-          </template>
-          <template #description="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
-          </template>
-        </URadioGroup>
-      </UFormField>
-      <UFormField name="core" :label="formItemsCopy?.core?.legend" :description="formItemsCopy?.core?.description" :ui="{ root: 'md:w-120' }">
-        <UCheckboxGroup
-          v-model="state.core"
+      <div class="flex flex-row gap-8 flex-wrap">
+        <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description" :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }">
+          <URadioGroup
+            v-model="state.shape"
+            name="shape"
+            :items="normalizedItems.shape.items"
+            variant="table"
+            :ui="{ label: 'relative' }"
+          >
+            <template #label="{ item }">
+              <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+              <UIcon
+                :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}-hollow-none`"
+                class="absolute -top-1 right-3 size-12 text-muted"
+                :class="{
+                  'bg-primary':
+                    state.shape === (typeof item === 'object' && 'value' in item ? item.value : item)
+                }"
+              />
+            </template>
+            <template #description="{ item }">
+              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            </template>
+          </URadioGroup>
+        </UFormField>
+        <UFormField
           name="core"
-          orientation="vertical"
-          variant="table"
-          :items="normalizedItems.core.items"
-          :ui="{
-            item: 'p-3.5 border border-muted first-of-type:rounded-t-lg last-of-type:rounded-b-lg has-data-[state=checked]:bg-primary/10 has-data-[state=checked]:border-primary/50 has-data-[state=checked]:z-[1]',
-            fieldset: 'gap-y-0 -space-y-px'
-          }"
+          :label="formItemsCopy?.core?.legend"
+          :description="formItemsCopy?.core?.description"
+          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
         >
-          <template #label="{ item }">
-            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }} </span>
-            <UIcon
-              :name="`c-${state.shape || 'round'}-${typeof item === 'object' && 'value' in item ? item.value : item}-none`"
-              class="absolute right-5 size-10 text-muted"
-              :class="{
-                'bg-primary':
-                  state.core?.includes(
-                    (typeof item === 'object' && 'value' in item && item.value !== undefined
-                      ? item.value
-                      : item) as 'hollow' | 'solid'
-                  )
-              }"
-            />
-          </template>
-          <template #description="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
-          </template>
-        </UCheckboxGroup>
-      </UFormField>
-      <UFormField name="reinforced" :label="formItemsCopy?.reinforced?.legend" :description="formItemsCopy?.reinforced?.description" :ui="{ root: 'md:w-120' }">
-        <URadioGroup
-          v-model="state.reinforced"
+          <UCheckboxGroup
+            v-model="state.core"
+            name="core"
+            orientation="vertical"
+            :items="normalizedItems.core.items"
+            :ui="{
+              // eslint-disable-next-line @stylistic/max-len
+              item: 'p-3.5 border border-muted first-of-type:rounded-t-lg last-of-type:rounded-b-lg has-data-[state=checked]:bg-primary/10 has-data-[state=checked]:border-primary/50 has-data-[state=checked]:z-[1]',
+              fieldset: 'gap-y-0 -space-y-px'
+            }"
+          >
+            <template #label="{ item }">
+              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }} </span>
+              <UIcon
+                :name="`c-${state.shape || 'round'}-${typeof item === 'object' && 'value' in item ? item.value : item}-none`"
+                class="absolute top-2 right-6 size-12 text-muted"
+                :class="{
+                  'bg-primary':
+                    state.core?.includes(
+                      (typeof item === 'object' && 'value' in item && item.value !== undefined
+                        ? item.value
+                        : item) as 'hollow' | 'solid'
+                    )
+                }"
+              />
+            </template>
+            <template #description="{ item }">
+              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            </template>
+          </UCheckboxGroup>
+        </UFormField>
+        <UFormField
           name="reinforced"
-          :items="normalizedItems.reinforced.items"
-          variant="table"
+          :label="formItemsCopy?.reinforced?.legend"
+          :description="formItemsCopy?.reinforced?.description"
+          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
         >
-          <template #label="{ item }">
-            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
-            <UIcon
-              :name="`c-${state.shape || 'round'}-${state.core?.sort().join('-') || 'hollow'}-${typeof item === 'object' && 'value' in item ? item.value : item || 'none'}`"
-              class="absolute right-5 size-10 text-muted"
-              :class="{ 'bg-primary': state.reinforced === (typeof item === 'object' && 'value' in item ? item.value : item) }"
-            />
-          </template>
-          <template #description="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
-          </template>
-        </URadioGroup>
-      </UFormField>
-
+          <URadioGroup
+            v-model="state.reinforced"
+            name="reinforced"
+            :items="normalizedItems.reinforced.items"
+            variant="table"
+            :ui="{ label: 'relative' }"
+          >
+            <template #label="{ item }">
+              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+              <UIcon
+                :name="`c-${state.shape || 'round'}-${state.core?.sort().join('-') || 'hollow'}-${typeof item === 'object' && 'value' in item ? item.value : item || 'none'}`"
+                class="absolute -top-1 right-3 size-12 text-muted"
+                :class="{ 'bg-primary': state.reinforced === (typeof item === 'object' && 'value' in item ? item.value : item) }"
+              />
+            </template>
+            <template #description="{ item }">
+              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            </template>
+          </URadioGroup>
+        </UFormField>
+      </div>
       <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
-      <UFormField name="stiffness" :label="formItemsCopy?.stiffness?.legend" :description="formItemsCopy?.stiffness?.description" :ui="{ root: 'md:w-120' }">
+      <UFormField
+        name="stiffness"
+        :label="formItemsCopy?.stiffness?.legend"
+        :description="formItemsCopy?.stiffness?.description"
+        :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
+      >
         <URadioGroup
           v-model="state.stiffness"
           name="stiffness"
           :items="normalizedItems.stiffness.items"
           variant="table"
+          :ui="{ label: 'relative' }"
         >
           <template #label="{ item }">
             <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
             <UIcon
               :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
-              class="absolute -mt-3 right-3 h-15 w-30 text-muted"
+              class="absolute -top-3 right-0 h-16 w-32 text-muted"
               :class="{ 'bg-primary': state.stiffness === (typeof item === 'object' && 'value' in item ? item.value : item) }"
             />
           </template>
@@ -297,10 +298,10 @@ function countValues(objArr = {} as MaterialMapCollectionItem[], key: keyof Mate
       </UFormField>
     </UForm>
 
-    <pre>{{ filtered1.count }}</pre>
-    <pre>{{ filtered1.modelIds }}</pre>
-    <pre>{{ filtered1.remainingValues }}</pre>
-    <pre>{{ filtered1.filtered }}</pre>
+    <pre>{{ filtered.count }}</pre>
+    <pre>{{ filtered.modelIds }}</pre>
+    <pre>{{ filtered.remainingValues }}</pre>
+    <pre>{{ filtered.filtered }}</pre>
     <!-- <pre>{{ filtered?.length }}</pre>
     <pre>{{ filtered?.map((m) => m.modelId) }}</pre> -->
   </UContainer>
