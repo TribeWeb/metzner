@@ -67,10 +67,9 @@ function filter(
 
       // Handle array values (like 'core')
       if (Array.isArray(itemValue)) {
-        // if (Array.isArray(filterValue) && filterState.shape === 'round') {
-        //   console.log('round', itemValue, filterValue, (itemValue as string[]).includes(filterValue[0]))
-        //   return (itemValue as string[]).includes(filterValue[0])
-        // }
+        if (state.shape === 'round' && (state.core ?? []).length === 1 && !(state.core ?? []).includes(itemValue[0] as 'hollow' | 'solid')) {
+          return false
+        }
         return Array.isArray(filterValue)
           ? (itemValue as string[]).some(v => (filterValue as string[]).includes(v))
           : (itemValue as string[]).includes(filterValue)
@@ -130,11 +129,7 @@ const normalizedItems = computed(() => {
             label: String(val).charAt(0).toUpperCase() + String(val).slice(1),
             value: val,
             description: `(${filtered.count} of ${getMaterialsResults(materials.value, { [key]: val }).count} machines)`,
-            disabled:
-            filtered.count < 1
-            || (state.shape === 'round' && (state.core ?? []).length === 1 && !(state.core ?? []).includes(val as 'hollow' | 'solid') && key === 'core')
-              ? true
-              : false
+            disabled: filtered.count < 1 ? true : false
           }
         }).filter(Boolean)
       }
