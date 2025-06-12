@@ -2,7 +2,7 @@
 import type { MaterialMapCollectionItem } from '@nuxt/content'
 import { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { materialMap } from '#imports'
+import { materialMap, machines } from '#imports'
 
 const { headerCopy, formItemsCopy } = defineProps({
   headerCopy: {
@@ -13,7 +13,11 @@ const { headerCopy, formItemsCopy } = defineProps({
   }
 })
 
-const schema = materialMap.pick({ stiffness: true, shape: true, reinforced: true, core: true })
+const machineSchema = machines.pick({ cutDiameter: true, cutWidthMax: true, cutHeightMax: true })
+const materialSchema = materialMap.pick({ stiffness: true, shape: true, reinforced: true, core: true })
+const schema = z.object({ ...machineSchema.shape, ...materialSchema.shape })
+// const schema = materialMap.pick({ stiffness: true, shape: true, reinforced: true, core: true })
+
 export type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({})
@@ -43,11 +47,31 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log(event.data)
 }
 
-const { data: materials } = await useAsyncData('materials', () => {
-  return queryCollection('materialMap')
+// const { data: materials } = await useAsyncData('materials', () => {
+//   return queryCollection('materialMap')
+//     .select(...allKeys)
+//     .all()
+// })
+
+// const { data: allMachines } = await useAsyncData('machines', () => {
+//   return queryCollection('machines')
+//     .select('modelId', 'machineName', 'machineId', 'cutDiameter', 'cutWidthMax', 'cutHeightMax')
+//     .all()
+// })
+
+const { data } = await useAsyncData(route.path, () => Promise.all([
+  queryCollection('materialMap')
     .select(...allKeys)
+    .all(),
+  queryCollection('machines')
+    .select('modelId', 'machineName', 'machineId', 'cutDiameter', 'cutWidthMax', 'cutHeightMax')
     .all()
+]), {
+  transform: ([materials, allMachines]) => ({ materials, allMachines })
 })
+
+const materials = computed(() => data.value?.materials)
+const allMachines = computed(() => data.value?.allMachines)
 
 // TODO: create a method which filters the list of `materials` based on the provided current `state`, a `state` property and an associated value.
 // It should return the count of unique modelIds and an array of values that are still present in the filtered list.
@@ -291,12 +315,24 @@ function getAllPossibleValues(allValues: MaterialMapCollectionItem[], key: keyof
           </template>
         </URadioGroup>
       </UFormField>
+      <ProseH3>{{ formItemsCopy?.cutDiameter?.category }}</ProseH3>
+      <UFormField
+        name="cutDiameter"
+        :label="formItemsCopy?.cutDiameter?.legend"
+        :description="formItemsCopy?.cutDiameter?.description"
+        :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
+      >
+        <MaterialDiameter
+          v-model="state.cutDiameter"
+          :machines="allMachines"
+        />
+      </UFormField>
     </UForm>
 
     <pre>{{ filtered.count }}</pre>
-    <pre>{{ filtered.modelIds }}</pre>
-    <pre>{{ filtered.remainingValues }}</pre>
-    <pre>{{ filtered.filtered }}</pre>
+    <!-- <pre style="color: blue">{{ filtered.modelIds }}</pre> -->
+    <!-- <pre>{{ filtered.remainingValues }}</pre>
+    <pre>{{ filtered.filtered }}</pre> -->
     <!-- <pre>{{ filtered?.length }}</pre>
     <pre>{{ filtered?.map((m) => m.modelId) }}</pre> -->
   </UContainer>
