@@ -6,8 +6,7 @@ export const machines = z.strictObject({
   modelId: z.string(),
   cutWidthMax: z.coerce.number().optional(),
   cutHeightMax: z.coerce.number().optional(),
-  cutDiameter: z.coerce.number().optional(),
-  wrongun: z.number()
+  cutDiameter: z.coerce.number().optional()
 })
 
 export const about = z.strictObject({

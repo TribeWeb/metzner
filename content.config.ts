@@ -29,7 +29,10 @@ export default defineContentConfig({
     machines: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: 'machines/**',
+        source: {
+          include: 'machines/1.machines/*.md',
+          exclude: ['machines/1.machines/index.md']
+        },
         schema: schemas.machines
       })
     ),
