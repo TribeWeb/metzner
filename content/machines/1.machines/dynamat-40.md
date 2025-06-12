@@ -4,4 +4,5 @@ machineName: DYNAMAT-40
 modelId: dynamat
 cutWidthMax: 40
 cutHeightMax: 40
+cutDiameter: 40
 ---

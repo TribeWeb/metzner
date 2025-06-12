@@ -27,6 +27,10 @@ formItemsCopy:
     category: Longitudinal section
     legend: Stiffness
     description: Is the material a flexible hose, cord or profile - or a rigid pipe or extrusion?
+  cutDiameter:
+    category: Dimensions
+    legend: Diameter
+    description: What is the outer diameter of the material?
 ---
 ::
 
