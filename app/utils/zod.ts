@@ -1,10 +1,11 @@
 import type { z } from 'zod'
+import type { MaterialsCollectionItem } from '@nuxt/content'
 
 export function capitaliseFirstLetter(val: string) {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1)
 }
 
-export function flatten(obj: MaterialMapCollectionItem, prefix = '') {
+export function flatten(obj: MaterialsCollectionItem, prefix = '') {
   return Object.entries(obj).reduce((acc: { [key: string]: any }, [key, value]) => {
     const newKey = prefix ? `${prefix}${capitaliseFirstLetter(key)}` : key
     if (typeof value === 'object' && !Array.isArray(value)) { // flatten objects but not arrays
