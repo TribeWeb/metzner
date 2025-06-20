@@ -1,31 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
   <defs>
-    <mask id="complexHollowReinforced">
-      <path
-        d="M 5 29 L 5 21 L 11 21 L 11 29 Z M 17 29 C 17 22 21 17 29 17 L 29 29 Z M 3 29 L 5 29 M 11 29 L 17 29 M 29 17 L 29 3 M 29 7 L 21 7"
-        fill="none"
-        stroke="white"
-        stroke-width="4"
-        stroke-linecap="round"
+    <mask id="squareHollowSteel">
+      <rect
+        x="1"
+        y="14"
+        width="30"
+        height="17"
+        rx="2"
+        fill="white"
       />
-      <path
-        d="M 5 29 L 5 29 L 5 21 L 11 21 L 11 29 M 17 29 C 17 22 21 17 29 17 M 3 29 L 29 29 M 29 29 L 29 3 M 29 7 L 21 7"
+      <rect
+        x="5"
+        y="18"
+        width="22"
+        height="9"
+        fill="black"
+      />
+      <rect
+        x="3"
+        y="16"
+        width="26"
+        height="13"
         fill="none"
         stroke="black"
         stroke-width="1"
         stroke-linecap="round"
+        stroke-linejoin="round"
         stroke-dasharray="6.8 3.4"
       />
-
     </mask>
   </defs>
-  <path
-    d="M 5 29 L 5 21 L 11 21 L 11 29 Z M 17 29 C 17 22 21 17 29 17 L 29 29 Z M 3 29 L 5 29 M 11 29 L 17 29 M 29 17 L 29 3 M 29 7 L 21 7"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="4"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    mask="url(#complexHollowReinforced)"
+  <rect
+    x="1"
+    y="14"
+    width="30"
+    height="17"
+    fill="currentColor"
+    mask="url(#squareHollowSteel)"
   />
 </svg>
