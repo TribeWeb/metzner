@@ -1,5 +1,5 @@
 <script setup>
-import { useElementSize } from '@vueuse/core'
+import { useElementSize, useDebounceFn } from '@vueuse/core'
 
 const { machines } = defineProps({
   machines: {
@@ -13,6 +13,8 @@ const diameter = defineModel({
   default: 0
 })
 
+const slider = ref(0)
+
 const el = useTemplateRef('el')
 const { width, height } = useElementSize(el)
 
@@ -23,21 +25,27 @@ const uniqueDiameters = computed(() =>
 const machineMax = computed(() => Math.max(...uniqueDiameters.value))
 const machineMin = computed(() => Math.min(...uniqueDiameters.value))
 const minimumSpecDiameter = computed(() =>
-  Math.min(...uniqueDiameters.value.filter(d => d > diameter.value))
+  Math.min(...uniqueDiameters.value.filter(d => d > slider.value))
 )
 
 const coordinates = computed(() =>
-  calculateCoordinates(diameter.value, machineMax.value, width.value, height.value)
+  calculateCoordinates(slider.value, machineMax.value, width.value, height.value)
 )
 
 onMounted(() => {
-  if (diameter.value === 0) {
-    diameter.value = machineMin.value
+  if (slider.value === 0) {
+    slider.value = machineMin.value
+    updateDiameter(slider.value)
   }
 })
 
+const debouncedFn = useDebounceFn(() => {
+  diameter.value = slider.value
+}, 300)
+
 function updateDiameter(value) {
-  diameter.value = value
+  slider.value = value
+  debouncedFn()
 }
 </script>
 
@@ -61,7 +69,7 @@ function updateDiameter(value) {
             <circle
               :cx="coordinates.circleCentre.x"
               :cy="coordinates.circleCentre.y"
-              :r="diameter / 2"
+              :r="slider / 2"
             />
           </clipPath>
         </defs>
@@ -83,7 +91,7 @@ function updateDiameter(value) {
         <circle
           :cx="coordinates.circleCentre.x"
           :cy="coordinates.circleCentre.y"
-          :r="diameter / 2"
+          :r="slider / 2"
           fill="url(#diagonalHatch)"
           stroke="var(--ui-primary)"
           stroke-width="4"
@@ -157,7 +165,7 @@ function updateDiameter(value) {
     </div>
     <div class="px-3 pb-6 pt-14 border border-t-0 border-muted rounded-b-lg">
       <USlider
-        :tooltip="{ text: `⌀${diameter} mm`, open: true, arrow: true, content: { side: 'top', avoidCollisions: true, collisionBoundary: [el] } }"
+        :tooltip="{ text: `⌀${slider} mm`, open: true, arrow: true, content: { side: 'top', avoidCollisions: true, collisionBoundary: [el] } }"
         :min="1"
         :max="machineMax"
         :default-value="machineMin"
