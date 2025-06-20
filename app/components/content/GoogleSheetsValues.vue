@@ -48,7 +48,9 @@ function handleArraysAndFalseyValues(columnName: string[], value: string | undef
   const path = columnName.join('.')
   const columnSchema = zodDeepPick(schema, path)
   const wrapType = zodWrapType(columnSchema)
+  console.log(isZodArray(columnSchema), value)
   if (isZodArray(columnSchema)) {
+    // console.log(isZodArray(columnSchema), value)
     if (value) return value.split(',').map(value => value.trim())
     if (wrapType === 'ZodOptional') return undefined
     if (wrapType === 'ZodNullable') return null
@@ -61,6 +63,7 @@ function handleArraysAndFalseyValues(columnName: string[], value: string | undef
 }
 
 function pathsToTree(paths: string[], values: string | string[]) {
+  // console.log('pathsToTree', paths, values)
   const pathTree = {}
   let index = 0
   if (paths instanceof Array === false) {
@@ -110,6 +113,7 @@ function transformToArrayOfObjects(values: string[][]): SchemaType[] {
       if (!activeSchema.value) return null
       const parsed = activeSchema.value.safeParse(record)
       if (!parsed.success) {
+        console.log('no', record)
         const errorMessage = formatZodError(parsed.error.issues)
         if (prevError === parsed.error.message) {
           return null

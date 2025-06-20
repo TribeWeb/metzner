@@ -8,7 +8,7 @@ sheets:
   - Unique
   - Products
   - dc-dc-converters
-  - machineMap
+  - machines
   - machines
 googleSheets:
   - label: Metzner

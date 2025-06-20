@@ -37,17 +37,17 @@ export const about = z.strictObject({
   )
 })
 
-export const materialMap = z.strictObject({
+export const materials = z.strictObject({
   slug: z.string(),
   modelId: z.string(),
   modelName: z.string(),
   type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
   stiffness: z.enum(['flexible', 'rigid', '*']).optional(),
-  shape: z.enum(['round', 'complex']).optional(),
+  shape: z.enum(['round', 'complex', 'square']).optional(),
   core: z.array(z.union([
     z.literal('hollow'),
     z.literal('solid')
-  ])).optional(),
+  ])),
   reinforced: z.enum(['steel', 'none']).optional(),
   material: z.array(z.union([
     z.literal('rubber'),
@@ -63,10 +63,10 @@ export const materialMap = z.strictObject({
 export const schemas = {
   machines,
   about,
-  materialMap
+  materials
 }
 export type Import = {
   machines: z.infer<typeof machines>
   about: z.infer<typeof about>
-  materialMap: z.infer<typeof materialMap>
+  materials: z.infer<typeof materials>
 }

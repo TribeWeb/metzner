@@ -36,10 +36,10 @@ export default defineContentConfig({
         schema: schemas.machines
       })
     ),
-    materialMap: defineCollection({
+    materials: defineCollection({
       type: 'data',
-      source: 'data/material-map/**',
-      schema: schemas.materialMap
+      source: 'data/materials/**',
+      schema: schemas.materials
     })
   }
 })
