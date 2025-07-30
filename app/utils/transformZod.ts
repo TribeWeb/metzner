@@ -72,8 +72,8 @@ export const productsSchema = z.array(productSchema)
 //   machineId: z.string(),
 //   machineName: z.string(),
 //   modelId: z.string(),
-//   cutWidthMax: z.coerce.number().optional(),
-//   cutHeightMax: z.coerce.number().optional(),
+//   cutWidth: z.coerce.number().optional(),
+//   cutHeight: z.coerce.number().optional(),
 //   cutDiameter: z.coerce.number().optional()
 // })
 

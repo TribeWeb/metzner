@@ -6,7 +6,7 @@ export function capitaliseFirstLetter(val: string) {
 }
 
 export function flatten(obj: MaterialsCollectionItem, prefix = '') {
-  return Object.entries(obj).reduce((acc: { [key: string]: any }, [key, value]) => {
+  return Object.entries(obj).reduce((acc: Record<string, unknown>, [key, value]) => {
     const newKey = prefix ? `${prefix}${capitaliseFirstLetter(key)}` : key
     if (typeof value === 'object' && !Array.isArray(value)) { // flatten objects but not arrays
       Object.entries(flatten(value, newKey)).forEach(([subkey, subval]) => {
