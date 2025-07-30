@@ -30,7 +30,11 @@ formItemsCopy:
   cutDiameter:
     category: Dimensions
     legend: Diameter
-    description: What is the outer diameter of the material?
+    description: What is the outer diameter of the material cross section?
+  cutWidthHeight:
+    category: Dimensions
+    legend: Width & height
+    description: What is the width and height of the material cross section?
 ---
 ::
 

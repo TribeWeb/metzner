@@ -30,8 +30,8 @@ export default defineContentConfig({
       asSitemapCollection({
         type: 'page',
         source: {
-          include: 'machines/1.machines/*.md',
-          exclude: ['machines/1.machines/index.md']
+          include: 'machines/*.md',
+          exclude: ['machines/index.md']
         },
         schema: schemas.machines
       })

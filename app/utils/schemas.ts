@@ -4,9 +4,21 @@ export const machines = z.strictObject({
   machineId: z.string(),
   machineName: z.string(),
   modelId: z.string(),
-  cutWidthMax: z.coerce.number().optional(),
-  cutHeightMax: z.coerce.number().optional(),
-  cutDiameter: z.coerce.number().optional()
+  cutWidth: z.coerce.number().optional(),
+  cutHeight: z.coerce.number().optional(),
+  cutDiameter: z.coerce.number().optional(),
+  cutRate: z.coerce.number().optional(),
+  featurePrimary: z.string().optional(),
+  featureSecondary: z.string().optional(),
+  relativePrice: z.coerce.number().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  features: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    list: z.array(z.string()).optional()
+  }).optional(),
+  benefits: z.string().optional()
 })
 
 export const about = z.strictObject({
