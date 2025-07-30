@@ -16,7 +16,7 @@ const { headerCopy, formItemsCopy } = defineProps({
 const mergedCollectionItem = z.object({ ...materials.shape, ...machines.shape })
 export type MergedCollectionItem = z.output<typeof mergedCollectionItem>
 
-const machineSchema = machines.pick({ cutDiameter: true, cutWidthMax: true, cutHeightMax: true })
+const machineSchema = machines.pick({ cutDiameter: true, cutWidth: true, cutHeight: true })
 const materialSchema = materials.pick({ stiffness: true, shape: true, reinforced: true, core: true })
 
 const schema = z.object({ ...machineSchema.shape, ...materialSchema.shape })
@@ -57,7 +57,7 @@ const { data } = await useAsyncData(route.path, () => Promise.all([
     .select(...allKeys)
     .all(),
   queryCollection('machines')
-    .select('modelId', 'machineName', 'machineId', 'cutDiameter', 'cutWidthMax', 'cutHeightMax')
+    .select('modelId', 'machineName', 'machineId', 'cutDiameter', 'cutWidth', 'cutHeight')
     .all()
 ]), {
   transform: ([allMaterials, allMachines]) => ({ allMaterials, allMachines })
@@ -239,7 +239,7 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
             :ui="{ label: 'relative' }"
           >
             <template #label="{ item }">
-              <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
               <UIcon
                 :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}-hollow-none`"
                 class="absolute -top-1 right-3 size-12 text-muted"
@@ -322,7 +322,7 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
           :ui="{ label: 'relative' }"
         >
           <template #label="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
             <UIcon
               :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
               class="absolute -top-3 right-0 h-16 w-32 text-muted"
@@ -334,18 +334,35 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
           </template>
         </URadioGroup>
       </UFormField>
-      <ProseH3>{{ formItemsCopy?.cutDiameter?.category }}</ProseH3>
-      <UFormField
-        name="cutDiameter"
-        :label="formItemsCopy?.cutDiameter?.legend"
-        :description="formItemsCopy?.cutDiameter?.description"
-        :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-      >
-        <MaterialDiameter
-          v-model="state.cutDiameter"
-          :machines="allMachines"
-        />
-      </UFormField>
+      <div v-if="state.shape === 'round'">
+        <ProseH3>{{ formItemsCopy?.cutDiameter?.category }}</ProseH3>
+        <UFormField
+          name="cutDiameter"
+          :label="formItemsCopy?.cutDiameter?.legend"
+          :description="formItemsCopy?.cutDiameter?.description"
+          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
+        >
+          <MaterialDiameter
+            v-model="state.cutDiameter"
+            :machines="allMachines"
+          />
+        </UFormField>
+      </div>
+      <div v-else>
+        <ProseH3>{{ formItemsCopy?.cutWidthHeight?.category }}</ProseH3>
+        <UFormField
+          name="cutWidthHeight"
+          :label="formItemsCopy?.cutWidthHeight?.legend"
+          :description="formItemsCopy?.cutWidthHeight?.description"
+          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
+        >
+          <MaterialWidthHeight
+            v-model:cut-width="state.cutWidth"
+            v-model:cut-height="state.cutHeight"
+            :machines="allMachines"
+          />
+        </UFormField>
+      </div>
     </UForm>
 
     <pre>{{ filtered.count }}</pre>

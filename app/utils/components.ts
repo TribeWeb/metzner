@@ -8,37 +8,34 @@ export interface Corner {
   corner: Point
 }
 
-export function calculateCoordinates(
+export function calculateCircleCoordinates(
   diameter: number,
-  machineMax: number,
-  width: number,
   height: number
 ) {
-  const scale = diameter / machineMax
   const offset = 0.146 * diameter
 
   return {
     circleCentre: {
-      x: scale * (width - (machineMax / 2)),
+      x: diameter / 2,
       y: height - (diameter / 2)
     },
     bottomLeft: {
       perimeter: {
-        x: scale * (width - machineMax) + offset,
+        x: offset,
         y: height - offset
       },
       corner: {
-        x: scale * (width - machineMax),
+        x: 0,
         y: height
       }
     },
     topRight: {
       perimeter: {
-        x: scale * width - offset,
+        x: diameter - offset,
         y: (height - diameter) + offset
       },
       corner: {
-        x: scale * width,
+        x: diameter,
         y: height - diameter
       }
     }

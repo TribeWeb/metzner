@@ -1,5 +1,5 @@
 <script setup>
-import { useElementSize, useDebounceFn } from '@vueuse/core'
+import { useDebounceFn, useElementSize } from '@vueuse/core'
 
 const { machines } = defineProps({
   machines: {
@@ -8,40 +8,62 @@ const { machines } = defineProps({
   }
 })
 
-const diameter = defineModel({
+const cutDiameter = defineModel({
   type: Number,
   default: 0
 })
 
 const slider = ref(0)
 
-const el = useTemplateRef('el')
-const { width, height } = useElementSize(el)
+const elSliderX = useTemplateRef('elSliderX')
+const elDisplay = useTemplateRef('elDisplay')
+const { width: displayWidth, height: displayHeight } = useElementSize(elDisplay)
 
-const uniqueDiameters = computed(() =>
-  [...new Set(machines?.map(m => m?.cutDiameter))].sort((a, b) => a - b)
+const displayAspectRatio = ref(2)
+// const displayAspectRatio = computed(() => displayWidth.value / displayHeight.value)
+
+const machinesWithDiameter = computed(() =>
+  machines.filter(m => m.cutDiameter)
 )
 
-const machineMax = computed(() => Math.max(...uniqueDiameters.value))
-const machineMin = computed(() => Math.min(...uniqueDiameters.value))
-const minimumSpecDiameter = computed(() =>
-  Math.min(...uniqueDiameters.value.filter(d => d > slider.value))
-)
-
-const coordinates = computed(() =>
-  calculateCoordinates(slider.value, machineMax.value, width.value, height.value)
-)
-
-onMounted(() => {
-  if (slider.value === 0) {
-    slider.value = machineMin.value
-    updateDiameter(slider.value)
-  }
+const machinesWithAspectRatio = computed(() => {
+  return machinesWithDiameter.value.map(m => ({
+    cutDiameter: m.cutDiameter,
+    viewBoxWidth: m.cutDiameter * displayAspectRatio.value,
+    viewBoxHeight: m.cutDiameter,
+    widthHeight: `${m.cutDiameter}`
+  }))
 })
 
+const uniqueXY = computed(() =>
+  machinesWithAspectRatio.value.filter((obj, index, self) =>
+    index === self.findIndex(t => t.widthHeight === obj.widthHeight)
+  ).sort((a, b) => a.cutDiameter - b.cutDiameter)
+)
+
+const containingXY = computed(() => uniqueXY.value.find(d => d.cutDiameter >= slider.value))
+
+const diameterMax = computed(() => Math.max(...uniqueXY.value.map(o => o.cutDiameter)))
+const diameterMin = computed(() => Math.min(...uniqueXY.value.map(o => o.cutDiameter)))
+
+const viewBox = useAnimateViewBox(containingXY)
+
+const coordinates = computed(() =>
+  calculateCircleCoordinates(slider.value, viewBox.value.height)
+)
+
+const strokeWidth = computed(() => containingXY.value.cutDiameter / 50)
+
 const debouncedFn = useDebounceFn(() => {
-  diameter.value = slider.value
-}, 300)
+  cutDiameter.value = slider.value
+}, 500)
+
+onMounted(() => {
+  nextTick(() => {
+    slider.value = cutDiameter.value || diameterMin.value
+    updateDiameter(slider.value)
+  })
+})
 
 function updateDiameter(value) {
   slider.value = value
@@ -51,126 +73,127 @@ function updateDiameter(value) {
 
 <template>
   <div class="sm:w-96 flex flex-col">
-    <div
-      ref="el"
-      class="p-3 bg-primary/10 border border-primary/50 rounded-t-lg z-1 relative inline-flex items-center justify-start"
-    >
-      <svg v-if="diameter" :width="width" :height="machineMax">
-        <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="16" height="16">
-          <rect width="16" height="16" fill="var(--ui-bg-muted)" />
-          <path
-            d="M 12 -4 l 8 8 M -0 0 l 16 16 M -4 12 l 8 8"
-            stroke="var(--ui-bg-accented)"
-            stroke-width="5"
-          />
-        </pattern>
-        <defs>
-          <clipPath id="insideCircleOnly">
-            <circle
-              :cx="coordinates.circleCentre.x"
-              :cy="coordinates.circleCentre.y"
-              :r="slider / 2"
+    <div ref="elDisplay" class="flex flex-col flex-1 h-full">
+      <div class="flex-1 bg-primary/10 border border-primary/50 rounded-t-lg">
+        <svg v-if="cutDiameter" :viewBox="`-${strokeWidth} ${strokeWidth / 2} ${viewBox.width + strokeWidth} ${viewBox.height + strokeWidth}`" class="size-full">
+          <pattern id="diagonalHatchDiameter" width="16" height="16" patternUnits="userSpaceOnUse" :patternTransform="`scale(${strokeWidth / 2}, ${strokeWidth / 2})`">
+            <rect width="16" height="16" fill="var(--ui-bg-muted)" />
+            <path
+              d="M 12 -4 l 8 8 M -0 0 l 16 16 M -4 12 l 8 8"
+              stroke="var(--ui-bg-accented)"
+              stroke-width="5"
             />
-          </clipPath>
-        </defs>
+          </pattern>
+          <defs>
+            <clipPath id="insideCircleOnly">
+              <circle
+                :cx="coordinates.circleCentre.x"
+                :cy="coordinates.circleCentre.y"
+                :r="slider / 2"
+              />
+            </clipPath>
+          </defs>
 
-        <!-- Reference circles -->
-        <circle
-          v-for="d in uniqueDiameters"
-          :key="d"
-          :cx="(d / machineMax) * (width - (machineMax / 2))"
-          :cy="height - (d / 2)"
-          :r="d / 2"
-          :fill="d === minimumSpecDiameter ? 'var(--ui-bg)' : 'none'"
-          stroke="var(--ui-primary)"
-          stroke-width="0.5"
-          stroke-dasharray="2, 2.5"
-        />
+          <!-- Reference circles -->
+          <circle
+            v-for="d in uniqueXY"
+            :key="d.widthHeight"
+            :cx="d.cutDiameter / 2"
+            :cy="viewBox.height - (d.cutDiameter / 2) + strokeWidth"
+            :r="d.cutDiameter / 2"
+            :fill="d.cutDiameter === containingXY.cutDiameter ? 'var(--ui-bg)' : 'none'"
+            stroke="var(--ui-primary)"
+            :stroke-width="strokeWidth / 6"
+            :stroke-dasharray="`${strokeWidth / 2}, ${strokeWidth / 2}`"
+          />
 
-        <!-- Main circle -->
-        <circle
-          :cx="coordinates.circleCentre.x"
-          :cy="coordinates.circleCentre.y"
-          :r="slider / 2"
-          fill="url(#diagonalHatch)"
-          stroke="var(--ui-primary)"
-          stroke-width="4"
-          clip-path="url(#insideCircleOnly)"
-        />
+          <!-- Main circle -->
+          <circle
+            :cx="coordinates.circleCentre.x"
+            :cy="coordinates.circleCentre.y + strokeWidth"
+            :r="slider / 2"
+            fill="url(#diagonalHatchDiameter)"
+            stroke="var(--ui-primary)"
+            :stroke-width="strokeWidth"
+            stroke-align="inset"
+          />
 
-        <line
-          :x1="coordinates.bottomLeft.perimeter.x"
-          :y1="coordinates.bottomLeft.perimeter.y"
-          :x2="coordinates.topRight.perimeter.x"
-          :y2="coordinates.topRight.perimeter.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-          stroke-dasharray="3, 2"
-        />
+          <line
+            :x1="coordinates.bottomLeft.perimeter.x"
+            :y1="coordinates.bottomLeft.perimeter.y"
+            :x2="coordinates.topRight.perimeter.x"
+            :y2="coordinates.topRight.perimeter.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+            :stroke-dasharray="`${strokeWidth * 2}, ${strokeWidth * 2}`"
+          />
 
-        <!-- Bottom left corner -->
+          <!-- Bottom left corner -->
+          <line
+            :x1="coordinates.bottomLeft.perimeter.x"
+            :y1="coordinates.bottomLeft.perimeter.y"
+            :x2="coordinates.bottomLeft.corner.x"
+            :y2="coordinates.bottomLeft.corner.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
+          <line
+            :x1="coordinates.bottomLeft.perimeter.x"
+            :y1="coordinates.bottomLeft.perimeter.y"
+            :x2="coordinates.bottomLeft.perimeter.x"
+            :y2="coordinates.bottomLeft.corner.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
+          <line
+            :x1="coordinates.bottomLeft.perimeter.x"
+            :y1="coordinates.bottomLeft.perimeter.y"
+            :x2="coordinates.bottomLeft.corner.x"
+            :y2="coordinates.bottomLeft.perimeter.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
 
-        <line
-          :x1="coordinates.bottomLeft.perimeter.x"
-          :y1="coordinates.bottomLeft.perimeter.y"
-          :x2="coordinates.bottomLeft.corner.x"
-          :y2="coordinates.bottomLeft.corner.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
+          <!-- Top right corner -->
+          <line
+            :x1="coordinates.topRight.perimeter.x"
+            :y1="coordinates.topRight.perimeter.y"
+            :x2="coordinates.topRight.corner.x"
+            :y2="coordinates.topRight.corner.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
+          <line
+            :x1="coordinates.topRight.perimeter.x"
+            :y1="coordinates.topRight.perimeter.y"
+            :x2="coordinates.topRight.corner.x"
+            :y2="coordinates.topRight.perimeter.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
+          <line
+            :x1="coordinates.topRight.perimeter.x"
+            :y1="coordinates.topRight.perimeter.y"
+            :x2="coordinates.topRight.perimeter.x"
+            :y2="coordinates.topRight.corner.y"
+            stroke="var(--ui-bg-inverted)"
+            :stroke-width="strokeWidth / 4"
+          />
+        </svg>
+      </div>
+      <div ref="elSliderX" class="flex-none h-12 px-3 pb-6 pt-14 border border-t-0 border-muted rounded-b-lg">
+        <USlider
+          v-model="slider"
+          :tooltip="{ text: `⌀${slider} mm`,
+                      open: true,
+                      arrow: true,
+                      content: { side: 'top', avoidCollisions: true, collisionBoundary: [elSliderX], positionStrategy: 'absolute' } }"
+          :min="1"
+          :max="diameterMax"
+          :default-value="diameterMin"
+          @update:model-value="updateDiameter"
         />
-        <line
-          :x1="coordinates.bottomLeft.perimeter.x"
-          :y1="coordinates.bottomLeft.perimeter.y"
-          :x2="coordinates.bottomLeft.perimeter.x"
-          :y2="coordinates.bottomLeft.corner.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-        />
-        <line
-          :x1="coordinates.bottomLeft.perimeter.x"
-          :y1="coordinates.bottomLeft.perimeter.y"
-          :x2="coordinates.bottomLeft.corner.x"
-          :y2="coordinates.bottomLeft.perimeter.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-        />
-
-        <!-- Top right corner -->
-        <line
-          :x1="coordinates.topRight.perimeter.x"
-          :y1="coordinates.topRight.perimeter.y"
-          :x2="coordinates.topRight.corner.x"
-          :y2="coordinates.topRight.corner.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-        />
-        <line
-          :x1="coordinates.topRight.perimeter.x"
-          :y1="coordinates.topRight.perimeter.y"
-          :x2="coordinates.topRight.corner.x"
-          :y2="coordinates.topRight.perimeter.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-        />
-        <line
-          :x1="coordinates.topRight.perimeter.x"
-          :y1="coordinates.topRight.perimeter.y"
-          :x2="coordinates.topRight.perimeter.x"
-          :y2="coordinates.topRight.corner.y"
-          stroke="var(--ui-bg-inverted)"
-          stroke-width="1"
-        />
-
-      </svg>
-    </div>
-    <div class="px-3 pb-6 pt-14 border border-t-0 border-muted rounded-b-lg">
-      <USlider
-        :tooltip="{ text: `⌀${slider} mm`, open: true, arrow: true, content: { side: 'top', avoidCollisions: true, collisionBoundary: [el] } }"
-        :min="1"
-        :max="machineMax"
-        :default-value="machineMin"
-        @update:model-value="updateDiameter"
-      />
+      </div>
     </div>
   </div>
 </template>
