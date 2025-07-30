@@ -43,6 +43,19 @@ const links = computed(() => [toc?.bottom?.edit && {
   to: `${toc.bottom.edit}/${page?.value?.path}`,
   target: '_blank'
 }, ...(toc?.bottom?.links || [])].filter(Boolean))
+
+const features = computed(() => [
+  {
+    title: 'Feature 1',
+    description: page.value?.featurePrimary || 'Description of feature 1',
+    icon: 'i-lucide-star'
+  },
+  {
+    title: 'Feature 2',
+    description: page.value?.featureSecondary || 'Description of feature 2',
+    icon: 'i-lucide-star'
+  }
+])
 </script>
 
 <template>
@@ -67,6 +80,12 @@ const links = computed(() => [toc?.bottom?.edit && {
           class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
         >
       </UPageHero> -->
+
+      <UPageSection
+        title=""
+        description=""
+        :features="features"
+      />
 
       <USeparator v-if="surround?.length" />
 
