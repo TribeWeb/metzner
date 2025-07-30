@@ -7,12 +7,20 @@ const { data: navigation } = await useAsyncData('navigation', () => queryCollect
 
 provide('navigation', navigation)
 
-const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
+// const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
+
+const { data: aboutLinks } = await useAsyncData('about', () => {
+  return queryCollectionNavigation('about')
+})
 
 provide('aboutLinks', aboutLinks)
 
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('machines'), {
-  server: false
+// const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('machines'), {
+//   server: false
+// })
+
+const { data: files } = await useAsyncData('search-sections', () => {
+  return queryCollectionSearchSections('machines')
 })
 
 // const route = useRoute()
