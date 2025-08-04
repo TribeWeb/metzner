@@ -4,11 +4,11 @@
 //   values: GoogleSheetsApiValues
 // }
 
-declare type Import = z.infer<typeof machines> | z.infer<typeof about> | z.infer<typeof machinemap>
+// declare type Import = z.infer<typeof machines> | z.infer<typeof about> | z.infer<typeof machinemap>
 
 type GoogleSheetsApiValues = string[][]
 
-interface GoogleSheetsApiValuesResponse {
+declare interface GoogleSheetsApiValuesResponse {
   range: string
   majorDimension: string
   values: GoogleSheetsApiValues
@@ -85,4 +85,13 @@ declare interface ProductObject {
   [key: string]: string
 }
 
-  declare type TransformedGoogleSheetsApiResult = ProductObject[]
+declare type TransformedGoogleSheetsApiResult = ProductObject[]
+
+export type {
+  GoogleSheetsApiValues,
+  GoogleSheetsApiValuesResponse,
+  GoogleSheetsApiSheet,
+  GoogleSheetsApiSheetResponse,
+  ProductObject,
+  TransformedGoogleSheetsApiResult
+}
