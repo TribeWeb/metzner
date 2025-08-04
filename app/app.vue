@@ -2,16 +2,12 @@
 const { seo, toaster } = useAppConfig()
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('machines'), {
-  transform: data => data.find(item => item.path === '/machines')?.children || []
+  // transform: data => data.find(item => item.path === '/machines')?.children || []
 })
 
 provide('navigation', navigation)
 
-// const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
-
-const { data: aboutLinks } = await useAsyncData('about', () => {
-  return queryCollectionNavigation('about')
-})
+const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
 
 provide('aboutLinks', aboutLinks)
 

@@ -80,25 +80,15 @@ export default defineAppConfig({
       page: false,
       name: 'machines-landing',
       children: [{
-        label: 'Profile, Plastic & Rubber Cutting',
+        label: 'Cutting machines',
         icon: 'i-lucide-star',
-        description: 'Full solutions for cutting hoses, extrusions & gaskets.',
-        to: '/machines/profile-plastic-rubber-cutting-machines'
-      }, {
-        label: 'Cable & Wire Processing',
-        icon: 'i-lucide-star',
-        description: 'Cutting, stripping and marking cables and wires.',
-        to: '/machines/cable-and-wire-processing-machines'
-      }, {
-        label: 'Corrugated Conduit',
-        icon: 'i-lucide-star',
-        description: 'Precision cutting of corrugated hoses, pipes and conduit.',
-        to: '/machines/corrugated-conduit'
+        description: 'Precision cutting of hoses, extrusions & gaskets.',
+        to: '/machines'
       }, {
         label: 'Spare Parts & Service',
         icon: 'i-lucide-star',
         description: 'Advice and support for your Metzner machines.',
-        to: '/machines/spare-parts-and-service'
+        to: '/spares'
       }]
     }, {
       label: 'Latest',

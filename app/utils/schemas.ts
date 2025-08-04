@@ -12,7 +12,6 @@ export const machines = z.strictObject({
   featureSecondary: z.string().optional(),
   relativePrice: z.coerce.number().optional(),
   title: z.string().optional(),
-  description: z.string().optional(),
   features: z.object({
     title: z.string().optional(),
     description: z.string().optional(),

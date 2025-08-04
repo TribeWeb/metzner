@@ -1,4 +1,6 @@
 ---
+title: CCM2
+description: The CCM2 is a high-speed cutting machine designed for steel reinforced materials, offering precision and efficiency.
 machineId: ccm2
 machineName: CCM2
 modelId: ccm2

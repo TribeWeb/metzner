@@ -1,4 +1,5 @@
 import { defineContentConfig, defineCollection } from '@nuxt/content'
+// import { z } from 'zod'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 import { schemas } from './app/utils/schemas'
 
@@ -14,7 +15,7 @@ export default defineContentConfig({
       asSitemapCollection({
         type: 'page',
         source: {
-          include: 'about/*',
+          include: 'about/*.md',
           prefix: '/'
         },
         schema: schemas.about
@@ -29,11 +30,17 @@ export default defineContentConfig({
     machines: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: {
-          include: 'machines/*.md',
-          exclude: ['machines/index.md']
-        },
+        source: 'machines/*.md',
         schema: schemas.machines
+      })
+    ),
+    spares: defineCollection(
+      asSitemapCollection({
+        type: 'page',
+        source: {
+          include: 'spares/*.md'
+        }
+        // schema: schemas.spares
       })
     ),
     materials: defineCollection({

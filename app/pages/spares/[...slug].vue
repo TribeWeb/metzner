@@ -10,20 +10,17 @@ const route = useRoute()
 const { toc, seo } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
-const { data } = await useAsyncData(route.path, () => Promise.all([
-  queryCollection('latest').path(route.path).first(),
-  queryCollectionItemSurroundings('latest', route.path, {
-    fields: ['title', 'description']
-  })
-]), {
-  transform: ([page, surround]) => ({ page, surround })
+const { data: page } = await useAsyncData(route.path, () => {
+  return queryCollection('spares').path(route.path).first()
 })
-if (!data.value || !data.value.page) {
+
+if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
-const page = computed(() => data.value?.page)
-const surround = computed(() => data.value?.surround)
+const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
+  return queryCollectionItemSurroundings('spares', route.path)
+})
 
 useSeoMeta({
   title: page.value.seo.title,
@@ -49,7 +46,6 @@ const links = computed(() => [toc?.bottom?.edit && {
     <UPageHeader
       :title="page.title"
       :description="page.description"
-      :links="page.links"
       :headline="headline"
     />
 
