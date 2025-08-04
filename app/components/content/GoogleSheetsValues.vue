@@ -43,16 +43,12 @@ function formatZodError(issues: z.ZodIssue[]) {
 }
 
 function handleArraysAndFalseyValues(columnName: string[], value: string | undefined): undefined | null | string[] | string {
-  console.log('handleArraysAndFalseyValues', columnName, value)
   // TODO: handle booleans when there are no falsey values (implying that the data contains 'false' (which evaluates to true) instead of '')
   const schema = activeSchema.value as z.ZodObject<SchemaType>
-  console.log('schema', schema, columnName)
   const path = columnName.join('.')
   const columnSchema = zodDeepPick(schema, path)
   const wrapType = zodWrapType(columnSchema)
-  // console.log(isZodArray(columnSchema), value)
   if (isZodArray(columnSchema)) {
-    // console.log(isZodArray(columnSchema), value)
     if (value) return value.split(',').map(value => value.trim())
     if (wrapType === 'ZodOptional') return undefined
     if (wrapType === 'ZodNullable') return null
@@ -64,37 +60,22 @@ function handleArraysAndFalseyValues(columnName: string[], value: string | undef
   return ''
 }
 
-function pathsToTree(paths: string[], values: string | string[]) {
-  console.log('pathsToTree', paths, values)
-  const pathTree = {}
-  let index = 0
-  if (paths instanceof Array === false) {
-    throw new Error('Expected an Array of file paths, but saw ' + paths)
-  }
-
-  function mergePathsIntoFileTree(prevDir: Record<string, unknown>, currDir: string, i: number, pathSegments: string[]): Record<string, unknown> {
-    if (i === pathSegments.length - 1) {
-      prevDir[currDir] = handleArraysAndFalseyValues(pathSegments, values[index])
+function recordArray(columnArray: string[], valuesArray: string[]) {
+  const rowArray = columnArray.map((column, index) => {
+    return {
+      keys: column.split('.'),
+      value: valuesArray[index]
     }
-    if (!(currDir in prevDir)) {
-      prevDir[currDir] = {}
-    }
-    return prevDir[currDir]
-  }
+  })
+  return rowArray
+}
 
-  function parseFilePath(path: string, i: number) {
-    index = i
-    const pathSegments = path.split('.')
-    // If file is in root directory, eg 'index.js'
-    if (pathSegments.length === 1) {
-      return (pathTree[pathSegments[0]] = handleArraysAndFalseyValues(pathSegments, values[index]))
-    }
-    // pathSegments.reduce(mergePathsIntoFileTree, pathTree)
-    pathSegments.reduce((prevDir, currDir, i, pathSegments) => mergePathsIntoFileTree(prevDir, currDir, i, pathSegments), pathTree)
-  }
-
-  paths.forEach(parseFilePath)
-  return pathTree
+function transformToObjectFromArray(obj: SchemaType, path: string[], value: string | undefined) {
+  path.reduce((acc, key, i) => {
+    if (acc[key] === undefined) acc[key] = {}
+    if (i === path.length - 1) acc[key] = handleArraysAndFalseyValues(path, value)
+    return acc[key]
+  }, obj)
 }
 
 function transformToArrayOfObjects(values: string[][]): SchemaType[] {
@@ -111,7 +92,9 @@ function transformToArrayOfObjects(values: string[][]): SchemaType[] {
   let prevError = ''
   return rows
     .map((row) => {
-      const record = pathsToTree(headers, row)
+      const rowArray = recordArray(headers, row)
+      const record = {}
+      rowArray.map(({ value, keys }) => transformToObjectFromArray(record, keys, value))
       if (!activeSchema.value) return null
       const parsed = activeSchema.value.safeParse(record)
       if (!parsed.success) {
@@ -206,7 +189,7 @@ const toast = useToast()
       :model-value="logsLength"
       :max="productsLength"
       status
-      :get-value-label="((value: number, max: number) => `${value} of ${max}`)"
+      :get-value-label="((value: number | null | undefined, max: number) => value != null ? `${value} of ${max}` : undefined)"
     />
     <UCollapsible class="flex flex-col gap-2 w-full mt-6">
       <UButton

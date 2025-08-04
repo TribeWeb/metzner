@@ -47,6 +47,17 @@ export function pickArray(schema: z.ZodTypeAny): z.ZodTypeAny {
 }
 
 export function pickObject(schema: z.ZodTypeAny, path: string): z.ZodTypeAny {
+  if (!isZodObject(schema) && !('innerType' in schema._def && isZodObject(schema._def.innerType))) throw Error('Not a zod object')
+
+  const shape = (schema as z.AnyZodObject).shape || (schema._def.innerType as z.AnyZodObject).shape
+  const newSchema = shape?.[path]
+
+  if (!newSchema) throw Error(`${path} does not exist on schema with keys: ${Object.keys((schema as z.AnyZodObject).shape || (schema._def.innerType as z.AnyZodObject).shape)}`)
+
+  return newSchema
+}
+
+export function pickObject1(schema: z.ZodTypeAny, path: string): z.ZodTypeAny {
   if (!isZodObject(schema)) throw Error('Not a zod object')
 
   const newSchema = schema.shape?.[path]
@@ -54,6 +65,7 @@ export function pickObject(schema: z.ZodTypeAny, path: string): z.ZodTypeAny {
 
   return newSchema
 }
+
 export function zodDeepPick(schema: z.ZodTypeAny, propertyPath: string): z.ZodTypeAny {
   if (propertyPath === '') return schema
 
