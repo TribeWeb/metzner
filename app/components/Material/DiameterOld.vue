@@ -1,6 +1,4 @@
 <script setup>
-import { useElementSize, useDebounceFn } from '@vueuse/core'
-
 const { machines } = defineProps({
   machines: {
     type: Array,

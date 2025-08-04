@@ -1,6 +1,4 @@
 <script setup>
-import { useDebounceFn, useElementSize } from '@vueuse/core'
-
 const { machines } = defineProps({
   machines: {
     type: Array,
@@ -17,7 +15,7 @@ const slider = ref(0)
 
 const elSliderX = useTemplateRef('elSliderX')
 const elDisplay = useTemplateRef('elDisplay')
-const { width: displayWidth, height: displayHeight } = useElementSize(elDisplay)
+// const { width: displayWidth, height: displayHeight } = useElementSize(elDisplay)
 
 const displayAspectRatio = ref(2)
 // const displayAspectRatio = computed(() => displayWidth.value / displayHeight.value)

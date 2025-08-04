@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     'nuxt-og-image',
     '@nuxthub/core',
-    '@nuxt/scripts'
+    '@nuxt/scripts',
+    '@vueuse/nuxt'
   ],
 
   devtools: {
@@ -40,8 +41,8 @@ export default defineNuxtConfig({
     // googlePrivateKey: ''
   },
 
-  future: {
-    compatibilityVersion: 4
+  alias: {
+    '#types': '/<rootDir>/types'
   },
 
   compatibilityDate: '2024-07-11',
