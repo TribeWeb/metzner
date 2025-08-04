@@ -9,4 +9,7 @@ cutRate: 4000
 featurePrimary: Very high cutting speed for fast, continuous production.
 featureSecondary: Capable of processing a wide range of materials.
 relativePrice: 3.3
+title: DYNAMAT-80
+seo: {}
+features: {}
 ---

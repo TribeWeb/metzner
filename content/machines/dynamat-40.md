@@ -9,4 +9,7 @@ cutRate: 1500
 featurePrimary: Good balance of speed and precision cutting.
 featureSecondary: Quick change guides for processing different materials
 relativePrice: 3.1
+title: DYNAMAT-40
+seo: {}
+features: {}
 ---
