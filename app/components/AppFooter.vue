@@ -5,12 +5,12 @@ import { mapContentNavigation } from '@nuxt/ui-pro/runtime/utils/content.js'
 const { footer } = useAppConfig()
 const columnHeaders = footer.columnHeaders || []
 
-const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks') || ref<ContentNavigationItem[]>([])
+const about = inject<Ref<ContentNavigationItem[]>>('about') || ref<ContentNavigationItem[]>([])
 const columns = computed(() => {
   return columnHeaders.map((header) => {
     return {
       ...header,
-      children: mapContentNavigation(aboutLinks.value.filter(item => item.column === header.id))
+      children: mapContentNavigation(about.value.filter(item => item.column === header.id))
     }
   })
 })
