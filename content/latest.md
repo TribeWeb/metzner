@@ -1,0 +1,5 @@
+---
+title: Latest
+description: Discover the latest insights, tutorials, and updates from our team. Stay informed about web development trends, best practices, and innovative solutions.
+navigation.icon: i-lucide-newspaper
+---

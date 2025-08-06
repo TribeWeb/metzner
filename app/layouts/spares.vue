@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 
-const navigation = inject<Ref<ContentNavigationItem[]>>('machines') || ref<ContentNavigationItem[]>([])
+const navigation = inject<Ref<ContentNavigationItem[]>>('spares') || ref<ContentNavigationItem[]>([])
 </script>
 
 <template>

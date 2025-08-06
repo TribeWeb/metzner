@@ -1,5 +1,5 @@
 import { defineContentConfig, defineCollection } from '@nuxt/content'
-// import { z } from 'zod'
+import { z } from 'zod'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 import { schemas } from './app/utils/schemas'
 
@@ -11,20 +11,30 @@ export default defineContentConfig({
         source: 'index.md'
       })
     ),
+    // landing: defineCollection(
+    //   asSitemapCollection({
+    //     type: 'page',
+    //     source: {
+    //       include: '*.md',
+    //       exclude: ['index.md']
+    //     }
+    //   })
+    // ),
     about: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: {
+        source: [{
           include: 'about/*.md',
           prefix: '/'
         },
+        { include: '1.about.md' }],
         schema: schemas.about
       })
     ),
-    latest: defineCollection(
+    machinesLanding: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: 'latest/*.md'
+        source: 'machines.md'
       })
     ),
     machines: defineCollection(
@@ -34,15 +44,42 @@ export default defineContentConfig({
         schema: schemas.machines
       })
     ),
-    spares: defineCollection(
+    sparesLanding: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: {
-          include: 'spares/*.md'
-        }
+        source: 'spares.md'
         // schema: schemas.spares
       })
     ),
+    spares: defineCollection(
+      asSitemapCollection({
+        type: 'page',
+        source: 'spares/*.md'
+        // schema: schemas.spares
+      })
+    ),
+    latest: defineCollection(
+      asSitemapCollection({
+        type: 'page',
+        source: 'latest.md'
+      })
+    ),
+    posts: defineCollection({
+      source: 'latest/**/*',
+      type: 'page',
+      schema: z.object({
+        image: z.object({ src: z.string().nonempty().editor({ input: 'media' }) }),
+        authors: z.array(
+          z.object({
+            name: z.string().nonempty(),
+            to: z.string().nonempty(),
+            avatar: z.object({ src: z.string().nonempty().editor({ input: 'media' }) })
+          })
+        ),
+        date: z.date(),
+        badge: z.object({ label: z.string().nonempty() })
+      })
+    }),
     materials: defineCollection({
       type: 'data',
       source: 'data/materials/**',

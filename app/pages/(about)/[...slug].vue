@@ -9,22 +9,19 @@ definePageMeta({
 const route = useRoute()
 
 const { toc, seo } = useAppConfig()
-const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks') || ref<ContentNavigationItem[]>([])
+const navigation = inject<Ref<ContentNavigationItem[]>>('about') || ref<ContentNavigationItem[]>([])
 
-const { data } = await useAsyncData(route.path, () => Promise.all([
-  queryCollection('about').path(route.path).first(),
-  queryCollectionItemSurroundings('about', route.path, {
-    fields: ['title', 'description']
-  })
-]), {
-  transform: ([page, surround]) => ({ page, surround })
+const { data: page } = await useAsyncData(route.path, () => {
+  return queryCollection('about').path(route.path).first()
 })
-if (!data.value || !data.value.page) {
+
+if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
-const page = computed(() => data.value?.page)
-const surround = computed(() => data.value?.surround)
+const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
+  return queryCollectionItemSurroundings('about', route.path)
+})
 
 useSeoMeta({
   title: page.value?.seo.title,
@@ -35,7 +32,7 @@ useSeoMeta({
 
 defineOgImageComponent('Docs')
 
-const headline = computed(() => findPageHeadline(aboutLinks.value, route.path))
+const headline = computed(() => findPageHeadline(navigation.value, route.path))
 </script>
 
 <template>

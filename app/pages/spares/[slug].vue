@@ -3,12 +3,12 @@ import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
 definePageMeta({
-  layout: 'docs'
+  layout: 'spares'
 })
 
 const route = useRoute()
 const { toc, seo } = useAppConfig()
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const navigation = inject<Ref<ContentNavigationItem[]>>('spares') || ref<ContentNavigationItem[]>([])
 
 const { data: page } = await useAsyncData(route.path, () => {
   return queryCollection('spares').path(route.path).first()
@@ -31,14 +31,7 @@ useSeoMeta({
 
 defineOgImageComponent('Docs')
 
-const headline = computed(() => findPageHeadline(navigation?.value, route.path))
-
-const links = computed(() => [toc?.bottom?.edit && {
-  icon: 'i-lucide-external-link',
-  label: 'Edit this page',
-  to: `${toc.bottom.edit}/${page?.value?.path}`,
-  target: '_blank'
-}, ...(toc?.bottom?.links || [])].filter(Boolean))
+const headline = findPageHeadline(navigation.value, route.path)
 </script>
 
 <template>
@@ -79,11 +72,6 @@ const links = computed(() => [toc?.bottom?.edit && {
             <USeparator
               v-if="page.body?.toc?.links?.length"
               type="dashed"
-            />
-
-            <UPageLinks
-              :title="toc.bottom.title"
-              :links="links"
             />
           </div>
         </template>

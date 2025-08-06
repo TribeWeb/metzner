@@ -4,12 +4,12 @@ import type { ContentNavigationItem } from '@nuxt/content'
 const { footer } = useAppConfig()
 const columnHeaders = footer.columnHeaders || []
 
-const aboutLinks = inject<Ref<ContentNavigationItem[]>>('aboutLinks') || ref<ContentNavigationItem[]>([])
+const listAbout = inject<Ref<ContentNavigationItem[]>>('about') || ref<ContentNavigationItem[]>([])
 const columns = computed(() => {
   return columnHeaders.map((header) => {
     return {
       ...header,
-      children: aboutLinks.value.filter(item => item.column === header.id)
+      children: listAbout.value.filter(item => item.column === header.id)
     }
   })
 })

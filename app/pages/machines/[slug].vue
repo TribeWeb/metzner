@@ -8,41 +8,30 @@ definePageMeta({
 
 const route = useRoute()
 const { toc, seo } = useAppConfig()
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const navigation = inject<Ref<ContentNavigationItem[]>>('machines') || ref<ContentNavigationItem[]>([])
 
-const { data } = await useAsyncData(route.path, () => Promise.all([
-  queryCollection('machines').path(route.path).first(),
-  queryCollectionItemSurroundings('machines', route.path, {
-    fields: ['title', 'description']
-  })
-  // queryCollection('machines').path(route.params.landing).all(),
-]), {
-  transform: ([page, surround]) => ({ page, surround })
+const { data: page } = await useAsyncData(route.path, () => {
+  return queryCollection('machines').path(route.path).first()
 })
-if (!data.value || !data.value.page) {
+
+if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
-const page = computed(() => data.value?.page)
-const surround = computed(() => data.value?.surround)
+const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
+  return queryCollectionItemSurroundings('machines', route.path)
+})
 
 useSeoMeta({
-  title: page.value?.seo.title,
-  ogTitle: `${page.value?.seo.title} - ${seo?.siteName}`,
-  description: page.value?.seo.description,
-  ogDescription: page.value?.seo.description
+  title: page.value.seo?.title,
+  ogTitle: `${page.value.seo?.title} - ${seo?.siteName}`,
+  description: page.value.seo?.description,
+  ogDescription: page.value.seo?.description
 })
 
 defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation?.value, route.path))
-
-const links = computed(() => [toc?.bottom?.edit && {
-  icon: 'i-lucide-external-link',
-  label: 'Edit this page',
-  to: `${toc.bottom.edit}/${page?.value?.path}`,
-  target: '_blank'
-}, ...(toc?.bottom?.links || [])].filter(Boolean))
 
 const features = computed(() => [
   {
@@ -63,12 +52,10 @@ const features = computed(() => [
     <UPageHeader
       :title="page.title"
       :description="page.description"
-      :links="page.links"
       :headline="headline"
     />
 
     <UPageBody>
-      <!-- <pre>{{ route }}</pre> -->
       <ContentRenderer
         v-if="page"
         :value="page"
@@ -111,11 +98,6 @@ const features = computed(() => [
             <USeparator
               v-if="page.body?.toc?.links?.length"
               type="dashed"
-            />
-
-            <UPageLinks
-              :title="toc.bottom.title"
-              :links="links"
             />
           </div>
         </template>
