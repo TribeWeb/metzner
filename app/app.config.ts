@@ -78,6 +78,7 @@ export default defineAppConfig({
       label: 'Machines',
       icon: 'i-lucide-pocket-knife',
       page: false,
+      to: '/machines',
       name: 'machines-landing',
       children: [{
         label: 'Cutting machines',
