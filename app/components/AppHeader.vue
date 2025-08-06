@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
+// import type { ContentNavigationItem } from '@nuxt/content'
 
 const route = useRoute()
 
@@ -20,7 +20,7 @@ const menuItemsWithRemovedProps = computed(() =>
   menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
 )
 
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+// const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
 
 <template>
@@ -88,7 +88,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
       </template>
     </template>
 
-    <template #content>
+    <!-- <template #content>
       <UNavigationMenu
         orientation="vertical"
         :items="menu"
@@ -102,6 +102,6 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
         highlight
         :navigation="navigation"
       />
-    </template>
+    </template> -->
   </UHeader>
 </template>
