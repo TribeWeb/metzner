@@ -1,15 +1,19 @@
 <script setup lang="ts">
 const { seo, toaster } = useAppConfig()
 
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('machines'), {
-  // transform: data => data.find(item => item.path === '/machines')?.children || []
+const { data: machines } = await useAsyncData('machinesList', () => queryCollectionNavigation('machines'))
+provide('machines', machines)
+
+const { data: about } = await useAsyncData('aboutList', () => queryCollectionNavigation('about', ['column']))
+provide('about', about)
+
+const { data: spares } = await useAsyncData('sparesList', () => queryCollectionNavigation('spares'), {
+  // transform: data => data.find(item => item.path === '/spares')?.children || []
 })
+provide('spares', spares)
 
-provide('navigation', navigation)
-
-const { data: aboutLinks } = await useAsyncData('about', () => queryCollectionNavigation('about', ['column']))
-
-provide('aboutLinks', aboutLinks)
+const { data: latest } = await useAsyncData('latestList', () => queryCollectionNavigation('latest'))
+provide('latest', latest)
 
 // const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('machines'), {
 //   server: false
@@ -68,7 +72,7 @@ useSeoMeta({
     <ClientOnly>
       <LazyUContentSearch
         :files="files"
-        :navigation="navigation"
+        :navigation="machines"
       />
     </ClientOnly>
   </UApp>
