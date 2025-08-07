@@ -13,7 +13,7 @@ if (!page.value) {
 const headline = computed(() => findPageHeadline(navigation.value, route.path))
 
 definePageMeta({
-  layout: 'docs'
+  layout: 'machines'
 })
 
 useSeoMeta({

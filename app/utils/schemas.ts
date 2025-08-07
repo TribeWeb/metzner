@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
 export const machines = z.strictObject({
+  title: z.string().optional(),
+  description: z.string().optional(),
   machineId: z.string(),
   machineName: z.string(),
   modelId: z.string(),
@@ -12,17 +14,18 @@ export const machines = z.strictObject({
   featurePrimary: z.string().optional(),
   featureSecondary: z.string().optional(),
   relativePrice: z.coerce.number().optional(),
-  title: z.string().optional(),
-  seo: z.object({
+  features: z.object({
     title: z.string().optional(),
     description: z.string().optional()
   }).optional(),
-  features: z.object({
+  benefits: z.array(z.object({
     title: z.string().optional(),
-    description: z.string().optional(),
-    list: z.array(z.string()).optional()
-  }).optional(),
-  benefits: z.string().optional()
+    description: z.string().optional()
+  })).optional(),
+  seo: z.object({
+    title: z.string().optional(),
+    description: z.string().optional()
+  }).optional()
 })
 
 export const about = z.strictObject({

@@ -3,7 +3,7 @@ import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
 definePageMeta({
-  layout: 'docs'
+  layout: 'machines'
 })
 
 const route = useRoute()
@@ -60,19 +60,18 @@ const features = computed(() => [
         v-if="page"
         :value="page"
       />
-      <!-- <UPageHero>
+
+      <UPageSection
+        :title="page.features?.title"
+        :description="page.features?.description"
+        :features="page.benefits"
+      >
         <img
           :src="`/machines/${page.path.split('/').pop()}.webp`"
           alt="App screenshot"
           class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
         >
-      </UPageHero> -->
-
-      <UPageSection
-        title=""
-        description=""
-        :features="features"
-      />
+      </UPageSection>
 
       <USeparator v-if="surround?.length" />
 
