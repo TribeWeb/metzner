@@ -3,6 +3,12 @@ import { z } from 'zod'
 export const machines = z.strictObject({
   title: z.string().optional(),
   description: z.string().optional(),
+  pageOrder: z.coerce.number().optional(),
+  navigation: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    icon: z.string().optional()
+  }),
   machineId: z.string(),
   machineName: z.string(),
   modelId: z.string(),
@@ -79,12 +85,40 @@ export const materials = z.strictObject({
   config: z.enum(['standard', 'optional'])
 })
 
+// export const pageCollectionItemBaseSchema = z.strictObject({
+//   path: z.string(),
+//   title: z.string(),
+//   description: z.string(),
+//   seo: z.intersection(
+//     z.object({
+//       title: z.string().optional(),
+//       description: z.string().optional(),
+//       meta: z.array(z.record(z.string(), z.any())).optional(),
+//       link: z.array(z.record(z.string(), z.any())).optional()
+//     }),
+//     z.record(z.string(), z.any())
+//   ).optional().default({}),
+//   navigation: z.union([
+//     z.boolean(),
+//     z.object({
+//       title: z.string().optional(),
+//       description: z.string().optional(),
+//       icon: z.string().optional()
+//     })
+//   ]).default(true)
+// })
+
+// const mergedMachines = machines.merge(pageCollectionItemBaseSchema)
+// const mergedAbout = about.merge(pageCollectionItemBaseSchema)
+// const mergedMaterials = materials.merge(pageCollectionItemBaseSchema)
+
 export const schemas = {
   machines,
   about,
   materials
 }
-export type Import = {
+
+export interface Import {
   machines: z.infer<typeof machines>
   about: z.infer<typeof about>
   materials: z.infer<typeof materials>

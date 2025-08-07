@@ -31,7 +31,8 @@ const activeSchema = computed(() =>
 type SchemaType = z.infer<NonNullable<typeof activeSchema.value>>
 
 const writeFile = reactive({
-  slug: undefined
+  slug: undefined,
+  order: undefined
 })
 
 function formatZodError(issues: z.ZodIssue[]) {
@@ -43,10 +44,12 @@ function formatZodError(issues: z.ZodIssue[]) {
 }
 
 function handleArraysAndFalseyValues(columnName: string[], value: string | undefined): undefined | null | string[] | string {
+  console.log('handleArraysAndFalseyValues', columnName, value)
   // TODO: handle booleans when there are no falsey values (implying that the data contains 'false' (which evaluates to true) instead of '')
   const schema = activeSchema.value as z.ZodObject<SchemaType>
   const path = columnName.join('.')
   const columnSchema = zodDeepPick(schema, path)
+  console.log('columnSchema', columnSchema)
   const wrapType = zodWrapType(columnSchema)
   if (isZodArray(columnSchema)) {
     if (value) return value.split(',').map(value => value.trim())
@@ -71,9 +74,11 @@ function recordArray(columnArray: string[], valuesArray: string[]) {
 }
 
 function transformToObjectFromArray(obj: SchemaType, path: string[], value: string | undefined) {
+  console.log('transformToObjectFromArray', path, value)
   path.reduce((acc, key, i) => {
     if (acc[key] === undefined) acc[key] = {}
     if (i === path.length - 1) acc[key] = handleArraysAndFalseyValues(path, value)
+
     return acc[key]
   }, obj)
 }
@@ -94,7 +99,9 @@ function transformToArrayOfObjects(values: string[][]): SchemaType[] {
     .map((row) => {
       const rowArray = recordArray(headers, row)
       const record = {}
+      console.log(rowArray)
       rowArray.map(({ value, keys }) => transformToObjectFromArray(record, keys, value))
+      console.log('after')
       if (!activeSchema.value) return null
       const parsed = activeSchema.value.safeParse(record)
       if (!parsed.success) {
@@ -139,7 +146,7 @@ const logs = ref<string[]>([])
 async function start(arr: Import[]) {
   const transformed = arr.map(async (importedObject: Import) => {
     // const payload = schema.parse(productObject)
-    const log = await $fetch<string>(`/api/write?path=${contentFolderPath}&folder=${localQuery.value.sheetTitleKebab}&slug=${writeFile.slug}`, {
+    const log = await $fetch<string>(`/api/write?path=${contentFolderPath}&folder=${localQuery.value.sheetTitleKebab}&slug=${writeFile.slug}&order=${writeFile.order}`, {
       method: 'POST',
       body: importedObject
     })
@@ -170,6 +177,19 @@ const toast = useToast()
           v-model="writeFile.slug"
           :items="columnList"
           label="Column to use as slug/filename"
+          icon="i-heroicons-document-chart-bar-20-solid"
+          class="w-60"
+        />
+      </UFormField>
+      <UFormField
+        v-if="values?.length"
+        label="Choose column to use as numerical ordering file prefix"
+        name="order"
+      >
+        <USelect
+          v-model="writeFile.order"
+          :items="columnList"
+          label="Column to use as ordering file prefix"
           icon="i-heroicons-document-chart-bar-20-solid"
           class="w-60"
         />
