@@ -32,19 +32,6 @@ useSeoMeta({
 defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation?.value, route.path))
-
-const features = computed(() => [
-  {
-    title: 'Feature 1',
-    description: page.value?.featurePrimary || 'Description of feature 1',
-    icon: 'i-lucide-star'
-  },
-  {
-    title: 'Feature 2',
-    description: page.value?.featureSecondary || 'Description of feature 2',
-    icon: 'i-lucide-star'
-  }
-])
 </script>
 
 <template>
