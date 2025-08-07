@@ -11,15 +11,6 @@ export default defineContentConfig({
         source: 'index.md'
       })
     ),
-    // landing: defineCollection(
-    //   asSitemapCollection({
-    //     type: 'page',
-    //     source: {
-    //       include: '*.md',
-    //       exclude: ['index.md']
-    //     }
-    //   })
-    // ),
     about: defineCollection(
       asSitemapCollection({
         type: 'page',
@@ -48,14 +39,18 @@ export default defineContentConfig({
       asSitemapCollection({
         type: 'page',
         source: 'spares.md'
-        // schema: schemas.spares
       })
     ),
-    spares: defineCollection(
+    peripheralsLanding: defineCollection(
       asSitemapCollection({
         type: 'page',
-        source: 'spares/*.md'
-        // schema: schemas.spares
+        source: 'peripherals.md'
+      })
+    ),
+    peripherals: defineCollection(
+      asSitemapCollection({
+        type: 'page',
+        source: 'peripherals/*.md'
       })
     ),
     latest: defineCollection(

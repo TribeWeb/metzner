@@ -2,15 +2,16 @@
 const { seo, toaster } = useAppConfig()
 
 const { data: machines } = await useAsyncData('machinesList', () => queryCollectionNavigation('machines'))
+
 provide('machines', machines)
 
 const { data: about } = await useAsyncData('aboutList', () => queryCollectionNavigation('about', ['column']))
 provide('about', about)
 
-const { data: spares } = await useAsyncData('sparesList', () => queryCollectionNavigation('spares'), {
+const { data: peripherals } = await useAsyncData('peripheralsList', () => queryCollectionNavigation('peripherals'), {
   // transform: data => data.find(item => item.path === '/spares')?.children || []
 })
-provide('spares', spares)
+provide('peripherals', peripherals)
 
 const { data: latest } = await useAsyncData('latestList', () => queryCollectionNavigation('latest'))
 provide('latest', latest)

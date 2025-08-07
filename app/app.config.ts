@@ -58,6 +58,28 @@ export default defineAppConfig({
       to: '/',
       name: 'index'
     }, {
+      label: 'Machines',
+      icon: 'i-lucide-pocket-knife',
+      page: false,
+      to: '/machines',
+      name: 'machines-landing',
+      children: [{
+        label: 'Cutting machines',
+        icon: 'i-lucide-star',
+        description: 'Precision cutting of hoses, extrusions & gaskets.',
+        to: '/machines'
+      }, {
+        label: 'Peripherals',
+        icon: 'i-lucide-star',
+        description: 'Bits and bobs.',
+        to: '/peripherals'
+      }, {
+        label: 'Spare Parts & Service',
+        icon: 'i-lucide-star',
+        description: 'Advice and support for your Metzner machines.',
+        to: '/spares'
+      }]
+    }, {
       label: 'About',
       icon: 'lucide-smile-plus',
       to: '/about',
@@ -73,23 +95,6 @@ export default defineAppConfig({
         description: 'Talk to our team of experts',
         icon: 'lucide-megaphone',
         to: '/contact'
-      }]
-    }, {
-      label: 'Machines',
-      icon: 'i-lucide-pocket-knife',
-      page: false,
-      to: '/machines',
-      name: 'machines-landing',
-      children: [{
-        label: 'Cutting machines',
-        icon: 'i-lucide-star',
-        description: 'Precision cutting of hoses, extrusions & gaskets.',
-        to: '/machines'
-      }, {
-        label: 'Spare Parts & Service',
-        icon: 'i-lucide-star',
-        description: 'Advice and support for your Metzner machines.',
-        to: '/spares'
       }]
     }, {
       label: 'Latest',

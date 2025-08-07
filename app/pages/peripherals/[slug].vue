@@ -3,15 +3,15 @@ import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
 definePageMeta({
-  layout: 'spares'
+  layout: 'peripherals'
 })
 
 const route = useRoute()
 const { toc, seo } = useAppConfig()
-const navigation = inject<Ref<ContentNavigationItem[]>>('spares') || ref<ContentNavigationItem[]>([])
+const navigation = inject<Ref<ContentNavigationItem[]>>('peripherals') || ref<ContentNavigationItem[]>([])
 
 const { data: page } = await useAsyncData(route.path, () => {
-  return queryCollection('spares').path(route.path).first()
+  return queryCollection('peripherals').path(route.path).first()
 })
 
 if (!page.value) {
@@ -19,7 +19,7 @@ if (!page.value) {
 }
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryCollectionItemSurroundings('spares', route.path)
+  return queryCollectionItemSurroundings('peripherals', route.path)
 })
 
 useSeoMeta({

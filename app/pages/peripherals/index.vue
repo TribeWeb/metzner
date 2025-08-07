@@ -2,10 +2,10 @@
 import { findPageHeadline } from '@nuxt/content/utils'
 import type { ContentNavigationItem } from '@nuxt/content'
 
-const navigation = inject<Ref<ContentNavigationItem[]>>('spares') || ref<ContentNavigationItem[]>([])
+const navigation = inject<Ref<ContentNavigationItem[]>>('peripherals') || ref<ContentNavigationItem[]>([])
 
 const route = useRoute()
-const { data: page } = await useAsyncData('spares', () => queryCollection('sparesLanding').path(route.path).first())
+const { data: page } = await useAsyncData('spares', () => queryCollection('peripheralsLanding').path(route.path).first())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
@@ -13,7 +13,7 @@ if (!page.value) {
 const headline = computed(() => findPageHeadline(navigation.value, route.path))
 
 definePageMeta({
-  layout: 'spares'
+  layout: 'peripherals'
 })
 
 useSeoMeta({
