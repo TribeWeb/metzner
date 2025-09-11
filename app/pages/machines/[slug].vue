@@ -120,32 +120,32 @@ useSchemaOrg([
       },
       {
         '@type': 'PropertyValue',
-        'name': 'Dimensions (L×W×H)',
-        'value': '765×515×460 mm',
-        'description': 'Length × Width × Height'
+        'name': 'Dimensions (LxWxH)',
+        'value': '765x515x460 mm', // add to Google Sheet
+        'description': 'Length x Width x Height'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Electrical Input',
-        'value': '230 Vac; 50/60 Hz; 10 A',
+        'value': '230 Vac; 50/60 Hz; 10 A', // Add to Google Sheet
         'description': 'Power supply requirements'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Compressed Air Input',
-        'value': '6 bar | 87 PSI',
+        'value': '6 bar | 87 PSI', // Add to Google Sheet
         'description': 'Required compressed air connection'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Consumption kVA | bar',
-        'value': 'P: 0.4 kVA | approx. 100 l/min.',
+        'value': 'P: 0.4 kVA | approx. 100 l/min.', // Add to Google Sheet
         'description': 'Power and air consumption'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Noise (idle)',
-        'value': '< 75dB (A)',
+        'value': '< 75dB (A)', // Add to Google Sheet
         'description': 'Noise level during idle operation'
       }
     ],
