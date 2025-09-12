@@ -24,7 +24,7 @@ const elSliderY = useTemplateRef('elSliderY')
 const { height: displayHeight } = useElementSize(elDisplay)
 const { height: sliderXHeight } = useElementSize(elSliderX)
 
-const displayAspectRatio = ref(1.8)
+const displayAspectRatio = ref(2.4)
 const viewBoxOffset = ref(5)
 
 const machinesWithWidthHeight = computed(() =>
@@ -80,7 +80,7 @@ function updateWidth(value) {
 </script>
 
 <template>
-  <div class="sm:w-96 flex flex-col">
+  <div class="flex flex-col">
     <div class="flex flex-row">
       <div ref="elSliderY" :style="`height: ${displayHeight - sliderXHeight + 2}px`" class="flex-none w-20 py-3 border border-r-0 border-muted rounded-tl-lg">
         <USlider

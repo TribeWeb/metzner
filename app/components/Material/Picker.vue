@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import type { MaterialsCollectionItem } from '@nuxt/content'
 import { z } from 'zod'
-import type { FormSubmitEvent } from '@nuxt/ui'
 import { materials, machines } from '#imports'
+
+export type FormItem = {
+  id: keyof Schema | 'cutWidthHeight'
+  category: string
+  legend: string
+  description: string
+}
 
 const { headerCopy, formItemsCopy } = defineProps({
   headerCopy: {
-    type: Object
+    type: Object as () => { title: string, description: string }
   },
   formItemsCopy: {
-    type: Object
+    type: Array as () => FormItem[]
   }
 })
 
-const mergedCollectionItem = z.object({ ...materials.shape, ...machines.shape })
-export type MergedCollectionItem = z.output<typeof mergedCollectionItem>
+const _mergedCollectionItem = z.object({ ...materials.shape, ...machines.shape })
+export type MergedCollectionItem = z.output<typeof _mergedCollectionItem>
 
 const machineSchema = machines.pick({ cutDiameter: true, cutWidth: true, cutHeight: true })
 const materialSchema = materials.pick({ stiffness: true, shape: true, reinforced: true, core: true })
@@ -40,17 +46,17 @@ onMounted(() => {
 
 const router = useRouter()
 watchEffect(() => {
+  if (state.shape === 'round') {
+    state.cutWidth = undefined
+    state.cutHeight = undefined
+  } else {
+    state.cutDiameter = undefined
+  }
   router.replace({ query: state })
 })
 
 const itemKeys: (keyof MaterialsCollectionItem)[] = ['shape', 'core', 'reinforced', 'stiffness']
 const allKeys: (keyof MaterialsCollectionItem)[] = [...itemKeys, 'slug', 'type', 'material', 'config', 'modelId', 'modelName']
-
-const toast = useToast()
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-  console.log(event.data)
-}
 
 const { data } = await useAsyncData(route.path, () => Promise.all([
   queryCollection('materials')
@@ -63,7 +69,7 @@ const { data } = await useAsyncData(route.path, () => Promise.all([
   transform: ([allMaterials, allMachines]) => ({ allMaterials, allMachines })
 })
 
-const allMaterials = computed(() => data.value?.allMaterials)
+const allMaterials = computed(() => data.value?.allMaterials || [])
 const allMachines = computed(() => data.value?.allMachines)
 
 // TODO merge materials and allMachines into a single collection where the key on which to join is `modelId`.
@@ -178,7 +184,7 @@ const normalizedItems = computed(() => {
       [key]: {
         items: getAllPossibleValues(allMaterials.value as MaterialsCollectionItem[], key).map((val) => {
           if (val === '*') return
-          const filtered = getMaterialsResults(mergedCollection.value, state, key, val)
+          const filtered = getMaterialsResults(mergedCollection.value, state, key as keyof Schema, val)
           return {
             label: String(val).charAt(0).toUpperCase() + String(val).slice(1),
             value: val,
@@ -218,7 +224,6 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
       :state="state"
       :schema="schema"
       class="space-y-4 mb-6"
-      @submit="onSubmit"
     >
       <ProseH2>
         {{ headerCopy?.title }}
@@ -226,11 +231,9 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
       <ProseP>
         {{ headerCopy?.description }}
       </ProseP>
-      <ProseH3>
-        {{ formItemsCopy?.shape?.category }}
-      </ProseH3>
-      <div class="flex flex-row gap-8 flex-wrap">
-        <UFormField name="shape" :label="formItemsCopy?.shape?.legend" :description="formItemsCopy?.shape?.description" :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }">
+
+      <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'shape')">
           <URadioGroup
             v-model="state.shape"
             name="shape"
@@ -253,13 +256,8 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
               <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
             </template>
           </URadioGroup>
-        </UFormField>
-        <UFormField
-          name="core"
-          :label="formItemsCopy?.core?.legend"
-          :description="formItemsCopy?.core?.description"
-          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-        >
+        </MaterialFormItem>
+        <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'core')">
           <UCheckboxGroup
             v-model="state.core"
             name="core"
@@ -279,13 +277,8 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
               <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
             </template>
           </UCheckboxGroup>
-        </UFormField>
-        <UFormField
-          name="reinforced"
-          :label="formItemsCopy?.reinforced?.legend"
-          :description="formItemsCopy?.reinforced?.description"
-          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-        >
+        </MaterialFormItem>
+        <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'reinforced')">
           <URadioGroup
             v-model="state.reinforced"
             name="reinforced"
@@ -305,74 +298,43 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
               <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
             </template>
           </URadioGroup>
-        </UFormField>
-      </div>
-      <ProseH3>{{ formItemsCopy?.stiffness?.category }}</ProseH3>
-      <UFormField
-        name="stiffness"
-        :label="formItemsCopy?.stiffness?.legend"
-        :description="formItemsCopy?.stiffness?.description"
-        :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-      >
-        <URadioGroup
-          v-model="state.stiffness"
-          name="stiffness"
-          :items="normalizedItems.stiffness.items"
-          variant="table"
-          :ui="{ label: 'relative' }"
-        >
-          <template #label="{ item }">
-            <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
-            <UIcon
-              :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
-              class="absolute -top-3 right-0 h-16 w-32 text-muted"
-              :class="{ 'bg-primary': state.stiffness === (typeof item === 'object' && 'value' in item ? item.value : item) }"
-            />
-          </template>
-          <template #description="{ item }">
-            <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
-          </template>
-        </URadioGroup>
-      </UFormField>
-      <div v-if="state.shape === 'round'">
-        <ProseH3>{{ formItemsCopy?.cutDiameter?.category }}</ProseH3>
-        <UFormField
-          name="cutDiameter"
-          :label="formItemsCopy?.cutDiameter?.legend"
-          :description="formItemsCopy?.cutDiameter?.description"
-          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-        >
+        </MaterialFormItem>
+        <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'stiffness')">
+          <URadioGroup
+            v-model="state.stiffness"
+            name="stiffness"
+            :items="normalizedItems.stiffness.items"
+            variant="table"
+            :ui="{ label: 'relative' }"
+          >
+            <template #label="{ item }">
+              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+              <UIcon
+                :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
+                class="absolute -top-3 right-0 h-16 w-32 text-muted"
+                :class="{ 'bg-primary': state.stiffness === (typeof item === 'object' && 'value' in item ? item.value : item) }"
+              />
+            </template>
+            <template #description="{ item }">
+              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            </template>
+          </URadioGroup>
+        </MaterialFormItem>
+        <MaterialFormItem v-if="state.shape === 'round'" :copy="formItemsCopy?.find(item => item.id === 'cutDiameter')" :col-count="2">
           <MaterialDiameter
             v-model="state.cutDiameter"
             :machines="allMachines"
           />
-        </UFormField>
-      </div>
-      <div v-else>
-        <ProseH3>{{ formItemsCopy?.cutWidthHeight?.category }}</ProseH3>
-        <UFormField
-          name="cutWidthHeight"
-          :label="formItemsCopy?.cutWidthHeight?.legend"
-          :description="formItemsCopy?.cutWidthHeight?.description"
-          :ui="{ root: 'sm:w-96', description: 'pt-1 pb-3' }"
-        >
+        </MaterialFormItem>
+        <MaterialFormItem v-else :copy="formItemsCopy?.find(item => item.id === 'cutWidthHeight')" :col-count="2">
           <MaterialWidthHeight
             v-model:cut-width="state.cutWidth"
             v-model:cut-height="state.cutHeight"
             :machines="allMachines"
           />
-        </UFormField>
+        </MaterialFormItem>
       </div>
     </UForm>
-
     <pre>{{ filtered.count }}</pre>
-    <!-- <pre style="color: blue">{{ filtered.modelIds }}</pre> -->
-    <!-- <pre>{{ filtered.remainingValues }}</pre>
-    <pre>{{ filtered.filtered }}</pre> -->
-    <!-- <pre>{{ filtered?.length }}</pre>
-    <pre>{{ filtered?.map((m) => m.modelId) }}</pre> -->
   </UContainer>
 </template>
-
-<style scoped>
-</style>
