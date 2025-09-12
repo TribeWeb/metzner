@@ -92,104 +92,58 @@ export default defineNuxtConfig({
 
   schemaOrg: {
     identity: defineLocalBusiness({
-      // '@type': '...', // Choose from https://schema.org/LocalBusiness#subtypes
-
-      // Basic Information (Required)
-      name: 'The Coastal Kitchen',
-      description: 'Farm-to-table restaurant specializing in sustainable seafood and seasonal ingredients',
-      url: 'https://thecoastalkitchen.com',
+      '@type': 'Store',
+      'name': 'Metzner UK',
+      'description': 'The UK distributor for Metzner Maschinenbau GmbH, a German company manufacturing high quality and bespoke cutting machines.',
+      'url': 'https://metzner.co.uk',
 
       // Location (Required)
-      address: {
-        streetAddress: '742 Oceanview Boulevard, Suite 100',
-        addressLocality: 'Santa Cruz',
-        addressRegion: 'CA',
-        postalCode: '95060',
-        addressCountry: 'US'
+      'address': {
+        streetAddress: '3 Fairfield Court, Seven Stars Industrial Estate',
+        addressLocality: 'Coventry',
+        postalCode: 'CV3 4LJ',
+        addressCountry: 'UK'
       },
 
       // Precise Geographic Location, if applicable
-      geo: {
+      'geo': {
         '@type': 'GeoCoordinates',
-        'latitude': '36.9741',
-        'longitude': '-122.0308'
+        'latitude': '52.393691',
+        'longitude': '-1.480252'
       },
 
       // Contact Information, if applicable
-      telephone: '+1-831-555-0123',
-      email: 'hello@thecoastalkitchen.com',
+      'telephone': '+44-2476-214799',
+      'email': 'sales@metzner.co.uk',
 
       // Hours of Operation, if applicable
-      openingHoursSpecification: [
+      'openingHoursSpecification': [
         {
           dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-          opens: '11:30:00',
-          closes: '22:00:00'
+          opens: '09:00',
+          closes: '17:00'
         },
         {
-          dayOfWeek: ['Friday', 'Saturday'],
-          opens: '11:30:00',
-          closes: '23:00:00'
-        },
-        {
-          dayOfWeek: 'Sunday',
-          opens: '10:00:00', // Sunday Brunch
-          closes: '21:00:00'
+          dayOfWeek: ['Friday'],
+          opens: '09:00',
+          closes: '16:30'
         }
       ],
-
-      // Business Details, if applicable
-      priceRange: '$$$', // $, $$, $$$, or $$$$
-      servesCuisine: [
-        'Seafood',
-        'California',
-        'Farm-to-table'
-      ],
-
-      // Menu (for restaurants)
-      menu: 'https://thecoastalkitchen.com/menu',
-
       // Images, if applicable
-      image: [
-        'https://thecoastalkitchen.com/images/storefront.jpg',
-        'https://thecoastalkitchen.com/images/interior.jpg',
-        'https://thecoastalkitchen.com/images/food.jpg'
+      'image': [
+        'https://thecoastalkitchen.com/images/storefront.jpg'
       ],
-      logo: '/logo.png',
+      'logo': '/logo.png',
 
       // Payment Options, if applicable
-      paymentAccepted: [
-        'Cash',
-        'Credit Card',
-        'Cryptocurrency'
+      'paymentAccepted': [
+        'Credit Card'
       ],
-      currenciesAccepted: 'USD',
-
-      // Additional Business Details, if applicable
-      isAccessibleForDisabled: true,
-      amenityFeature: [
-        {
-          '@type': 'LocationFeatureSpecification',
-          'name': 'Parking',
-          'value': true
-        },
-        {
-          '@type': 'LocationFeatureSpecification',
-          'name': 'Wheelchair Accessible',
-          'value': true
-        },
-        {
-          '@type': 'LocationFeatureSpecification',
-          'name': 'Outdoor Seating',
-          'value': true
-        }
-      ],
+      'currenciesAccepted': 'GBP,EUR,USD',
 
       // Social Links, if applicable
-      sameAs: [
-        'https://www.facebook.com/coastalkitchen',
-        'https://instagram.com/thecoastalkitchen',
-        'https://twitter.com/coastalkitchen'
+      'sameAs': [
+        'https://www.metzner.com/support/sales-partners-worldwide/'
       ]
     })
   }
