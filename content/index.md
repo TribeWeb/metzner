@@ -11,27 +11,27 @@ headerCopy:
   title: Material Picker
   description: Specify the material you need to cut, and we'll identify the most suitable cutting machines from our range.
 formItemsCopy:
-  shape:
+  - id: shape
     category: Cross section
     legend: Shape
     description: Is the material a pipe, hose, conduit - or cord with a round cross section or does it have a more complex profile?
-  core:
+  - id: core
     category: Cross section
     legend: Core
     description: Is the core of the material solid or hollow? Complex profiles may have both solid and hollow portions.
-  reinforced:
+  - id: reinforced
     category: Cross section
     legend: Reinforced
     description: Is there steel reinforcement running along the length of the material?
-  stiffness:
+  - id: stiffness
     category: Longitudinal section
     legend: Stiffness
     description: Is the material a flexible hose, cord or profile - or a rigid pipe or extrusion?
-  cutDiameter:
+  - id: cutDiameter
     category: Dimensions
     legend: Diameter
     description: What is the outer diameter of the material cross section?
-  cutWidthHeight:
+  - id: cutWidthHeight
     category: Dimensions
     legend: Width & height
     description: What is the width and height of the material cross section?
