@@ -21,7 +21,7 @@ const { copy } = defineProps({
     >
       <template #label>
         <h3> {{ copy?.legend }} </h3>
-        <UBadge size="sm" variant="soft" :label="copy?.category" class="block" />
+        <UBadge size="md" variant="soft" :label="copy?.category" class="block" />
       </template>
       <slot />
     </UFormField>

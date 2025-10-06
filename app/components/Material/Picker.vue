@@ -335,6 +335,6 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
         </MaterialFormItem>
       </div>
     </UForm>
-    <pre>{{ filtered.count }}</pre>
+    <pre>{{ filtered.modelIds }}</pre>
   </UContainer>
 </template>
