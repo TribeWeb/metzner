@@ -42,7 +42,7 @@ formItemsCopy:
 ---
 orientation: vertical
 ---
-  :::u-page-marquee{:overlay='false' pause-on-hover}
+  :::u-marquee{:overlay='false' pause-on-hover}
     ::::u-page-card
     ---
     description: bob
