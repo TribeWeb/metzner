@@ -15,10 +15,7 @@ export default defineAppConfig({
       minus: 'i-lucide-minus',
       plus: 'i-lucide-plus',
       check: 'i-lucide-check'
-    }
-  },
-
-  uiPro: {
+    },
     footer: {
       slots: {
         root: 'border-t border-(--ui-border)',

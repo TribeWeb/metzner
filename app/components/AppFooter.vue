@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
-import { mapContentNavigation } from '@nuxt/ui-pro/runtime/utils/content.js'
+import { mapContentNavigation } from '@nuxt/ui/utils/content'
 
 const { footer } = useAppConfig()
 const columnHeaders = footer.columnHeaders || []

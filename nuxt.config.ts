@@ -3,10 +3,10 @@ import { defineLocalBusiness } from 'nuxt-schema-org/schema'
 
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/ui-pro',
+    '@nuxt/eslint',
+    '@nuxt/ui',
     '@nuxtjs/sitemap',
     '@nuxt/content',
-    '@nuxt/eslint',
     '@nuxt/image',
     'nuxt-og-image',
     '@nuxthub/core',
