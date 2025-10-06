@@ -14,7 +14,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-defineOgImageComponent('Saas')
+defineOgImageComponent('OgImageDocs')
 </script>
 
 <template>
