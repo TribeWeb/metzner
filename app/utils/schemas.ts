@@ -16,10 +16,17 @@ export const machines = z.strictObject({
   cutHeight: z.coerce.number().optional(),
   cutDiameter: z.coerce.number().optional(),
   cutRate: z.coerce.number().optional(),
-  accuracy: z.string().optional(),
+  cutAccuracy: z.string().optional(),
+  feedSpeed: z.string().optional(),
+  dimensions: z.string().optional(),
+  electricalInput: z.string().optional(),
+  compressedAirInput: z.string().optional(),
+  idleNoise: z.string().optional(),
   featurePrimary: z.string().optional(),
   featureSecondary: z.string().optional(),
   relativePrice: z.coerce.number().optional(),
+  minPrice: z.coerce.number().optional(),
+  maxPrice: z.coerce.number().optional(),
   features: z.object({
     title: z.string().optional(),
     description: z.string().optional()
