@@ -92,7 +92,7 @@ useSchemaOrg([
       {
         '@type': 'QuantitativeValue',
         'name': 'Feeding Speed Max',
-        'value': 90, // Add to Google Sheet
+        'value': page.value.feedSpeed, 
         'unitText': 'm/min',
         'description': 'Maximum feeding speed'
       },
@@ -115,25 +115,25 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Cutting Accuracy',
-        'value': page.value.accuracy,
+        'value': page.value.cutAccuracy,
         'description': 'Positional and repeatable cutting accuracy'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Dimensions (LxWxH)',
-        'value': '765x515x460 mm', // add to Google Sheet
+        'value': `${page.value.dimensions} mm`, 
         'description': 'Length x Width x Height'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Electrical Input',
-        'value': '230 Vac; 50/60 Hz; 10 A', // Add to Google Sheet
+        'value': page.value.electricalInput,
         'description': 'Power supply requirements'
       },
       {
         '@type': 'PropertyValue',
         'name': 'Compressed Air Input',
-        'value': '6 bar | 87 PSI', // Add to Google Sheet
+        'value': page.value.compressedAirInput, 
         'description': 'Required compressed air connection'
       },
       {
@@ -145,7 +145,7 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Noise (idle)',
-        'value': '< 75dB (A)', // Add to Google Sheet
+        'value': `${page.value.dimensions} (A)`, 
         'description': 'Noise level during idle operation'
       }
     ],
@@ -153,8 +153,8 @@ useSchemaOrg([
       '@type': 'AggregateOffer',
       'url': route.fullPath,
       'priceCurrency': 'GBP',
-      'lowPrice': '5000', // Add to Google Sheet
-      'highPrice': '10000', // Add to Google Sheet
+      'lowPrice': page.value.minPrice, 
+      'highPrice': page.value.maxPrice, 
       'itemCondition': 'https://schema.org/NewCondition',
       'seller': {
         '@type': 'Organization',
