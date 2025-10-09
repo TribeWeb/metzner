@@ -21,7 +21,7 @@
     "@nuxt/ui": "^4.0.1",
     "@nuxthub/core": "0.9.0",
     "@nuxtjs/sitemap": "7.4.7",
-    "@unhead/vue": "2.0.17",
+    "@unhead/vue": "2.0.18",
     "@vueuse/nuxt": "13.9.0",
     "better-sqlite3": "^12.4.1",
     "js-yaml": "^4.1.0",
@@ -41,11 +41,6 @@
   },
   "packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34",
   "pnpm": {
-    "overrides": {
-      "ajv": "^8.17.1",
-      "whatwg-url": "^15.1.0",
-      "uri-js": "^4.4.1"
-    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "@tailwindcss/oxide",
