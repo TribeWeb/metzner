@@ -4,7 +4,7 @@ import { schemas } from '#imports'
 
 interface Props {
   query: {
-    spreadsheetId: string
+    spreadsheetId: string 
     sheetTitle: string
     range: string
     schema: string
@@ -28,7 +28,8 @@ const activeSchema = computed(() =>
 )
 
 // Type inference from schema
-type SchemaType = z.infer<NonNullable<typeof activeSchema.value>>
+type SchemaType = z.infer<typeof activeSchema.value>
+  //type SchemaType = z.infer<typeof schemas['machines']>
 
 const writeFile = reactive({
   slug: undefined,
@@ -75,10 +76,10 @@ function recordArray(columnArray: string[], valuesArray: string[]) {
 
 function transformToObjectFromArray(obj: SchemaType, path: string[], value: string | undefined) {
   console.log('transformToObjectFromArray', path, value)
-  path.reduce((acc, key, i) => {
+  path.reduce((acc: any, key, i) => {
     if (acc[key] === undefined) acc[key] = {}
     if (i === path.length - 1) acc[key] = handleArraysAndFalseyValues(path, value)
-
+    console.log(acc[key])
     return acc[key]
   }, obj)
 }
@@ -98,7 +99,7 @@ function transformToArrayOfObjects(values: string[][]): SchemaType[] {
   return rows
     .map((row) => {
       const rowArray = recordArray(headers, row)
-      const record = {}
+      const record = {} as SchemaType
       console.log(rowArray)
       rowArray.map(({ value, keys }) => transformToObjectFromArray(record, keys, value))
       console.log('after')
