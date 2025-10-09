@@ -4,7 +4,7 @@ import { schemas } from '#imports'
 
 interface Props {
   query: {
-    spreadsheetId: string 
+    spreadsheetId: string
     sheetTitle: string
     range: string
     schema: string
@@ -29,7 +29,7 @@ const activeSchema = computed(() =>
 
 // Type inference from schema
 type SchemaType = z.infer<typeof activeSchema.value>
-  //type SchemaType = z.infer<typeof schemas['machines']>
+// type SchemaType = z.infer<typeof schemas['machines']>
 
 const writeFile = reactive({
   slug: undefined,

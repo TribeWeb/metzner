@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from 'zod'
 import type { MaterialsCollectionItem } from '@nuxt/content'
 
@@ -20,7 +21,7 @@ export function flatten(obj: MaterialsCollectionItem, prefix = '') {
 }
 
 export function isZodObject(schema: z.ZodTypeAny): schema is z.ZodObject {
-    return schema instanceof z.ZodObject;
+  return schema instanceof z.ZodObject
 }
 
 export function isZodArray(schema: z.ZodTypeAny): schema is z.ZodObject {
@@ -42,21 +43,21 @@ export function pickArray(schema: z.ZodTypeAny): z.ZodTypeAny {
 }
 
 export function pickObject(schema: z.ZodTypeAny, path: string): z.ZodTypeAny {
-  if (!isZodObject(schema) 
-    && !('innerType' in schema.def && isZodObject((schema as any)._def.innerType))) 
-  throw Error('Not a zod object')
+  if (!isZodObject(schema)
+    && !('innerType' in schema.def && isZodObject((schema as any)._def.innerType)))
+    throw Error('Not a zod object')
 
-  const shape =
-    isZodObject(schema)
+  const shape
+    = isZodObject(schema)
       ? (schema as z.ZodObject<any>).shape
       : isZodObject((schema as any)._def.innerType)
         ? ((schema as any)._def.innerType as z.ZodObject<any>).shape
-        : undefined;
+        : undefined
   const newSchema = shape?.[path]
 
-  if (!newSchema) 
-    throw Error(`${path} does not exist on schema with keys: ${Object.keys((schema as z.ZodObject).shape 
-  || ((schema as any)._def.innerType as z.ZodObject).shape)}`)
+  if (!newSchema)
+    throw Error(`${path} does not exist on schema with keys: ${Object.keys((schema as z.ZodObject).shape
+      || ((schema as any)._def.innerType as z.ZodObject).shape)}`)
 
   return newSchema
 }

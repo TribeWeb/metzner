@@ -1,48 +1,48 @@
 import { defineContentConfig, defineCollection, property } from '@nuxt/content'
 import { z } from 'zod'
-import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+// import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 import { schemas } from './app/utils/schemas'
 
 export default defineContentConfig({
   collections: {
     home: defineCollection({
-        type: 'page',
-        source: 'index.md'
-      }),
+      type: 'page',
+      source: 'index.md'
+    }),
     about: defineCollection({
-        type: 'page',
-        source: [{
-          include: 'about/*.md',
-          prefix: '/'
-        },
-        { include: '1.about.md' }],
-        schema: schemas.about
-     }),
+      type: 'page',
+      source: [{
+        include: 'about/*.md',
+        prefix: '/'
+      },
+      { include: '1.about.md' }],
+      schema: schemas.about
+    }),
     machinesLanding: defineCollection({
-        type: 'page',
-        source: 'machines.md'
-      }),
+      type: 'page',
+      source: 'machines.md'
+    }),
     machines: defineCollection({
-        type: 'page',
-        source: 'machines/*.md',
-        schema: schemas.machines
-      }),
+      type: 'page',
+      source: 'machines/*.md',
+      schema: schemas.machines
+    }),
     sparesLanding: defineCollection({
-        type: 'page',
-        source: 'spares.md'
-      }),
+      type: 'page',
+      source: 'spares.md'
+    }),
     peripheralsLanding: defineCollection({
-        type: 'page',
-        source: 'peripherals.md'
-      }),
+      type: 'page',
+      source: 'peripherals.md'
+    }),
     peripherals: defineCollection({
-        type: 'page',
-        source: 'peripherals/*.md'
-      }),
+      type: 'page',
+      source: 'peripherals/*.md'
+    }),
     latest: defineCollection({
-        type: 'page',
-        source: 'latest.md'
-      }),
+      type: 'page',
+      source: 'latest.md'
+    }),
     posts: defineCollection({
       source: 'latest/**/*',
       type: 'page',

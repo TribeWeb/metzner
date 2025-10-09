@@ -92,7 +92,7 @@ useSchemaOrg([
       {
         '@type': 'QuantitativeValue',
         'name': 'Feeding Speed Max',
-        'value': page.value.feedSpeed, 
+        'value': page.value.feedSpeed,
         'unitText': 'm/min',
         'description': 'Maximum feeding speed'
       },
@@ -121,7 +121,7 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Dimensions (LxWxH)',
-        'value': `${page.value.dimensions} mm`, 
+        'value': `${page.value.dimensions} mm`,
         'description': 'Length x Width x Height'
       },
       {
@@ -133,7 +133,7 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Compressed Air Input',
-        'value': page.value.compressedAirInput, 
+        'value': page.value.compressedAirInput,
         'description': 'Required compressed air connection'
       },
       {
@@ -145,7 +145,7 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Noise (idle)',
-        'value': `${page.value.dimensions} (A)`, 
+        'value': `${page.value.dimensions} (A)`,
         'description': 'Noise level during idle operation'
       }
     ],
@@ -153,8 +153,8 @@ useSchemaOrg([
       '@type': 'AggregateOffer',
       'url': route.fullPath,
       'priceCurrency': 'GBP',
-      'lowPrice': page.value.minPrice, 
-      'highPrice': page.value.maxPrice, 
+      'lowPrice': page.value.minPrice,
+      'highPrice': page.value.maxPrice,
       'itemCondition': 'https://schema.org/NewCondition',
       'seller': {
         '@type': 'Organization',
