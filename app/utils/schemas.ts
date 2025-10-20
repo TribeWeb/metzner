@@ -21,7 +21,7 @@ export const machines = z.strictObject({
   dimensions: z.string().optional(),
   electricalInput: z.string().optional(),
   compressedAirInput: z.string().optional(),
-  idleNoise: z.string().optional(),
+  idleNoise: z.coerce.number().optional(),
   featurePrimary: z.string().optional(),
   featureSecondary: z.string().optional(),
   relativePrice: z.coerce.number().optional(),
