@@ -13,6 +13,6 @@ As Metzner's UK distributor, we understand the importance of support and spares 
 
 Wether it's routine maintenance or fault finding, we are here to help.
 
-# Contact Us
+## Contact Us
 
 More stuff to say

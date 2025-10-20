@@ -2,6 +2,7 @@
 import { findPageHeadline } from '@nuxt/content/utils'
 import type { ContentNavigationItem } from '@nuxt/content'
 
+const { toc } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('peripherals') || ref<ContentNavigationItem[]>([])
 
 const route = useRoute()
@@ -38,5 +39,15 @@ useSeoMeta({
         :prose="true"
       />
     </UPageBody>
+    <template
+      v-if="page?.body?.toc?.links?.length"
+      #right
+    >
+      <UContentToc
+        highlight
+        :title="toc?.title"
+        :links="page.body?.toc?.links"
+      />
+    </template>
   </UPage>
 </template>

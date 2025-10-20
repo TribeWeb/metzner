@@ -2,10 +2,14 @@
 const { toc, seo } = useAppConfig()
 
 const route = useRoute()
-const { data: page } = await useAsyncData('spares', () => queryCollection('sparesLanding').path(route.path).first())
+const { data: page } = await useAsyncData('spares1', () => queryCollection('sparesLanding').path(route.path).first())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
+
+definePageMeta({
+  layout: 'spares'
+})
 
 useSeoMeta({
   title: page.value.seo.title,
@@ -36,22 +40,7 @@ useSeoMeta({
         <UContentToc
           :title="toc?.title"
           :links="page.body?.toc?.links"
-        >
-          <template
-            v-if="toc?.bottom"
-            #bottom
-          >
-            <div
-              class="hidden lg:block space-y-6"
-              :class="{ '!mt-6': page.body?.toc?.links?.length }"
-            >
-              <USeparator
-                v-if="page.body?.toc?.links?.length"
-                type="dashed"
-              />
-            </div>
-          </template>
-        </UContentToc>
+        />
       </template>
     </UPage>
   </UContainer>

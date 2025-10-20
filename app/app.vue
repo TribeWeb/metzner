@@ -13,6 +13,9 @@ const { data: peripherals } = await useAsyncData('peripheralsList', () => queryC
 })
 provide('peripherals', peripherals)
 
+const { data: spares } = await useAsyncData('sparesLanding', () => queryCollectionNavigation('sparesLanding'))
+provide('spares', spares)
+
 const { data: latest } = await useAsyncData('latestList', () => queryCollectionNavigation('latest'))
 provide('latest', latest)
 
