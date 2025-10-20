@@ -2,6 +2,29 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
+import type { TabsItem } from '@nuxt/ui'
+
+const items = [
+  {
+    label: 'Datasheet',
+    icon: 'i-lucide-file-text',
+    content: 'Datasheet link goes here.',
+    slot: 'datasheet' as const
+  },
+  {
+    label: 'Peripherals',
+    icon: 'i-lucide-square-plus',
+    content: 'List of compatible peripherals.',
+    slot: 'peripherals' as const
+  },
+  {
+    label: 'Specifications',
+    icon: 'i-lucide-notebook-tabs',
+    content: 'Full list of specs.',
+    slot: 'specifications' as const
+  }
+] satisfies TabsItem[]
+
 definePageMeta({
   layout: 'machines'
 })
@@ -191,9 +214,25 @@ useSchemaOrg([
           class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
         >
       </UPageSection>
+      <UPageCard>
+        <UTabs :items="items" :unmount-on-hide="false" variant="link" :ui="{ trigger: 'grow' }" class="gap-4 w-full">
+          <template #datasheet>
+            Datasheet for  <ULink as="button" :to="`/pdf/${route.params.slug}.pdf`">{{ page.title }}</ULink> (pdf)
+          </template>
+          <template #peripherals="{ item }">
+            <p class="text-muted mb-4">
+              {{ item.content }}
+            </p>
+          </template>
+          <template #specifications="{ item }">
+            <p class="text-muted mb-4">
+              {{ item.content }}
+            </p>
+          </template>
+        </UTabs>
+      </UPageCard>
 
       <USeparator v-if="surround?.length" />
-
       <UContentSurround :surround="surround" />
     </UPageBody>
 
