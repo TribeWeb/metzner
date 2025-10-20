@@ -55,6 +55,7 @@ useSeoMeta({
 defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation?.value, route.path))
+const schemaOrgProps = computed(() => useSchemaOrgProps(page.value!))
 
 useSchemaOrg([
   defineProduct({
@@ -78,100 +79,8 @@ useSchemaOrg([
     mpn: page.value.title,
     countryOfOrigin: 'DE',
     weight: '65 kg', // Add to Google Sheet
-    hasMeasurement: [
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Material Width Max',
-        'value': page.value.cutWidth,
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        'description': 'Maximum width of material that can be processed'
-      },
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Material Height Max',
-        'value': page.value.cutHeight,
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        'description': 'Maximum height of material that can be processed'
-      },
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Material Diameter Max',
-        'value': page.value.cutDiameter,
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        'description': 'Maximum diameter of material that can be processed'
-      },
-
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Length Interval',
-        'value': 0.1, // Add to Google Sheet
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        'description': 'Minimum length interval for cutting'
-      },
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Feeding Speed Max',
-        'value': page.value.feedSpeed,
-        'unitText': 'm/min',
-        'description': 'Maximum feeding speed'
-      },
-      {
-        '@type': 'QuantitativeValue',
-        'name': 'Cutting Performance',
-        'value': page.value.cutRate,
-        'unitText': 'cuts/min',
-        'unitCode': 'CPM',
-        'description': 'Maximum cutting performance'
-      }
-    ],
-    additionalProperty: [
-      {
-        '@type': 'PropertyValue',
-        'name': 'Available Cutting Technologies',
-        'value': 'Die cutting, Shear cutting, Draw cutting', // Add to Google Sheet??
-        'description': 'Types of cutting technologies supported'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Cutting Accuracy',
-        'value': page.value.cutAccuracy,
-        'description': 'Positional and repeatable cutting accuracy'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Dimensions (LxWxH)',
-        'value': `${page.value.dimensions} mm`,
-        'description': 'Length x Width x Height'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Electrical Input',
-        'value': page.value.electricalInput,
-        'description': 'Power supply requirements'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Compressed Air Input',
-        'value': page.value.compressedAirInput,
-        'description': 'Required compressed air connection'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Consumption kVA | bar',
-        'value': 'P: 0.4 kVA | approx. 100 l/min.', // Add to Google Sheet
-        'description': 'Power and air consumption'
-      },
-      {
-        '@type': 'PropertyValue',
-        'name': 'Noise (idle)',
-        'value': `${page.value.idleNoise} dB`,
-        'description': 'Noise level during idle operation'
-      }
-    ],
+    hasMeasurement: schemaOrgProps.value.filter(prop => prop.schema === 'hasMeasurement').map(({ schema, ...rest }) => rest),
+    additionalProperty: schemaOrgProps.value.filter(prop => prop.schema === 'additionalProperty').map(({ schema, ...rest }) => rest),
     offers: {
       '@type': 'AggregateOffer',
       'url': route.fullPath,
@@ -217,17 +126,23 @@ useSchemaOrg([
       <UPageCard>
         <UTabs :items="items" :unmount-on-hide="false" variant="link" :ui="{ trigger: 'grow' }" class="gap-4 w-full">
           <template #datasheet>
-            Datasheet for  <ULink as="button" :to="`/pdf/${route.params.slug}.pdf`">{{ page.title }}</ULink> (pdf)
+            <ULink
+              as="button"
+              :href="`/pdf/${route.params.slug}.pdf`"
+              :alt="`open ${page.title} datasheet in a new tab`"
+              target="_blank"
+              external
+              download
+              class="text-primary"
+            >{{ page.title }} datasheet</ULink> (pdf opens in new tab)
           </template>
           <template #peripherals="{ item }">
             <p class="text-muted mb-4">
               {{ item.content }}
             </p>
           </template>
-          <template #specifications="{ item }">
-            <p class="text-muted mb-4">
-              {{ item.content }}
-            </p>
+          <template #specifications>
+            <UTable :data="schemaOrgProps.map(({ name, value, description }) => ({ name, value, description }))" class="flex-1" />
           </template>
         </UTabs>
       </UPageCard>
