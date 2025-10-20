@@ -145,7 +145,7 @@ useSchemaOrg([
       {
         '@type': 'PropertyValue',
         'name': 'Noise (idle)',
-        'value': `${page.value.dimensions} (A)`,
+        'value': `${page.value.idleNoise} dB`,
         'description': 'Noise level during idle operation'
       }
     ],
