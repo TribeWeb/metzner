@@ -146,5 +146,124 @@ export default defineAppConfig({
     position: 'bottom-right' as const,
     expand: true,
     duration: 5000
-  }
+  },
+  schemaOrg: [
+    {
+      'name': 'Material Width Max',
+      'value': 'cutWidth',
+      'description': 'Maximum width of material that can be processed',
+      'unitText': 'mm',
+      'unitCode': 'MMT',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Material Height Max',
+      'value': 'cutHeight',
+      'description': 'Maximum height of material that can be processed',
+      'unitText': 'mm',
+      'unitCode': 'MMT',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Material Diameter Max',
+      'value': 'cutDiameter',
+      'description': 'Maximum diameter of material that can be processed',
+      'unitText': 'mm',
+      'unitCode': 'MMT',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Length Interval',
+      'value': 'lengthInterval',
+      'description': 'Minimum length interval for cutting',
+      'unitText': 'mm',
+      'unitCode': 'MMT',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Feeding Speed Max',
+      'value': 'feedSpeed',
+      'description': 'Maximum feeding speed',
+      'unitText': 'm/min',
+      'unitCode': '',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Cutting Performance',
+      'value': 'cutRate',
+      'description': 'Maximum cutting performance',
+      'unitText': 'cuts/min',
+      'unitCode': 'CPM',
+      '@type': 'QuantitativeValue',
+      'schema': 'hasMeasurement'
+    },
+    {
+      'name': 'Available Cutting Technologies',
+      'value': 'Die cutting, Shear cutting, Draw cutting',
+      'description': 'Types of cutting technologies supported',
+      'unitText': '',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Cutting Accuracy',
+      'value': 'cutAccuracy',
+      'description': 'Positional and repeatable cutting accuracy',
+      'unitText': '',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Dimensions (LxWxH)',
+      'value': 'dimensions',
+      'description': 'Length x Width x Height',
+      'unitText': 'mm',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Electrical Input',
+      'value': 'electricalInput',
+      'description': 'Power supply requirements',
+      'unitText': '',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Compressed Air Input',
+      'value': 'compressedAirInput',
+      'description': 'Required compressed air connection',
+      'unitText': '',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Consumption kVA | bar',
+      'value': 'consumption',
+      'description': 'Power and air consumption',
+      'unitText': '',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    },
+    {
+      'name': 'Noise (idle)',
+      'value': 'idleNoise',
+      'description': 'Noise level during idle operation',
+      'unitText': 'dB',
+      'unitCode': '',
+      '@type': 'PropertyValue',
+      'schema': 'additionalProperty'
+    }
+  ]
 })
