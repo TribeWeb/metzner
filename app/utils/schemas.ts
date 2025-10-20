@@ -17,7 +17,7 @@ export const machines = z.strictObject({
   cutDiameter: z.coerce.number().optional(),
   cutRate: z.coerce.number().optional(),
   cutAccuracy: z.string().optional(),
-  feedSpeed: z.string().optional(),
+  feedSpeed: z.coerce.number().optional(),
   dimensions: z.string().optional(),
   electricalInput: z.string().optional(),
   compressedAirInput: z.string().optional(),
