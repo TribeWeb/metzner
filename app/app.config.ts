@@ -149,20 +149,9 @@ export default defineAppConfig({
   },
   pageConfig: {
     product: {
-      tableFields: [
-        'machineId',
-        'machineName',
-        'modelId',
-        'cutWidth',
-        'cutHeight',
-        'cutDiameter',
-        'cutRate',
-        'cutAccuracy',
-        'feedSpeed',
-        'dimensions',
-        'electricalInput',
-        'compressedAirInput',
-        'idleNoise'
+      specification: [
+        { id: 'machineId', name: 'Machine ID' },
+        { id: 'machineName', name: 'Machine Name' }
       ]
     }
   },

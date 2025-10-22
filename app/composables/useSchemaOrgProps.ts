@@ -1,43 +1,50 @@
 import type { MachinesCollectionItem } from '@nuxt/content'
 
-export function useSchemaOrgProps(machine: MachinesCollectionItem) {
-  const schemaOrgProps = useAppConfig().schemaOrg1
+export type SchemaOrgPropOptions = {
+  schemaType?: 'hasMeasurement' | 'additionalProperty'
+}
 
-  return schemaOrgProps.map((prop) => {
-    const value = machine[prop.value as keyof MachinesCollectionItem]
+export function useSchemaOrgProps(machine: MachinesCollectionItem, options: SchemaOrgPropOptions) {
+  const {
+    schemaType = 'hasMeasurement'
+  } = options
+  const productNodes = useAppConfig().schemaOrg.product || {}
+  const schemaObjects = productNodes[schemaType] || []
+
+  return schemaObjects.map((field) => {
+    const value = machine[field.value as keyof MachinesCollectionItem]
     if (value === undefined || value === null || value === '') {
       return null
     }
 
     return {
-      '@type': prop['@type'] || undefined,
-      'name': prop.name || undefined,
-      'description': prop?.description || undefined,
-      'value': `${value}${prop.unitText}`,
-      'unitText': prop.unitText || undefined,
-      'unitCode': prop.unitCode || undefined,
-      'schema': prop.schema || undefined
+      '@type': field['@type'] || undefined,
+      'name': field.name || undefined,
+      'description': field?.description || undefined,
+      'value': `${value}${field.unitText}`,
+      'unitText': schemaType === 'hasMeasurement' ? field.unitText || undefined : undefined,
+      'unitCode': schemaType === 'hasMeasurement' ? field.unitCode || undefined : undefined
     }
-  }).filter(prop => prop !== null)
+  }).filter(item => item !== null)
 }
 
-// export function useSchemaOrgProps1(machine: MachinesCollectionItem) {
-//   const schemaOrgProps = useAppConfig().schemaOrg
+export function useSpecification(machine: MachinesCollectionItem) {
+  const specification = useAppConfig().pageConfig.product.specification || []
+  const hasMeasurement = useSchemaOrgProps(machine, { schemaType: 'hasMeasurement' }).map(({ name, value, description }) => ({ name, value, description }))
+  const additionalProperty = useSchemaOrgProps(machine, { schemaType: 'additionalProperty' }).map(({ name, value, description }) => ({ name, value, description }))
 
-//   return schemaOrgProps.map((prop) => {
-//     const value = machine[prop.value as keyof MachinesCollectionItem]
-//     if (value === undefined || value === null || value === '') {
-//       return null
-//     }
+  const tableTop = specification.map((field) => {
+    const value = machine[field.id as keyof MachinesCollectionItem]
+    if (value === undefined || value === null || value === '') {
+      return null
+    }
 
-//     return {
-//       '@type': prop['@type'] || undefined,
-//       'name': prop.name || undefined,
-//       'description': prop?.description || undefined,
-//       'value': `${value}${prop.unitText}`,
-//       'unitText': prop.unitText || undefined,
-//       'unitCode': prop.unitCode || undefined,
-//       'schema': prop.schema || undefined
-//     }
-//   }).filter(prop => prop !== null)
-// }
+    return {
+      name: field.name,
+      value: value,
+      description: ''
+    }
+  })
+
+  return [...tableTop, ...additionalProperty, ...hasMeasurement].filter(item => item !== null)
+}

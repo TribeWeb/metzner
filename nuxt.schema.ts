@@ -262,10 +262,10 @@ export default defineNuxtSchema({
           description: 'Configuration for product pages.',
           icon: 'i-mdi-table-of-contents',
           fields: {
-            tableFields: field({
+            specification: field({
               type: 'array',
-              title: 'Table fields',
-              description: 'Fields to display in the specifications table (in order).',
+              title: 'Specification table fields',
+              description: 'Fields to display in the specifications table in addition to schemaOrg fields.',
               icon: 'i-material-symbols-table-rows-narrow-outline-sharp',
               default: []
             })
@@ -278,25 +278,11 @@ export default defineNuxtSchema({
       description: 'schemaOrg node configuration.',
       icon: 'i-carbon-chart-relationship',
       fields: {
-        title: field({
-          type: 'string',
-          title: 'Title',
-          description: 'Text to display as title of the main toc.',
-          icon: 'i-mdi-format-title',
-          default: ''
-        }),
         product: group({
           title: 'Product',
           description: 'Configuration for schemaOrg fields related to product.',
           icon: 'i-mdi-table-of-contents',
           fields: {
-            tableFields: field({
-              type: 'array',
-              title: 'Table fields',
-              description: 'Fields to display in the specifications table (in order).',
-              icon: 'i-material-symbols-table-rows-narrow-outline-sharp',
-              default: []
-            }),
             hasMeasurement: field({
               type: 'array',
               title: 'hasMeasurement',

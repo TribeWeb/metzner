@@ -55,7 +55,6 @@ useSeoMeta({
 defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation?.value, route.path))
-const schemaOrgProps = computed(() => useSchemaOrgProps(page.value!))
 
 useSchemaOrg([
   defineProduct({
@@ -79,8 +78,8 @@ useSchemaOrg([
     mpn: page.value.title,
     countryOfOrigin: 'DE',
     weight: '65 kg', // Add to Google Sheet
-    hasMeasurement: schemaOrgProps.value.filter(prop => prop.schema === 'hasMeasurement').map(({ schema, ...rest }) => rest),
-    additionalProperty: schemaOrgProps.value.filter(prop => prop.schema === 'additionalProperty').map(({ schema, ...rest }) => rest),
+    hasMeasurement: useSchemaOrgProps(page.value, { schemaType: 'hasMeasurement' }),
+    additionalProperty: useSchemaOrgProps(page.value, { schemaType: 'additionalProperty' }),
     offers: {
       '@type': 'AggregateOffer',
       'url': route.fullPath,
@@ -142,7 +141,7 @@ useSchemaOrg([
             </p>
           </template>
           <template #specifications>
-            <UTable :data="schemaOrgProps.map(({ name, value, description }) => ({ name, value, description }))" class="flex-1" />
+            <UTable :data="useSpecification(page)" class="flex-1" />
           </template>
         </UTabs>
       </UPageCard>
