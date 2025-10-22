@@ -205,7 +205,6 @@ export default defineAppConfig({
           'value': 'Die cutting, Shear cutting, Draw cutting',
           'description': 'Types of cutting technologies supported',
           'unitText': '',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -213,7 +212,6 @@ export default defineAppConfig({
           'value': 'cutAccuracy',
           'description': 'Positional and repeatable cutting accuracy',
           'unitText': '',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -221,7 +219,6 @@ export default defineAppConfig({
           'value': 'dimensions',
           'description': 'Length x Width x Height',
           'unitText': 'mm',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -229,7 +226,6 @@ export default defineAppConfig({
           'value': 'electricalInput',
           'description': 'Power supply requirements',
           'unitText': '',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -237,7 +233,6 @@ export default defineAppConfig({
           'value': 'compressedAirInput',
           'description': 'Required compressed air connection',
           'unitText': '',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -245,7 +240,6 @@ export default defineAppConfig({
           'value': 'consumption',
           'description': 'Power and air consumption',
           'unitText': '',
-          'unitCode': '',
           '@type': 'PropertyValue'
         },
         {
@@ -253,7 +247,6 @@ export default defineAppConfig({
           'value': 'idleNoise',
           'description': 'Noise level during idle operation',
           'unitText': 'dB',
-          'unitCode': '',
           '@type': 'PropertyValue'
         }
       ]
