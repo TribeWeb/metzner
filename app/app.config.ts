@@ -60,39 +60,50 @@ export default defineAppConfig({
       page: false,
       to: '/machines',
       name: 'machines-landing',
-      children: [{
-        label: 'Cutting machines',
-        icon: 'i-lucide-star',
-        description: 'Precision cutting of hoses, extrusions & gaskets.',
-        to: '/machines'
-      }, {
-        label: 'Peripherals',
-        icon: 'i-lucide-star',
-        description: 'Bits and bobs.',
-        to: '/peripherals'
-      }, {
-        label: 'Spare Parts & Service',
-        icon: 'i-lucide-star',
-        description: 'Advice and support for your Metzner machines.',
-        to: '/spares'
-      }]
+
+      children: {
+        '0': {
+          label: 'Cutting machines',
+          icon: 'i-lucide-star',
+          description: 'Precision cutting of hoses, extrusions & gaskets.',
+          to: '/machines'
+        },
+
+        '1': {
+          label: 'Peripherals',
+          icon: 'i-lucide-star',
+          description: 'Bits and bobs.',
+          to: '/peripherals'
+        },
+
+        '2': {
+          label: 'Spare Parts & Service',
+          icon: 'i-lucide-star',
+          description: 'Advice and support for your Metzner machines.',
+          to: '/spares'
+        }
+      }
     }, {
       label: 'About',
       icon: 'lucide-smile-plus',
       to: '/about',
       name: 'about-slug',
 
-      children: [{
-        label: 'About us',
-        description: 'UK distributer for Metzner',
-        icon: 'lucide-person-standing',
-        to: '/about'
-      }, {
-        label: 'Contact us',
-        description: 'Talk to our team of experts',
-        icon: 'lucide-megaphone',
-        to: '/contact'
-      }]
+      children: {
+        '0': {
+          label: 'About us',
+          description: 'UK distributer for Metzner',
+          icon: 'lucide-person-standing',
+          to: '/about'
+        },
+
+        '1': {
+          label: 'Contact us',
+          description: 'Talk to our team of experts',
+          icon: 'lucide-megaphone',
+          to: '/contact'
+        }
+      }
     }, {
       label: 'Latest',
       icon: 'i-lucide-file-text',
@@ -147,59 +158,7 @@ export default defineAppConfig({
     expand: true,
     duration: 5000
   },
-  schemaOrg: {
-    title: 'Cutting Machine Specifications',
-    hasMeasurement: [
-      {
-        'name': 'Material Width Max',
-        'value': 'cutWidth',
-        'description': 'Maximum width of material that can be processed',
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        '@type': 'QuantitativeValue'
-      },
-      {
-        'name': 'Material Height Max',
-        'value': 'cutHeight',
-        'description': 'Maximum height of material that can be processed',
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        '@type': 'QuantitativeValue'
-      },
-      {
-        'name': 'Material Diameter Max',
-        'value': 'cutDiameter',
-        'description': 'Maximum diameter of material that can be processed',
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        '@type': 'QuantitativeValue'
-      },
-      {
-        'name': 'Length Interval',
-        'value': 'lengthInterval',
-        'description': 'Minimum length interval for cutting',
-        'unitText': 'mm',
-        'unitCode': 'MMT',
-        '@type': 'QuantitativeValue'
-      },
-      {
-        'name': 'Feeding Speed Max',
-        'value': 'feedSpeed',
-        'description': 'Maximum feeding speed',
-        'unitText': 'm/min',
-        'unitCode': '',
-        '@type': 'QuantitativeValue'
-      },
-      {
-        'name': 'Cutting Performance',
-        'value': 'cutRate',
-        'description': 'Maximum cutting performance',
-        'unitText': 'cuts/min',
-        'unitCode': 'CPM',
-        '@type': 'QuantitativeValue'
-      }
-    ]
-  },
+  schemaOrg: {},
   schemaOrg1: [
     {
       'name': 'Material Width Max',
