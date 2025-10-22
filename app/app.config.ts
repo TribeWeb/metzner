@@ -147,62 +147,66 @@ export default defineAppConfig({
     expand: true,
     duration: 5000
   },
-  schemaOrgNew: [
-    {
-      'name': 'Material Width Max',
-      'value': 'cutWidth',
-      'description': 'Maximum width of material that can be processed',
-      'unitText': 'mm',
-      'unitCode': 'MMT',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
-    },
-    {
-      'name': 'Material Height Max',
-      'value': 'cutHeight',
-      'description': 'Maximum height of material that can be processed',
-      'unitText': 'mm',
-      'unitCode': 'MMT',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
-    },
-    {
-      'name': 'Material Diameter Max',
-      'value': 'cutDiameter',
-      'description': 'Maximum diameter of material that can be processed',
-      'unitText': 'mm',
-      'unitCode': 'MMT',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
-    },
-    {
-      'name': 'Length Interval',
-      'value': 'lengthInterval',
-      'description': 'Minimum length interval for cutting',
-      'unitText': 'mm',
-      'unitCode': 'MMT',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
-    },
-    {
-      'name': 'Feeding Speed Max',
-      'value': 'feedSpeed',
-      'description': 'Maximum feeding speed',
-      'unitText': 'm/min',
-      'unitCode': '',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
-    },
-    {
-      'name': 'Cutting Performance',
-      'value': 'cutRate',
-      'description': 'Maximum cutting performance',
-      'unitText': 'cuts/min',
-      'unitCode': 'CPM',
-      '@type': 'QuantitativeValue',
-      'schema': 'hasMeasurement'
+  schemaOrgNew: {
+    product: {
+      hasMeasurement: [
+        {
+          'name': 'Material Width Max',
+          'value': 'cutWidth',
+          'description': 'Maximum width of material that can be processed',
+          'unitText': 'mm',
+          'unitCode': 'MMT',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        },
+        {
+          'name': 'Material Height Max',
+          'value': 'cutHeight',
+          'description': 'Maximum height of material that can be processed',
+          'unitText': 'mm',
+          'unitCode': 'MMT',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        },
+        {
+          'name': 'Material Diameter Max',
+          'value': 'cutDiameter',
+          'description': 'Maximum diameter of material that can be processed',
+          'unitText': 'mm',
+          'unitCode': 'MMT',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        },
+        {
+          'name': 'Length Interval',
+          'value': 'lengthInterval',
+          'description': 'Minimum length interval for cutting',
+          'unitText': 'mm',
+          'unitCode': 'MMT',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        },
+        {
+          'name': 'Feeding Speed Max',
+          'value': 'feedSpeed',
+          'description': 'Maximum feeding speed',
+          'unitText': 'm/min',
+          'unitCode': '',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        },
+        {
+          'name': 'Cutting Performance',
+          'value': 'cutRate',
+          'description': 'Maximum cutting performance',
+          'unitText': 'cuts/min',
+          'unitCode': 'CPM',
+          '@type': 'QuantitativeValue',
+          'schema': 'hasMeasurement'
+        }
+      ]
     }
-  ],
+  },
   schemaOrg: [
     {
       'name': 'Material Width Max',
