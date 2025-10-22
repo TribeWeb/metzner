@@ -156,6 +156,61 @@ export default defineAppConfig({
     }
   },
   schemaOrg: {
+    localBusiness: {
+      '@type': 'Store',
+      'name': 'Metzner UK',
+      'description': 'The UK distributor for Metzner Maschinenbau GmbH, a German company manufacturing high quality and bespoke cutting machines.',
+      'url': 'https://metzner.co.uk',
+
+      // Location (Required)
+      'address': {
+        streetAddress: '3 Fairfield Court, Seven Stars Industrial Estate',
+        addressLocality: 'Coventry',
+        postalCode: 'CV3 4LJ',
+        addressCountry: 'UK'
+      },
+
+      // Precise Geographic Location, if applicable
+      'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': '52.393691',
+        'longitude': '-1.480252'
+      },
+
+      // Contact Information, if applicable
+      'telephone': '+44-2476-214799',
+      'email': 'sales@metzner.co.uk',
+
+      // Hours of Operation, if applicable
+      'openingHoursSpecification': [
+        {
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+          opens: '09:00',
+          closes: '17:00'
+        },
+        {
+          dayOfWeek: ['Friday'],
+          opens: '09:00',
+          closes: '16:30'
+        }
+      ],
+      // Images, if applicable
+      'image': [
+        'https://thecoastalkitchen.com/images/storefront.jpg'
+      ],
+      'logo': '/logo.png',
+
+      // Payment Options, if applicable
+      'paymentAccepted': [
+        'Credit Card'
+      ],
+      'currenciesAccepted': 'GBP,EUR,USD',
+
+      // Social Links, if applicable
+      'sameAs': [
+        'https://www.metzner.com/support/sales-partners-worldwide/'
+      ]
+    },
     product: {
       hasMeasurement: [
         {

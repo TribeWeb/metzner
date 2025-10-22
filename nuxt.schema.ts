@@ -278,6 +278,20 @@ export default defineNuxtSchema({
       description: 'schemaOrg node configuration.',
       icon: 'i-carbon-chart-relationship',
       fields: {
+        localBusiness: group({
+          title: 'Local Business',
+          description: 'Configuration for schemaOrg fields related to identity.',
+          icon: 'i-mdi-table-of-contents',
+          fields: {
+            identity: field({
+              type: 'object',
+              title: 'identity',
+              description: 'Object from which to construct the identity schema.',
+              icon: 'i-tabler-ruler-measure',
+              default: {}
+            })
+          }
+        }),
         product: group({
           title: 'Product',
           description: 'Configuration for schemaOrg fields related to product.',
@@ -295,13 +309,6 @@ export default defineNuxtSchema({
               title: 'additionalProperty',
               description: 'Array of objects from which to construct the additionalProperty schema.',
               icon: 'i-material-symbols-format-list-bulleted-add',
-              default: []
-            }),
-            links: field({
-              type: 'array',
-              title: 'Links',
-              description: 'Array of link object displayed in bottom toc.',
-              icon: 'i-mdi-link-variant',
               default: []
             })
           }
