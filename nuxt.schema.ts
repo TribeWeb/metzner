@@ -252,7 +252,7 @@ export default defineNuxtSchema({
         })
       }
     }),
-    schemaOrg: group({
+    schemaOrgNew: group({
       title: 'schemaOrg metadata',
       description: 'schemaOrg node configuration.',
       icon: 'i-carbon-chart-relationship',
