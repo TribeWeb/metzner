@@ -264,19 +264,12 @@ export default defineNuxtSchema({
           icon: 'i-mdi-format-title',
           default: ''
         }),
-        bob: field({
-          type: 'array',
-          title: 'hasMeasurement',
-          description: 'Array of objects from which to construct the hasMeasurement schema.',
-          icon: 'i-tabler-ruler-measure',
-          default: []
-        }),
         product: group({
           title: 'Product',
           description: 'Configuration for schemaOrg fields related to product.',
           icon: 'i-mdi-table-of-contents',
           fields: {
-            title: field({
+            hasMeasurement: field({
               type: 'array',
               title: 'hasMeasurement',
               description: 'Array of objects from which to construct the hasMeasurement schema.',
