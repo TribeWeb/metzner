@@ -149,7 +149,6 @@ export default defineAppConfig({
   },
   schemaOrg: {
     title: 'Cutting Machine Specifications',
-    bob: 'bill',
     hasMeasurement: [
       {
         'name': 'Material Width Max',
