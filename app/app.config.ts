@@ -147,7 +147,7 @@ export default defineAppConfig({
     expand: true,
     duration: 5000
   },
-  schemaOrgNew: {
+  schemaOrg: {
     product: {
       hasMeasurement: [
         {
@@ -156,8 +156,7 @@ export default defineAppConfig({
           'description': 'Maximum width of material that can be processed',
           'unitText': 'mm',
           'unitCode': 'MMT',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
         },
         {
           'name': 'Material Height Max',
@@ -165,8 +164,7 @@ export default defineAppConfig({
           'description': 'Maximum height of material that can be processed',
           'unitText': 'mm',
           'unitCode': 'MMT',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
         },
         {
           'name': 'Material Diameter Max',
@@ -174,8 +172,7 @@ export default defineAppConfig({
           'description': 'Maximum diameter of material that can be processed',
           'unitText': 'mm',
           'unitCode': 'MMT',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
         },
         {
           'name': 'Length Interval',
@@ -183,8 +180,7 @@ export default defineAppConfig({
           'description': 'Minimum length interval for cutting',
           'unitText': 'mm',
           'unitCode': 'MMT',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
         },
         {
           'name': 'Feeding Speed Max',
@@ -192,8 +188,7 @@ export default defineAppConfig({
           'description': 'Maximum feeding speed',
           'unitText': 'm/min',
           'unitCode': '',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
         },
         {
           'name': 'Cutting Performance',
@@ -201,13 +196,70 @@ export default defineAppConfig({
           'description': 'Maximum cutting performance',
           'unitText': 'cuts/min',
           'unitCode': 'CPM',
-          '@type': 'QuantitativeValue',
-          'schema': 'hasMeasurement'
+          '@type': 'QuantitativeValue'
+        }
+      ],
+      additionalProperty: [
+        {
+          'name': 'Available Cutting Technologies',
+          'value': 'Die cutting, Shear cutting, Draw cutting',
+          'description': 'Types of cutting technologies supported',
+          'unitText': '',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Cutting Accuracy',
+          'value': 'cutAccuracy',
+          'description': 'Positional and repeatable cutting accuracy',
+          'unitText': '',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Dimensions (LxWxH)',
+          'value': 'dimensions',
+          'description': 'Length x Width x Height',
+          'unitText': 'mm',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Electrical Input',
+          'value': 'electricalInput',
+          'description': 'Power supply requirements',
+          'unitText': '',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Compressed Air Input',
+          'value': 'compressedAirInput',
+          'description': 'Required compressed air connection',
+          'unitText': '',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Consumption kVA | bar',
+          'value': 'consumption',
+          'description': 'Power and air consumption',
+          'unitText': '',
+          'unitCode': '',
+          '@type': 'PropertyValue'
+        },
+        {
+          'name': 'Noise (idle)',
+          'value': 'idleNoise',
+          'description': 'Noise level during idle operation',
+          'unitText': 'dB',
+          'unitCode': '',
+          '@type': 'PropertyValue'
         }
       ]
     }
   },
-  schemaOrg: [
+  schemaOrg1: [
     {
       'name': 'Material Width Max',
       'value': 'cutWidth',

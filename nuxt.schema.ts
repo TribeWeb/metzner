@@ -252,7 +252,7 @@ export default defineNuxtSchema({
         })
       }
     }),
-    schemaOrgNew: group({
+    schemaOrg: group({
       title: 'schemaOrg metadata',
       description: 'schemaOrg node configuration.',
       icon: 'i-carbon-chart-relationship',
@@ -276,11 +276,11 @@ export default defineNuxtSchema({
               icon: 'i-tabler-ruler-measure',
               default: []
             }),
-            edit: field({
-              type: 'string',
-              title: 'Edit Page Link',
-              description: 'URL of your repository content folder.',
-              icon: 'i-ph-note-pencil',
+            additionalProperty: field({
+              type: 'array',
+              title: 'additionalProperty',
+              description: 'Array of objects from which to construct the additionalProperty schema.',
+              icon: 'i-material-symbols-format-list-bulleted-add',
               default: ''
             }),
             links: field({

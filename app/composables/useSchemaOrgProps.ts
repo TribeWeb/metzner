@@ -1,7 +1,7 @@
 import type { MachinesCollectionItem } from '@nuxt/content'
 
 export function useSchemaOrgProps(machine: MachinesCollectionItem) {
-  const schemaOrgProps = useAppConfig().schemaOrg
+  const schemaOrgProps = useAppConfig().schemaOrg1
 
   return schemaOrgProps.map((prop) => {
     const value = machine[prop.value as keyof MachinesCollectionItem]
