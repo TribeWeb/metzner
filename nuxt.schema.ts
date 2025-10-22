@@ -251,6 +251,48 @@ export default defineNuxtSchema({
           }
         })
       }
+    }),
+    schemaOrg: group({
+      title: 'schemaOrg metadata',
+      description: 'schemaOrg node configuration.',
+      icon: 'i-carbon-chart-relationship',
+      fields: {
+        // title: field({
+        //   type: 'string',
+        //   title: 'Title',
+        //   description: 'Text to display as title of the main toc.',
+        //   icon: 'i-mdi-format-title',
+        //   default: ''
+        // }),
+        product: group({
+          title: 'Product',
+          description: 'Configuration for schemaOrg fields related to product.',
+          icon: 'i-mdi-table-of-contents',
+          fields: {
+            title: field({
+              type: 'array',
+              title: 'hasMeasurement',
+              description: 'Array of objects from which to construct the hasMeasurment schema.',
+              icon: 'i-mdi-format-title',
+              default: ''
+            }),
+            edit: field({
+              type: 'string',
+              title: 'Edit Page Link',
+              description: 'URL of your repository content folder.',
+              icon: 'i-ph-note-pencil',
+              default: ''
+            }),
+            links: field({
+              type: 'array',
+              title: 'Links',
+              description: 'Array of link object displayed in bottom toc.',
+              icon: 'i-mdi-link-variant',
+              default: []
+            })
+          }
+        })
+      }
     })
   }
 })
