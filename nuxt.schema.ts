@@ -272,9 +272,9 @@ export default defineNuxtSchema({
             title: field({
               type: 'array',
               title: 'hasMeasurement',
-              description: 'Array of objects from which to construct the hasMeasurment schema.',
-              icon: 'i-mdi-format-title',
-              default: ''
+              description: 'Array of objects from which to construct the hasMeasurement schema.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
             }),
             edit: field({
               type: 'string',
