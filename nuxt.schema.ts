@@ -252,6 +252,27 @@ export default defineNuxtSchema({
         })
       }
     }),
+    pageConfig: group({
+      title: 'Page Configuration',
+      description: 'Page configuration.',
+      icon: 'i-ph-app-window',
+      fields: {
+        product: group({
+          title: 'Product',
+          description: 'Configuration for product pages.',
+          icon: 'i-mdi-table-of-contents',
+          fields: {
+            tableFields: field({
+              type: 'array',
+              title: 'Table fields',
+              description: 'Fields to display in the specifications table (in order).',
+              icon: 'i-material-symbols-table-rows-narrow-outline-sharp',
+              default: []
+            })
+          }
+        })
+      }
+    }),
     schemaOrg: group({
       title: 'schemaOrg metadata',
       description: 'schemaOrg node configuration.',
@@ -269,6 +290,13 @@ export default defineNuxtSchema({
           description: 'Configuration for schemaOrg fields related to product.',
           icon: 'i-mdi-table-of-contents',
           fields: {
+            tableFields: field({
+              type: 'array',
+              title: 'Table fields',
+              description: 'Fields to display in the specifications table (in order).',
+              icon: 'i-material-symbols-table-rows-narrow-outline-sharp',
+              default: []
+            }),
             hasMeasurement: field({
               type: 'array',
               title: 'hasMeasurement',

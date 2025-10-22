@@ -147,6 +147,25 @@ export default defineAppConfig({
     expand: true,
     duration: 5000
   },
+  pageConfig: {
+    product: {
+      tableFields: [
+        'machineId',
+        'machineName',
+        'modelId',
+        'cutWidth',
+        'cutHeight',
+        'cutDiameter',
+        'cutRate',
+        'cutAccuracy',
+        'feedSpeed',
+        'dimensions',
+        'electricalInput',
+        'compressedAirInput',
+        'idleNoise'
+      ]
+    }
+  },
   schemaOrg: {
     product: {
       hasMeasurement: [
