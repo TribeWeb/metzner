@@ -257,13 +257,13 @@ export default defineNuxtSchema({
       description: 'schemaOrg node configuration.',
       icon: 'i-carbon-chart-relationship',
       fields: {
-        // title: field({
-        //   type: 'string',
-        //   title: 'Title',
-        //   description: 'Text to display as title of the main toc.',
-        //   icon: 'i-mdi-format-title',
-        //   default: ''
-        // }),
+        title: field({
+          type: 'string',
+          title: 'Title',
+          description: 'Text to display as title of the main toc.',
+          icon: 'i-mdi-format-title',
+          default: ''
+        }),
         product: group({
           title: 'Product',
           description: 'Configuration for schemaOrg fields related to product.',
