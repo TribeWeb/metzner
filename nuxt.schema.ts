@@ -281,7 +281,7 @@ export default defineNuxtSchema({
               title: 'additionalProperty',
               description: 'Array of objects from which to construct the additionalProperty schema.',
               icon: 'i-material-symbols-format-list-bulleted-add',
-              default: ''
+              default: []
             }),
             links: field({
               type: 'array',
