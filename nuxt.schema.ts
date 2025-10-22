@@ -289,6 +289,48 @@ export default defineNuxtSchema({
               description: 'Object from which to construct the identity schema.',
               icon: 'i-tabler-ruler-measure',
               default: {}
+            }),
+            address: field({
+              type: 'array',
+              title: 'Address',
+              description: 'Array of fields that make up the address property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
+            }),
+            geo: field({
+              type: 'array',
+              title: 'Geolocation',
+              description: 'Array of fields that make up the geo property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
+            }),
+            openingHoursSpecification: field({
+              type: 'array',
+              title: 'Opening hours',
+              description: 'Array of objects that make up the openingHoursSpecification property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
+            }),
+            image: field({
+              type: 'array',
+              title: 'Images',
+              description: 'Array of urls that make up the image property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
+            }),
+            paymentAccepted: field({
+              type: 'array',
+              title: 'Payments accepted',
+              description: 'Array of payment types that make up the paymentAccepted property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
+            }),
+            sameAs: field({
+              type: 'array',
+              title: 'Same as',
+              description: 'Array of urls that make up the sameAs property.',
+              icon: 'i-tabler-ruler-measure',
+              default: []
             })
           }
         }),
