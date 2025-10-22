@@ -298,11 +298,11 @@ export default defineNuxtSchema({
               default: []
             }),
             geo: field({
-              type: 'array',
+              type: 'object',
               title: 'Geolocation',
               description: 'Array of fields that make up the geo property.',
               icon: 'i-tabler-ruler-measure',
-              default: []
+              default: {}
             }),
             openingHoursSpecification: field({
               type: 'array',
