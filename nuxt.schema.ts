@@ -283,7 +283,7 @@ export default defineNuxtSchema({
           description: 'Configuration for schemaOrg fields related to identity.',
           icon: 'i-mdi-table-of-contents',
           fields: {
-            identity: field({
+            topLevel: field({
               type: 'object',
               title: 'identity',
               description: 'Object from which to construct the identity schema.',
@@ -300,7 +300,7 @@ export default defineNuxtSchema({
             geo: field({
               type: 'object',
               title: 'Geolocation',
-              description: 'Array of fields that make up the geo property.',
+              description: 'Object that make up the geo property.',
               icon: 'i-tabler-ruler-measure',
               default: {}
             }),

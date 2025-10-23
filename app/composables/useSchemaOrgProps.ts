@@ -8,7 +8,7 @@ export function useSchemaOrgProps(machine: MachinesCollectionItem, options: Sche
   const {
     schemaType = 'hasMeasurement'
   } = options
-  const productNodes = useAppConfig().schemaOrg.product || {}
+  const productNodes = useAppConfig().schemaOrg?.product || {}
   const schemaObjects = productNodes[schemaType] || []
 
   return schemaObjects.map((field) => {
@@ -29,7 +29,7 @@ export function useSchemaOrgProps(machine: MachinesCollectionItem, options: Sche
 }
 
 export function useSpecification(machine: MachinesCollectionItem) {
-  const specification = useAppConfig().pageConfig.product.specification || []
+  const specification = useAppConfig().pageConfig?.product?.specification || []
   const hasMeasurement = useSchemaOrgProps(machine, { schemaType: 'hasMeasurement' }).map(({ name, value, description }) => ({ name, value, description }))
   const additionalProperty = useSchemaOrgProps(machine, { schemaType: 'additionalProperty' }).map(({ name, value, description }) => ({ name, value, description }))
 

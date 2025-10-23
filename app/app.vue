@@ -1,8 +1,10 @@
 <script setup lang="ts">
-const { seo, toaster } = useAppConfig()
+import { defineLocalBusiness } from 'nuxt-schema-org/schema'
+
+const { seo, toaster, schemaOrg } = useAppConfig()
+const localBusiness = schemaOrg?.localBusiness
 
 const { data: machines } = await useAsyncData('machinesList', () => queryCollectionNavigation('machines'))
-
 provide('machines', machines)
 
 const { data: about } = await useAsyncData('aboutList', () => queryCollectionNavigation('about', ['column']))
@@ -57,10 +59,23 @@ useSeoMeta({
   twitterImage: 'https://docs-template.nuxt.dev/social-card.png',
   twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([
+  defineLocalBusiness({
+    name: 'Metzner UK',
+    ...(localBusiness?.topLevel || {}),
+    address: localBusiness?.address,
+    openingHoursSpecification: localBusiness?.openingHoursSpecification,
+    geo: localBusiness?.geo,
+    paymentAccepted: localBusiness?.paymentAccepted,
+    image: localBusiness?.image,
+    sameAs: localBusiness?.sameAs
+  })
+])
 </script>
 
 <template>
-  <UApp :toaster="toaster">
+  <UApp :toaster-props="toaster">
     <NuxtLoadingIndicator />
 
     <AppHeader />
