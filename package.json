@@ -14,11 +14,11 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.70",
     "@iconify-json/simple-icons": "^1.2.55",
-    "@iconify-json/vscode-icons": "^1.2.32",
+    "@iconify-json/vscode-icons": "^1.2.33",
     "@nuxt/content": "^3.7.1",
     "@nuxt/image": "^1.11.0",
     "@nuxt/scripts": "0.13.0",
-    "@nuxt/ui": "^4.0.1",
+    "@nuxt/ui": "^4.1.0",
     "@nuxthub/core": "0.9.0",
     "@nuxtjs/sitemap": "7.4.7",
     "@unhead/vue": "2.0.19",
@@ -36,7 +36,7 @@
     "eslint": "^9.38.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.1.1",
-    "wrangler": "^4.44.0",
+    "wrangler": "^4.45.0",
     "zod": "^4.1.12"
   },
   "packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34",
