@@ -291,16 +291,16 @@ export default defineNuxtSchema({
               default: {}
             }),
             address: field({
-              type: 'array',
+              type: 'object',
               title: 'Address',
-              description: 'Array of fields that make up the address property.',
+              description: 'Object that make up the address property.',
               icon: 'i-tabler-ruler-measure',
               default: []
             }),
             geo: field({
               type: 'object',
               title: 'Geolocation',
-              description: 'Object that make up the geo property.',
+              description: 'Object that makes up the geo property.',
               icon: 'i-tabler-ruler-measure',
               default: {}
             }),
