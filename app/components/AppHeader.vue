@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import type { ContentNavigationItem } from '@nuxt/content'
+import type { ContentNavigationItem } from '@nuxt/content'
 
 const route = useRoute()
 
@@ -20,7 +20,7 @@ const menuItemsWithRemovedProps = computed(() =>
   menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
 )
 
-// const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
 
 <template>
@@ -50,7 +50,7 @@ const menuItemsWithRemovedProps = computed(() =>
       <div class="flex flex-row gap-1.5">
         <div class="flex flex-col">
           Metzner
-          <div class="text-[var(--ui-text)] text-xs font-light font-sans tracking-[0.56em]">
+          <div class="text-default text-xs font-light font-sans tracking-[0.56em]">
             MACHINES
           </div>
         </div>
@@ -88,7 +88,7 @@ const menuItemsWithRemovedProps = computed(() =>
       </template>
     </template>
 
-    <!-- <template #content>
+    <template #content>
       <UNavigationMenu
         orientation="vertical"
         :items="menu"
@@ -102,6 +102,6 @@ const menuItemsWithRemovedProps = computed(() =>
         highlight
         :navigation="navigation"
       />
-    </template> -->
+    </template>
   </UHeader>
 </template>
