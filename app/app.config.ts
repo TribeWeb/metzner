@@ -149,10 +149,10 @@ export default defineAppConfig({
   },
   pageConfig: {
     product: {
-      specification: [
-        { id: 'machineId', name: 'Machine ID' },
-        { id: 'machineName', name: 'Machine Name' }
-      ]
+      specification: [{
+        id: 'machineName',
+        name: 'Machine Name'
+      }]
     }
   },
   schemaOrg: {
