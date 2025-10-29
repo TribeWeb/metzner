@@ -128,12 +128,12 @@ useSchemaOrg([
             <ULink
               as="button"
               :href="`/pdf/${route.params.slug}.pdf`"
-              :alt="`open ${page.title} datasheet in a new tab`"
+              :alt="`download or open ${page.title} datasheet in a new tab`"
               target="_blank"
               external
               download
               class="text-primary"
-            >{{ page.title }} datasheet</ULink> (pdf opens in new tab)
+            >{{ page.title }} datasheet</ULink> (pdf will download or open in new tab)
           </template>
           <template #peripherals="{ item }">
             <p class="text-muted mb-4">
