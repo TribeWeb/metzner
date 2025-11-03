@@ -119,32 +119,36 @@ useSchemaOrg([
         <img
           :src="`/machines/${page.path.split('/').pop()}.webp`"
           alt="App screenshot"
-          class="rounded-lg shadow-2xl ring ring-[var(--ui-border)]"
+          class="rounded-lg shadow-2xl ring ring-default"
         >
       </UPageSection>
-      <UPageCard>
-        <UTabs :items="items" :unmount-on-hide="false" variant="link" :ui="{ trigger: 'grow' }" class="gap-4 w-full">
-          <template #datasheet>
-            <ULink
-              as="button"
-              :href="`/pdf/${route.params.slug}.pdf`"
-              :alt="`download or open ${page.title} datasheet in a new tab`"
-              target="_blank"
-              external
-              download
-              class="text-primary"
-            >{{ page.title }} datasheet</ULink> (pdf will download or open in new tab)
-          </template>
-          <template #peripherals="{ item }">
-            <p class="text-muted mb-4">
-              {{ item.content }}
-            </p>
-          </template>
-          <template #specifications>
-            <UTable :data="useSpecification(page)" class="flex-1" />
-          </template>
-        </UTabs>
-      </UPageCard>
+      <UTabs
+        :items="items"
+        :unmount-on-hide="false"
+        variant="link"
+        :ui="{ trigger: 'md:grow' }"
+        class="gap-4 display-block"
+      >
+        <template #datasheet>
+          <ULink
+            as="button"
+            :href="`/pdf/${route.params.slug}.pdf`"
+            :alt="`download or open ${page.title} datasheet in a new tab`"
+            target="_blank"
+            external
+            download
+            class="text-primary"
+          >{{ page.title }} datasheet</ULink> (pdf will download or open in a new tab)
+        </template>
+        <template #peripherals="{ item }">
+          <p class="text-muted mb-4">
+            {{ item.content }}
+          </p>
+        </template>
+        <template #specifications>
+          <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96" />
+        </template>
+      </UTabs>
 
       <USeparator v-if="surround?.length" />
       <UContentSurround :surround="surround" />
@@ -164,7 +168,7 @@ useSchemaOrg([
         >
           <div
             class="hidden lg:block space-y-6"
-            :class="{ '!mt-6': page.body?.toc?.links?.length }"
+            :class="{ 'mt-6!': page.body?.toc?.links?.length }"
           >
             <USeparator
               v-if="page.body?.toc?.links?.length"
