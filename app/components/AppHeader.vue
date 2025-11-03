@@ -19,8 +19,6 @@ const menuItemsWithRemovedProps = computed(() =>
 // remove any unecessary properties. E.g. `name` is no longer required as we don't want to display one, `icon` is also not needed
   menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
 )
-
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 </script>
 
 <template>
@@ -91,17 +89,17 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
     <template #content>
       <UNavigationMenu
         orientation="vertical"
-        :items="menu"
+        :items="menuItemsWithActiveProp"
         class="-mx-2.5"
       />
-      <USeparator
+      <!-- <USeparator
         type="dashed"
         class="my-4"
-      />
-      <UContentNavigation
+      /> -->
+      <!-- <UContentNavigation
         highlight
-        :navigation="navigation"
-      />
+        :navigation="menu"
+      /> -->
     </template>
   </UHeader>
 </template>
