@@ -8,9 +8,9 @@ navigation:
   icon: mdi:cut
 ---
 
-From simple tubes to complex sealing profiles, for standard and reinforced, Metzner's wide selection of cutting machines are designed to meet the wide majority of cutting requirements. Every Metzner system is designed for repeatability and accuracy, whilst it's built to meet your specific project demands.
+From simple tubes to complex sealing profiles, for standard or reinforced extrusions, Metzner's wide selection of cutting machines are designed to meet the wide majority of cutting requirements. Every Metzner system is designed for repeatability and accuracy, whilst it's built to meet your specific project demands.
 
-From single machines to complete, fully compatible production systems, Metzner delivers reliable cutting performance across all extrusion types. From very specific cutting projects, to machines designed for multiple use cases, see our range below based on the type of product you are cutting, or speak to one of our engineers for more information.
+With availability of single machines to complete, fully compatible production systems, Metzner delivers reliable cutting performance across all extrusion types. From very specific cutting projects, to machines designed for multiple use cases, see our range below based on the type of product you are cutting, or speak to one of our engineers for more information.
 
 ## Non-reinforced hose and extrusions
 
