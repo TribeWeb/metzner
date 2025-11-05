@@ -1,7 +1,8 @@
 ---
-title: Precision cutting machines
-description: Metzner produce a wide range of machines capable of cutting many
-  different rubber and plastic extrusions.
+title: Precision Cutting Machines
+description: Metzner cutting systems utilises over 30 years of mechanical
+  experience to provide proven repeat accuracies up to ±0.1 mm across plastics,
+  rubber, and composite profiles.
 navigation:
   title: Machines
   icon: mdi:cut
