@@ -28,13 +28,13 @@ From single machines to complete, fully compatible production systems, Metzner d
   description: Designed to accurately cut silicone or elastic material.
   ---
   :::
-  :::product-card
+  <!-- :::product-card
   ---
   collection: machines
   slug: mbs
   description: TODO
   ---
-  :::
+  ::: -->
   :::product-card
   ---
   collection: machines
@@ -42,13 +42,13 @@ From single machines to complete, fully compatible production systems, Metzner d
   description: Highly versatile for cutting a variety of different materials.
   ---
   :::
-  :::product-card
+  <!-- :::product-card
   ---
   collection: machines
   slug: dynamat
   description: Good balance of speed and precision cutting.
   ---
-  :::
+  ::: -->
 ::
 
 ## Reinforced hose and extrusions
