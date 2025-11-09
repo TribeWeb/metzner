@@ -13,12 +13,43 @@ Simple tubing, complex sealing profiles, standard and reinforced extrusions. Met
 From single machines to complete, fully compatible production systems, Metzner delivers reliable cutting performance across all extrusion types. From very specific cutting projects, to machines designed for multiple use cases, see our range below based on the type of product you are cutting, or speak to one of our engineers for more information.
 
 ## Non-reinforced hose and extrusions
-
-- ST-OB - Compact and durable design for cutting harder or thicker material.
-- KL-BV - Designed to accurately cut silicone or elastic material.
-- MBS
-- Variocut - Highly versatile for cutting a variety of different materials.
-- Dynamat - Good balance of speed and precision cutting.
+::u-page-list
+  :::product-card
+  ---
+  collection: machines
+  slug: st-ob
+  description: Compact and durable design for cutting harder or thicker material.
+  ---
+  :::
+  :::product-card
+  ---
+  collection: machines
+  slug: kl-bv
+  description: Designed to accurately cut silicone or elastic material.
+  ---
+  :::
+  :::product-card
+  ---
+  collection: machines
+  slug: mbs
+  description: TODO
+  ---
+  :::
+  :::product-card
+  ---
+  collection: machines
+  slug: variocut
+  description: Highly versatile for cutting a variety of different materials.
+  ---
+  :::
+  :::product-card
+  ---
+  collection: machines
+  slug: dynamat
+  description: Good balance of speed and precision cutting.
+  ---
+  :::
+::
 
 ## Reinforced hose and extrusions
 
