@@ -1,6 +1,6 @@
 ---
 title: Loop Control
-description: Maintaining a tension-free product flow into the cutting machine.
+description: Maintain a tension-free product flow into the cutting machine.
 ---
 
 #
