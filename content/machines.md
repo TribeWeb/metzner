@@ -8,41 +8,46 @@ navigation:
   icon: mdi:cut
 ---
 
-Simple tubing, complex sealing profiles, standard and reinforced extrusions. Metzner's wide selection of cutting machines are designed to meet the vast majority of cutting requirements. Every Metzner solution is designed, engineered and built in Germany. With a focus on repeatability and accuracy, systems are built to meet your specific project demands.
+Simple tubing, complex sealing profiles, standard and reinforced extrusions. Metzner's cutting machines are designed to meet the vast majority of cutting requirements, but each system is built to meet your specific project demands. Every Metzner solution is designed, engineered and built in Germany, with a focus on repeatability and accuracy.
 
 From single machines to complete, fully compatible production systems, Metzner delivers reliable cutting performance across all extrusion types. From very specific cutting projects, to machines designed for multiple use cases, see our range below based on the type of product you are cutting, or speak to one of our engineers for more information.
 
 ## Non-reinforced hose and extrusions
+
 ::u-page-list
   :::product-card
   ---
   collection: machines
-  slug: st-ob
   description: Compact and durable design for cutting harder or thicker material.
+  slug: st-ob
   ---
   :::
+
   :::product-card
   ---
   collection: machines
-  slug: kl-bv
   description: Designed to accurately cut silicone or elastic material.
+  slug: kl-bv
   ---
   :::
-  <!-- :::product-card
+
+<!-- :::product-card
   ---
   collection: machines
   slug: mbs
   description: TODO
   ---
   ::: -->
+
   :::product-card
   ---
   collection: machines
-  slug: variocut
   description: Highly versatile for cutting a variety of different materials.
+  slug: variocut
   ---
   :::
-  <!-- :::product-card
+
+<!-- :::product-card
   ---
   collection: machines
   slug: dynamat
