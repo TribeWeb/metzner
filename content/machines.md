@@ -1,8 +1,7 @@
 ---
 title: Precision Cutting Machines
-description: Metzner cutting systems provide proven repeat accuracies up to ±0.1
-  mm across plastics, rubber, and composite profiles, based on 30 years of
-  experience.
+description: With 30 years of experience, Metzner cutting systems provide repeat
+  accuracies up to ±0.1 mm across plastics, rubber, and composite profiles.
 navigation:
   title: Machines
   icon: mdi:cut
