@@ -13,3 +13,11 @@ Available as standalone units but typically integrated with Metzner cutting and 
 - **MA 2000** — for lengths to 2 m.
 - **MA 4000** — for lengths to 4 m.
 - **MA 6000** — for lengths to 6 m.
+
+### When would I need a take-off conveyor?
+
+- To assist high-volume cable or wire production that requires jam-free stacking.
+- You require continuous operation where cutting lines must run without interruption.
+- When you have a production line that needs neat batch separation and collection.
+- For long, thin, or flexible cables that require stable guidance after cut.
+- To integrate cutting with stripping or marking machines for automated handling.
