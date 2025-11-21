@@ -10,7 +10,7 @@ A Metzner printer module integrates seamlessly with your cutting or strip‑to-l
 
 System integration supports “on-the-fly” marking, so there’s no need to stop production for printing. Whether you need to mark company logos, part numbers, batch codes or assembly instructions, our printers deliver durable, high-contrast results.
 
-Why use a printer?
+### Why would I use a printer?
 
 - Permanent identification of cables, wires or tubes (part numbers, batch details, assembly codes)
 - Achieve safety and compliance requirements
