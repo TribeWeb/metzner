@@ -15,11 +15,11 @@ seo:
 
 ## Our Peripherals Range
 
-Metzner peripherals integrate with our cutting systems to streamline material handling, improve accuracy and add functional capability — from tension-free feeding to automated marking and jam-free collection.
+Peripherals integrate with Metzner cutting systems to add further functionality and capabilities. From streamlining material handling, improving accuracy and adding further capabilities, peripherals are used to complete your
 
 ### Dereelers — Passive & Active
 
-Passive dereelers cost-effectively support light reels; active (motorised) dereelers pull material to prevent the cutter from drawing directly from the reel. Useful for:
+Passive dereelers support light reels pasively, without any power. Active (motorised) dereelers pull material to prevent the cutter from drawing directly from the reel. Dereelers are useful for:
 
 - Small or lightweight spools (passive)
 - Heavy or high-tension reels (active)
@@ -51,8 +51,8 @@ Ink-jet, thermal-transfer, hot-stamp or laser options for inline marking of logo
 
 ### Take-off Conveyors & MA Stackers
 
-Driven belt conveyors and stackers for jam-free collection, dual-tray batch handling and stable guidance of cut parts. Applications include:
+Driven belt conveyors and stackers for jam-free collection and stable guidance of cut parts. Applications include:
 
-- Continuous, unattended production
-- Neat batch separation and collection
+- Continuous, unattended production lines
 - Long, thin or flexible cables that need guided handling
+- When batch separation is required
