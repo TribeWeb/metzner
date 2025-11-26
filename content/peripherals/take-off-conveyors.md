@@ -4,7 +4,17 @@ description: A  take-off conveyor removes cut products, enabling smooth workflow
   and continuous cutting.
 ---
 
-A take-off conveyor is designed to to take the cut product away from the machine. This allows for the next part to be cut easily, help with continous and smooth operation and with the MA series provide jam-free collection.
+A take-off conveyor is designed to to take cut product away from the cutting machine. This allows for the next material in line to be cut easily, ensuring continous and smooth operation. With Metzner's MA series, we can also proive provide jam-free collection.
+
+### When would I need a take-off conveyor?
+
+- For long, thin, or flexible cables that require stable guidance after cut.
+- You require continuous operation where cutting lines must run without interruption.
+- When you have a production line that needs neat batch separation and collection.
+- To integrate cutting with stripping or marking machines for automated handling.
+- To assist high-volume cable or wire production that requires jam-free stacking.
+
+### MA Stackers
 
 Metzner MA stackers use a driven transport belt to stack cables straight and without jams. Each unit features a batch tray and a separate collection tray so production continues automatically while the previous batch is removed - preventing batch mixing and reducing operator intervention.
 
@@ -14,10 +24,4 @@ Available as standalone units but typically integrated with Metzner cutting and 
 - **MA 4000** — for lengths to 4 m.
 - **MA 6000** — for lengths to 6 m.
 
-### When would I need a take-off conveyor?
-
-- To assist high-volume cable or wire production that requires jam-free stacking.
-- You require continuous operation where cutting lines must run without interruption.
-- When you have a production line that needs neat batch separation and collection.
-- For long, thin, or flexible cables that require stable guidance after cut.
-- To integrate cutting with stripping or marking machines for automated handling.
+###
