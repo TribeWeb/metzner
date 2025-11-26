@@ -13,11 +13,11 @@ seo:
     integration with our cutting machines.
 ---
 
-## Our Peripherals Range
+### Our Peripherals Range
 
 Peripherals integrate with Metzner cutting systems to add features and capabilities. From streamlining material handling, improving accuracy and adding automation, peripherals are used to complete your Metzner solution.
 
-### Dereelers — Passive & Active
+#### Dereelers — Passive & Active
 
 Dereelers will take material from a reel, into your Metzner cutting machine. Passive dereelers support light reels pasively, without any power. Active (motorised) dereelers pull material to prevent the cutter from drawing directly from the reel. Dereelers are useful for:
 
@@ -25,7 +25,7 @@ Dereelers will take material from a reel, into your Metzner cutting machine. Pas
 - Heavy or high-tension reels (active)
 - Preventing slip, stretch or spool distortion
 
-### Prefeeders
+#### Prefeeders
 
 Prefeeders are electrically driven units that pull material from reels or spools without tension, with selectable drive options for different speeds and pull forces. They are added to systems as they:
 
@@ -33,7 +33,7 @@ Prefeeders are electrically driven units that pull material from reels or spools
 - Assist High-speed lines requiring consistent supply
 - Can be required for sensitive or elastic materials that must not stretch
 
-### Loop Controls
+#### Loop Controls
 
 Loops Controls offer real-time loop monitoring and speed regulation to keep a slack, tension-free loop ahead of the cutter. Used with:
 
@@ -41,7 +41,7 @@ Loops Controls offer real-time loop monitoring and speed regulation to keep a sl
 - Automated lines that require active feedback control
 - Precision length controllers on high-accuracy lines
 
-### Printers & Marking Modules
+#### Printers & Marking Modules
 
 Ink-jet, thermal-transfer, hot-stamp or laser options for inline marking of logos, part numbers, barcodes and assembly marks. Used for:
 
@@ -49,7 +49,7 @@ Ink-jet, thermal-transfer, hot-stamp or laser options for inline marking of logo
 - Traceability (batch codes, barcodes)
 - Branding or assembly position marking
 
-### Take-off Conveyors & MA Stackers
+#### Take-off Conveyors & MA Stackers
 
 Take-off conveyors are driven belt conveyors and stackers, offering jam-free collection and stable guidance of cut parts. Applications include:
 
