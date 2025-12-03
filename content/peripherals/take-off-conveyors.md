@@ -4,7 +4,7 @@ description: A  take-off conveyor removes cut products, enabling smooth workflow
   and continuous cutting.
 ---
 
-A take-off conveyor is designed to to take cut product away from the cutting machine. This allows for the next material in line to be cut easily, ensuring continous and smooth operation. With Metzner's MA series, we can also proive provide jam-free collection.
+A take-off conveyor is designed to to take cut product away from the cutting machine. This allows for the next material in line to be cut easily, ensuring continous and smooth operation. With Metzner's MA series, we can also provide jam-free collection.
 
 ### When would I need a take-off conveyor?
 
