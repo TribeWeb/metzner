@@ -4,7 +4,7 @@ import type { Collections } from '@nuxt/content'
 const props = defineProps<{
   collection: keyof Collections
   slug: string
-  description: string
+  description?: string
 }>()
 
 const { data: product } = await useAsyncData<{ title?: string, description?: string } | null>(props.slug, () => {

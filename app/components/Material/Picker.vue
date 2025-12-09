@@ -161,6 +161,7 @@ function getMaterialsResults(
 
   // Get unique model IDs from filtered results
   const uniqueModelIds = Array.from(new Set(filtered.map(item => item.modelId)))
+  const uniqueMachineIds = Array.from(new Set(filtered.map(item => item.machineId)))
 
   // Get all possible values for the specified property in filtered results
   const remainingValues = property
@@ -173,6 +174,7 @@ function getMaterialsResults(
   return {
     count: uniqueModelIds.length,
     modelIds: uniqueModelIds,
+    machineIds: uniqueMachineIds,
     remainingValues,
     filtered
   }
@@ -335,6 +337,15 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
         </MaterialFormItem>
       </div>
     </UForm>
+    <UPageList>
+      <ProductCard
+        v-for="machineId in filtered.machineIds"
+        :key="machineId"
+        :slug="machineId"
+        collection="machines"
+        class="mb-1"
+      />
+    </UPageList>
     <pre>{{ filtered.modelIds }}</pre>
   </UContainer>
 </template>
