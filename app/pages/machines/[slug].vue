@@ -63,7 +63,7 @@ useSchemaOrg([
     disambiguatingDescription: page.value.features?.description,
     image: `/machines/${page.value.path.split('/').pop()}.webp`, // TODO
     category: 'Universal Cutting Machine',
-    sameAs: 'https://www.metzner.com/product-solutions/profiles-tubes/universal-modular-cutting-machines/metzner-variocut/', // Add to Google Sheet
+    sameAs: page.value.sameAs || [],
     url: route.fullPath,
     brand: {
       '@type': 'Brand',
