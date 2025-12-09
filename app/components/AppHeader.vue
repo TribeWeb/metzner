@@ -40,7 +40,7 @@ const menuItemsWithRemovedProps = computed(() =>
     <UNavigationMenu
       v-if="menuItemsWithRemovedProps"
       :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
-      :items="menuItemsWithRemovedProps"
+      :items="menuItemsWithActiveProp"
       highlight
     />
 

@@ -4,7 +4,9 @@ import { defineLocalBusiness } from 'nuxt-schema-org/schema'
 const { seo, toaster, schemaOrg } = useAppConfig()
 const localBusiness = schemaOrg?.localBusiness
 
-const { data: machines } = await useAsyncData('machinesList', () => queryCollectionNavigation('machines'))
+const { data: machines } = await useAsyncData('machinesList', () => queryCollectionNavigation('machines'), {
+  transform: data => data.find(item => item.path === '/machines')?.children || []
+})
 provide('machines', machines)
 
 const { data: about } = await useAsyncData('aboutList', () => queryCollectionNavigation('about', ['column']))
