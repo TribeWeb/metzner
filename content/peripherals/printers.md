@@ -7,6 +7,8 @@ Printer integration supports “on-the-fly” marking, so production continues w
 
 By marking with either ink based or laser etched, based on your specific needs printers can offer a finished product in one process.
 
+### Why do I need a printer?
+
 - Permanent identification of cables, wires or tubes (part numbers, batch details, assembly codes, depth locators and company name)
 - Achieve safety and compliance requirements
 - Branding and logo marking on rubber or plastic extrusions
