@@ -1,24 +1,36 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
+import type { NavigationMenuItem } from '@nuxt/ui'
+import { findPageChildren } from '@nuxt/content/utils'
 
 const route = useRoute()
-
 const { header } = useAppConfig()
 
 const menu = computed(() => header.menu || [])
 
-const menuItemsWithActiveProp = computed(() => {
-  // add a `name` property to each menu item so that it that it can be matched to the route `name` property to show when active
+const menuItemsWithActiveProp = computed<NavigationMenuItem[]>(() => {
+  // add a `name` property to each menu item so that it can be matched to the route `name` property to show when active
   return menu.value.map((menuItem) => {
-    const isActive = route.name === menuItem.name
-    return { ...menuItem, active: isActive }
+    const isActive = route.path === menuItem.path
+    return { ...menuItem, active: isActive, name: menuItem.name || menuItem.title }
   })
 })
 
-const menuItemsWithRemovedProps = computed(() =>
-// remove any unecessary properties. E.g. `name` is no longer required as we don't want to display one, `icon` is also not needed
-  menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
-)
+// const menuItemsWithRemovedProps = computed(() =>
+// // remove any unecessary properties. E.g. `name` is no longer required as we don't want to display one, `icon` is also not needed
+//   menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
+// )
+
+const navigation = inject<Ref<ContentNavigationItem[]>>('machines')
+
+const children = findPageChildren(navigation?.value, '/machines')
+
+const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
+  return children?.map((menuItem) => {
+    const isActive = route.path === menuItem.path
+    return { ...menuItem, active: isActive }
+  })
+})
 </script>
 
 <template>
@@ -38,7 +50,7 @@ const menuItemsWithRemovedProps = computed(() =>
     </UContentSearchButton>
 
     <UNavigationMenu
-      v-if="menuItemsWithRemovedProps"
+      v-if="menuItemsWithActiveProp"
       :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
       :items="menuItemsWithActiveProp"
       highlight
@@ -92,14 +104,14 @@ const menuItemsWithRemovedProps = computed(() =>
         :items="menuItemsWithActiveProp"
         class="-mx-2.5"
       />
-      <!-- <USeparator
+      <USeparator
         type="dashed"
         class="my-4"
-      /> -->
-      <!-- <UContentNavigation
+      />
+      <UContentNavigation
         highlight
-        :navigation="menu"
-      /> -->
+        :navigation="mobileMenuItems"
+      />
     </template>
   </UHeader>
 </template>
