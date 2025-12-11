@@ -16,6 +16,8 @@ A take-off conveyor is designed to to take cut product away from the cutting mac
 
 ### MA Stackers
 
+![MA 2000 MA Stacker Peripheral](/peripherals/ma2000.png)
+
 Metzner MA stackers use a driven transport belt to stack cables straight and without jams. Each unit features a batch tray and a separate collection tray so production continues automatically while the previous batch is removed - preventing batch mixing and reducing operator intervention.
 
 Available as standalone units but typically integrated with Metzner cutting and stripping machines, the MA series increases line autonomy and throughput for cable production lines. Models are compatible with all Metzner cutters, with multiple models designed for a wide range of wire diameters and extrusion types. Select from:
