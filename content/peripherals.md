@@ -10,8 +10,6 @@ seo:
     efficiency and precision of your cutting operations.
 ---
 
-## Our Peripherals Range
-
 Peripherals integrate with Metzner cutting systems to add features and capabilities. From streamlining material handling, improving accuracy and adding automation, peripherals are used to complete your Metzner solution.
 
 ### Why Do I need Peripherals?
