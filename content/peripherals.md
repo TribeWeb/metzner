@@ -8,51 +8,29 @@ navigation:
 seo:
   title: Metzner Peripherals for Cutting Machines
   description: Explore Metzner's range of peripherals designed to enhance the
-    efficiency and precision of your cutting operations. From pre-feeders to
-    coilers, our peripherals ensure smooth material handling and seamless
-    integration with our cutting machines.
+    efficiency and precision of your cutting operations.
 ---
 
 ## Our Peripherals Range
 
 Peripherals integrate with Metzner cutting systems to add features and capabilities. From streamlining material handling, improving accuracy and adding automation, peripherals are used to complete your Metzner solution.
 
-### Dereelers — Passive & Active
+### Why Do I need Peripherals?
 
-Dereelers will take material from a reel, into your Metzner cutting machine. Passive dereelers support light reels pasively, without any power. Active (motorised) dereelers pull material to prevent the cutter from drawing directly from the reel. Dereelers are useful for:
+- **Extra Features** - Add printing to your system, to provide a finished product within a single process.
+- **Increased Automation** - By adding take off conveyors or pre-feed solutions, you can reduce operator intervention and operator time cost.
+- **Decrease Wasted Material** - By supporting delicate materials and reducing slippage, dereelers and prefeeders provide reductions in wastage costs.
 
-- Small or lightweight spools (passive)
-- Heavy or high-tension reels (active)
-- Preventing slip, stretch or spool distortion
+### Metzner Approved Peripherals
 
-### Prefeeders
+Metzner approves peripherals for use with their cutting machines. To allow you to build larger automated systems, Metzner integrated solutions offer advanced features in a simple ordering process. Peripherals are suggested based upon your individual requirements, so you can rely on complete compatibility and trouble-free integration.
 
-Prefeeders are electrically driven units that pull material from reels or spools without tension, with selectable drive options for different speeds and pull forces. They are added to systems as they:
+Where solutions were not readily-available, Metzner offers their own options. From Take-Off Conveyors and stackers to the PF2000 range of prefeeders, Metzner offers further functionality with their own designs.
 
-- Provide slip-free feeding from passive reels
-- Assist High-speed lines requiring consistent supply
-- Can be required for sensitive or elastic materials that must not stretch
+### Available Peripheral Ranges
 
-### Loop Controls
-
-Loops Controls offer real-time loop monitoring and speed regulation to keep a slack, tension-free loop ahead of the cutter. Used with:
-
-- Materials prone to distortion under tension
-- Automated lines that require active feedback control
-- Precision length controllers on high-accuracy lines
-
-### Printers & Marking Modules
-
-Ink-jet, thermal-transfer, hot-stamp or laser options for inline marking of logos, part numbers, barcodes and assembly marks. Used for:
-
-- On-the-fly identification without stopping the line
-- Traceability (batch codes, barcodes)
-- Branding or assembly position marking
-
-### Take-off Conveyors & MA Stackers
-
-Take-off conveyors are driven belt conveyors and stackers, offering jam-free collection and stable guidance of cut parts. Applications include:
-
-- Continuous, unattended production lines
-- Long, thin or flexible cables that need guided handling
-- When batch separation is required
+- **Dereelers** - ****Controlled unwinding for consistent, tension-free feed into your cutting system.
+- **Pre-Feeders** - Accurately advance material into the cutting machine for stable feed and improved cycle consistency.
+- **Loop Control** - Maintain a controlled buffer between feed and cutter to decouple line speeds, prevent tension or overruns, and keep cutting continuous.
+- **Printers** - Integrate material marking and printing directly inline, for automated identification without stopping production.
+- **Take‑Off Conveyors** - Automatically remove cut material from the machine to keep production flowing with uninterrupted operation.
