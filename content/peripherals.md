@@ -1,7 +1,6 @@
 ---
 title: Peripherals
-description: Metzner peripherals improve material handling and expand your
-  machine’s capabilities.
+description: Metzner approved peripherals to expand your machine’s capabilities.
 navigation:
   title: Peripherals
   icon: mdi:tools
@@ -29,7 +28,7 @@ Where solutions were not readily-available, Metzner offers their own options. Fr
 
 ### Available Peripheral Ranges
 
-- **Dereelers** - ****Controlled unwinding for consistent, tension-free feed into your cutting system.
+- **Dereelers** - Controlled unwinding for consistent, tension-free feed into your cutting system.
 - **Pre-Feeders** - Accurately advance material into the cutting machine for stable feed and improved cycle consistency.
 - **Loop Control** - Maintain a controlled buffer between feed and cutter to decouple line speeds, prevent tension or overruns, and keep cutting continuous.
 - **Printers** - Integrate material marking and printing directly inline, for automated identification without stopping production.
