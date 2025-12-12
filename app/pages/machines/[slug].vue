@@ -116,11 +116,12 @@ useSchemaOrg([
         :description="page.features?.description"
         :features="page.benefits"
       >
-        <img
-          :src="`/machines/${page.path.split('/').pop()}.webp`"
+        <NuxtImg
+          :src="`/machines/${route.params.slug}.png`"
+          format="webp"
           alt="App screenshot"
           class="rounded-lg shadow-2xl ring ring-default"
-        >
+        />
       </UPageSection>
       <UTabs
         :items="items"
