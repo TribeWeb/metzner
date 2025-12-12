@@ -50,7 +50,7 @@ orientation: vertical
     title: Nuxt UI Pro
     variant: subtle
     ---
-    :nuxt-img{alt="undefined" src="/machines/st-ob.webp" width="250px"}
+    :nuxt-img{alt="undefined" src="/machines/st-ob.png" width="250px"}
     ::::
   
     ::::u-page-card
@@ -59,7 +59,7 @@ orientation: vertical
     icon: i-simple-icons-nuxtdotjs
     title: Nuxt UI Ama
     ---
-    :nuxt-img{alt="undefined" src="/machines/st-ob.webp" width="250px"}
+    :nuxt-img{alt="undefined" src="/machines/st-ob.png" width="250px"}
     ::::
   :::
 

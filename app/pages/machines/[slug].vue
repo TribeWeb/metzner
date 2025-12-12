@@ -61,7 +61,7 @@ useSchemaOrg([
     name: `Metzner ${page.value.title}`,
     description: page.value.description,
     disambiguatingDescription: page.value.features?.description,
-    image: `/machines/${page.value.path.split('/').pop()}.webp`, // TODO
+    image: `/machines/${route.params.slug}.png`, // TODO
     category: 'Universal Cutting Machine',
     sameAs: page.value.sameAs || [],
     url: route.fullPath,

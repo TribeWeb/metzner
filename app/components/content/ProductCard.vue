@@ -24,7 +24,7 @@ const { data: product } = await useAsyncData<{ title?: string, description?: str
   >
     <template #default>
       <NuxtImg
-        :src="`/${collection}/${slug}.webp`"
+        :src="`/${collection}/${slug}.png`"
         :alt="`thumbnail of ${product?.title}`"
         fit="cover"
         width="120"
