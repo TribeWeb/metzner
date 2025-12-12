@@ -25,7 +25,7 @@
     "@vueuse/nuxt": "14.1.0",
     "better-sqlite3": "^12.5.0",
     "js-yaml": "^4.1.1",
-    "nuxt": "4.2.1",
+    "nuxt": "4.2.2",
     "nuxt-og-image": "^5.1.12",
     "nuxt-schema-org": "5.0.9",
     "vue": "^3.5.25"
@@ -39,7 +39,7 @@
     "wrangler": "^4.53.0",
     "zod": "^4.1.13"
   },
-  "packageManager": "pnpm@10.18.1+sha512.77a884a165cbba2d8d1c19e3b4880eee6d2fcabd0d879121e282196b80042351d5eb3ca0935fa599da1dc51265cc68816ad2bddd2a2de5ea9fdf92adbec7cd34",
+  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",

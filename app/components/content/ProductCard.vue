@@ -29,6 +29,7 @@ const { data: product } = await useAsyncData<{ title?: string, description?: str
         fit="cover"
         width="120"
         height="80"
+        placeholder
       />
     </template>
   </UPageCard>
