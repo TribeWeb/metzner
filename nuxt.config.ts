@@ -60,10 +60,6 @@ export default defineNuxtConfig({
     }
   },
 
-  hub: {
-    database: true
-  },
-
   eslint: {
     config: {
       stylistic: {
@@ -83,7 +79,7 @@ export default defineNuxtConfig({
   },
 
   image: {
-    provider: 'ipx'
+    provider: 'netlify'
   },
 
   ogImage: {
