@@ -6,7 +6,7 @@ description: Material Printers integrate with cutting machines to supply
 
 Printer integration supports “on-the-fly” marking, so production continues without interruption. Whether you need to mark logos, numbers, codes or instructions, our printers deliver durable, high-contrast results.
 
-By marking with either ink based or laser etched, based on your specific needs printers can offer a finished product in one process.
+By permanent marking with either ink based or laser etching, printers can offer a finished product in one process.
 
 ### Why do I need a printer?
 
