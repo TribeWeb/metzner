@@ -8,11 +8,17 @@ A take-off conveyor is designed to remove cut material from the cutting machine,
 
 ### When would I need a take-off conveyor?
 
-- For long, thin, or flexible cables that require stable guidance after cut.
+- For long, thin, or flexible material that require stable guidance after cut.
 - You require continuous operation where cutting lines must run without interruption.
 - When you have a production line that needs neat batch separation and collection.
 - To integrate cutting with stripping or marking machines for automated handling.
 - To assist high-volume cable or wire production that requires jam-free stacking.
+
+### Key Advantages
+
+- Post cut measurement of materials ensures only compliant cuts advance through your process.
+- Ability to batch split, allowing multiple cut lengths of a single material allows multiple production lines to occur simultaneously.
+- Process physically clears away cut material to stop any build up of material or product within the cutting machine.
 
 ### MA Stackers
 
