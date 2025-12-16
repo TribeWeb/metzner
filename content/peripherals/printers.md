@@ -10,7 +10,7 @@ By permanent marking with either ink based or laser etching, printers can offer 
 
 ### Why do I need a printer?
 
-- Permanent identification of cables, wires or tubes (part numbers, batch details, assembly codes, depth locators and company name)
+- Permanent identification of tubes, extrusions and cut materials (part numbers, batch details, assembly codes, depth locators and company name)
 - Achieve safety and compliance requirements
 - Branding and logo marking on rubber or plastic extrusions
 - Traceability marking (e.g. barcodes) for quality control or regulatory compliance
