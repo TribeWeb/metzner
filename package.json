@@ -19,7 +19,7 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/scripts": "0.13.0",
     "@nuxt/ui": "^4.2.1",
-    "@nuxthub/core": "0.10.1",
+    "@nuxthub/core": "0.9.1",
     "@nuxtjs/sitemap": "7.4.9",
     "@unhead/vue": "2.0.19",
     "@vueuse/nuxt": "14.1.0",
