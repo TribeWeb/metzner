@@ -9,10 +9,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-og-image',
-    '@nuxthub/core',
     '@nuxt/scripts',
     '@vueuse/nuxt',
-    'nuxt-schema-org'
+    'nuxt-schema-org',
+    'nuxt-studio'
   ],
 
   devtools: {
@@ -26,16 +26,6 @@ export default defineNuxtConfig({
 
   site: { url: 'metzner.nuxt.dev' },
 
-  content: {
-    database: {
-      type: 'd1',
-      bindingName: 'DB'
-    },
-    preview: {
-      dev: true,
-      api: 'https://api.nuxt.studio'
-    }
-  },
   runtimeConfig: {
     // Private keys are only available on the server
     googleApiKey: ''
@@ -76,10 +66,6 @@ export default defineNuxtConfig({
       prefix: 'c',
       dir: './app/assets/icons'
     }]
-  },
-
-  image: {
-    provider: 'ipx'
   },
 
   ogImage: {
