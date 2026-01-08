@@ -16,6 +16,7 @@ Peripherals integrate with Metzner cutting systems to add features and capabilit
 
 - **Extra Features** - Add printing to your system, to provide a finished product within a single process.
 - **Increased Automation** - By adding take off conveyors or pre-feed solutions, you can reduce operator intervention and operator time cost.
+- **Enhanced Precision** - By using a combination of prefeeders with loop control, speed control prior to the cutting machine enhances cutting accuracy and precision.
 - **Decrease Wasted Material** - By supporting delicate materials and reducing slippage, dereelers and prefeeders provide reductions in wastage costs.
 
 ### Metzner Approved Peripherals
