@@ -1,24 +1,22 @@
 ---
 seo:
   title: Welcome
-  description: Nuxt UI Pro is a collection of premium Vue components built on top
-    of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
+  description: Nuxt UI Pro is a collection of premium Vue components built on top of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
 ---
 
 ::material-picker
 ---
-headerCopy:
-  title: Material Picker
-  description: Specify the material you need to cut, and we'll identify the most suitable cutting machines from our range.
 formItemsCopy:
   - id: shape
     category: Cross section
     legend: Shape
-    description: Is the material a pipe, hose, conduit or cord with a round cross section? Or does it have a more complex profile?
+    description: Is the material a pipe, hose, conduit or cord with a round cross
+      section? Or does it have a more complex profile?
   - id: core
     category: Cross section
     legend: Core
-    description: Is the core of the material solid or hollow? Complex profiles may have both solid and hollow portions.
+    description: Is the core of the material solid or hollow? Complex profiles may
+      have both solid and hollow portions.
   - id: reinforced
     category: Cross section
     legend: Reinforced
@@ -26,7 +24,8 @@ formItemsCopy:
   - id: stiffness
     category: Longitudinal section
     legend: Stiffness
-    description: Is the material a flexible hose, cord or profile? Or is it a rigid pipe or extrusion?
+    description: Is the material a flexible hose, cord or profile? Or is it a rigid
+      pipe or extrusion?
   - id: cutDiameter
     category: Dimensions
     legend: Diameter
@@ -35,6 +34,10 @@ formItemsCopy:
     category: Dimensions
     legend: Width & height
     description: What is the width and height of the material cross section?
+headerCopy:
+  title: Material Picker
+  description: Specify the material you need to cut, and we'll identify the most
+    suitable cutting machines from our range.
 ---
 ::
 
@@ -42,7 +45,7 @@ formItemsCopy:
 ---
 orientation: vertical
 ---
-  :::u-marquee{:overlay='false' pause-on-hover}
+  :::u-marquee{:overlay='false' pause-on-hover pause-on-hover=""}
     ::::u-page-card
     ---
     description: bob
@@ -52,7 +55,7 @@ orientation: vertical
     ---
     :nuxt-img{alt="undefined" src="/machines/st-ob.png" width="250px"}
     ::::
-  
+
     ::::u-page-card
     ---
     description: bobina
@@ -67,7 +70,7 @@ orientation: vertical
 Machines that cut stuff really well
 
 #description
-Thery're excellent
+They're very excellent
 
 #headline
   :::u-button
@@ -115,7 +118,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Engineered in Germany
-  
+
   #description
   Maximise production uptime and enjoy reliable operation year after year.
   :::
@@ -128,7 +131,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Optimised for accurate, repeatable cuts
-  
+
   #description
   Enhance the quality of your products while minimising wastage.
   :::
@@ -141,7 +144,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Serviceable with parts availablity
-  
+
   #description
   Enjoy an assured and maximised return on investment.
   :::
@@ -154,7 +157,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Safety designed in
-  
+
   #description
   Integrated guards and stop systems help operators work safely.
   :::
@@ -167,7 +170,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Full range of peripherals
-  
+
   #description
   Integrate with compatible peripherals and existing systems to automate whole sections of production.
   :::
@@ -180,7 +183,7 @@ Perfectly repeated. Again and again…
   ---
   #title
   Customisation
-  
+
   #description
   Specify special requirements. E.g. stainless steel for medical applications.
   :::
