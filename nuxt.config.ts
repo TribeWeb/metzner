@@ -70,5 +70,14 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
+  },
+
+  studio: {
+    repository: {
+      provider: 'github', // 'github' or 'gitlab'
+      owner: 'tribeweb',
+      repo: 'metzner',
+      branch: 'main'
+    }
   }
 })
