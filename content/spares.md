@@ -19,7 +19,7 @@ As Metzner's UK distributor, we understand the importance of knowledgeable suppo
 
 **Service**
 
-Metzner cutting machines are designed with user maintenance and service in mind. This means Metzner cutting machines do not require a maintenance contract. Metzner UK can offer technical guidance and advice on your regular maintenance requirements alongside longer term support and diagnosis.
+Metzner cutting machines are designed with user maintenance and service in mind, so they do not require a maintenance contract. Metzner UK can offer technical guidance and advice on your regular maintenance requirements alongside longer term support and diagnosis.
 
 Whether it's routine maintenance or fault finding, we are here to help. Leave us a message below, or give us a call.
 
