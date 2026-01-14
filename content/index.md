@@ -41,7 +41,7 @@ headerCopy:
 ---
 orientation: vertical
 ---
-  :::u-marquee{:overlay='false' pause-on-hover pause-on-hover=""}
+  :::u-marquee{:overlay='false' pause-on-hover=""}
     ::::u-page-card
     ---
     description: bob
