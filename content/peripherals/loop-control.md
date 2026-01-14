@@ -1,14 +1,13 @@
 ---
 title: Loop Control
-description: Control your feed rate digitally, to supply a tension-free product
-  flow into the cutting machine.
+description: Control your feed rate digitally, to supply a tension-free product flow into the cutting machine.
 ---
 
 Loop Controls are digital controllers that control the feed rate of material into the cutting machine. They adjust the speed of either the cutting machine or the prefeeder, to create a tension free loop prior to entry to the cutting machine. This avoids stretching or tearing of elastic materials.
 
 These are commonly used in conjunction with a prefeeder, as the loop control adjusts the speed of the prefeeder and ensures a consistent cut length.
 
-Metzner loop control systems dynamically monitor loop length to stabilise material feed in real time. Models include a 3‑point control and a 10‑point control, giving you options for different precision and control demands. The loop control integrates seamlessly with the PF200 prefeeder, allowing you to fine tune material entry into the cutting machine.
+Metzner loop control systems dynamically monitor loop length to stabilise material feed in real time. Models include a 3-point control and a 10-point control, giving you options for different precision and control demands. The loop control integrates seamlessly with the PF200 prefeeder, allowing you to fine tune material entry into the cutting machine.
 
 ### When would I need a Loop Control?
 

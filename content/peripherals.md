@@ -1,13 +1,12 @@
 ---
 title: Peripherals
-description: Metzner approved peripherals to expand your machine’s capabilities.
+description: Metzner approved peripherals to expand your machine's capabilities.
 navigation:
   title: Peripherals
   icon: mdi:tools
 seo:
   title: Metzner Peripherals for Cutting Machines
-  description: Explore Metzner's range of peripherals designed to enhance the
-    efficiency and precision of your cutting operations.
+  description: Explore Metzner's range of peripherals designed to enhance the efficiency and precision of your cutting operations.
 ---
 
 Peripherals integrate with Metzner cutting systems to add features and capabilities. From streamlining material handling, improving accuracy and adding automation, peripherals are used to complete your Metzner solution.
@@ -31,4 +30,4 @@ Where solutions were not readily-available, Metzner offers their own options. Fr
 - **Pre-Feeders** - Accurately advance material into the cutting machine for stable feed and improved cycle consistency.
 - **Loop Control** - Maintain a controlled buffer between feed and cutter to decouple line speeds, prevent tension or overruns, and keep cutting continuous.
 - **Printers** - Integrate material marking and printing directly inline, for automated identification without stopping production.
-- **Take‑Off Conveyors** - Automatically remove cut material from the machine to keep production flowing with uninterrupted operation.
+- **Take-Off Conveyors** - Automatically remove cut material from the machine to keep production flowing with uninterrupted operation.
