@@ -10,13 +10,11 @@ formItemsCopy:
   - id: shape
     category: Cross section
     legend: Shape
-    description: Is the material a pipe, hose, conduit or cord with a round cross
-      section? Or does it have a more complex profile?
+    description: Is the material a pipe, hose, conduit or cord with a round cross section? Or does it have a more complex profile?
   - id: core
     category: Cross section
     legend: Core
-    description: Is the core of the material solid or hollow? Complex profiles may
-      have both solid and hollow portions.
+    description: Is the core of the material solid or hollow? Complex profiles may have both solid and hollow portions.
   - id: reinforced
     category: Cross section
     legend: Reinforced
@@ -24,8 +22,7 @@ formItemsCopy:
   - id: stiffness
     category: Longitudinal section
     legend: Stiffness
-    description: Is the material a flexible hose, cord or profile? Or is it a rigid
-      pipe or extrusion?
+    description: Is the material a flexible hose, cord or profile? Or is it a rigid pipe or extrusion?
   - id: cutDiameter
     category: Dimensions
     legend: Diameter
@@ -36,8 +33,7 @@ formItemsCopy:
     description: What is the width and height of the material cross section?
 headerCopy:
   title: Material Picker
-  description: Specify the material you need to cut, and we'll identify the most
-    suitable cutting machines from our range.
+  description: Specify the material you need to cut, and we'll identify the most suitable cutting machines from our range.
 ---
 ::
 
