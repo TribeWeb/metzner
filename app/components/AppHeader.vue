@@ -98,7 +98,7 @@ const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
       </template>
     </template>
 
-    <template #content>
+    <template #body>
       <UNavigationMenu
         orientation="vertical"
         :items="menuItemsWithActiveProp"
