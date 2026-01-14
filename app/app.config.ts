@@ -68,7 +68,7 @@ export default defineAppConfig({
       }, {
         label: 'Peripherals',
         icon: 'i-lucide-star',
-        description: 'Bits and bobs.',
+        description: 'Metzner Approved Peripherals',
         to: '/peripherals'
       }, {
         label: 'Spare Parts & Service',
