@@ -21,6 +21,11 @@ export default defineAppConfig({
         root: 'border-t border-(--ui-border)',
         left: 'text-sm text-(--ui-text-muted)'
       }
+    },
+    contentNavigation: {
+      slots: {
+        linkLeadingIcon: 'group-data-[state=open]:text-dimmed'
+      }
     }
   },
 
@@ -51,51 +56,51 @@ export default defineAppConfig({
     }],
     menu: [{
       label: 'Home',
-      icon: 'i-lucide-home',
+      icon: 'i-material-symbols-home',
       to: '/',
       name: 'index'
     }, {
       label: 'Machines',
-      icon: 'i-lucide-pocket-knife',
+      icon: 'i-ix-machine-c-filled',
       page: false,
       to: '/machines',
       name: 'machines-landing',
       children: [{
         label: 'Cutting machines',
-        icon: 'i-lucide-star',
+        icon: 'i-tabler-blade-filled',
         description: 'Precision cutting of hoses, extrusions & gaskets.',
         to: '/machines'
       }, {
         label: 'Peripherals',
-        icon: 'i-lucide-star',
+        icon: 'i-material-symbols-add-circle',
         description: 'Metzner Approved Peripherals',
         to: '/peripherals'
       }, {
-        label: 'Spare Parts & Service',
-        icon: 'i-lucide-star',
+        label: 'Spare parts & service',
+        icon: 'i-mynaui-tool-solid',
         description: 'Advice and support for your Metzner machines.',
         to: '/spares'
       }]
     }, {
       label: 'About',
-      icon: 'lucide-smile-plus',
+      icon: 'i-fa7-solid-diagram-project',
       to: '/about',
       name: 'about-slug',
 
       children: [{
         label: 'About us',
         description: 'UK distributer for Metzner',
-        icon: 'lucide-person-standing',
+        icon: 'i-fa7-solid-diagram-project',
         to: '/about'
       }, {
         label: 'Contact us',
         description: 'Talk to our team of experts',
-        icon: 'lucide-megaphone',
+        icon: 'i-gridicons-speaker',
         to: '/contact'
       }]
     }, {
       label: 'Latest',
-      icon: 'i-lucide-file-text',
+      icon: 'i-nrk-latest-news-active',
       to: '/latest',
       name: 'latest-slug'
     }]
@@ -110,37 +115,37 @@ export default defineAppConfig({
       id: 'company',
       title: 'Company',
       label: 'Company',
-      icon: 'i-lucide-building'
+      icon: 'i-heroicons-building-office-20-solid'
     }, {
       id: 'website',
       title: 'Website',
       label: 'Website',
-      icon: 'i-lucide-globe'
+      icon: 'i-tabler-world-www'
     }]
   },
 
   toc: {
-    title: 'On this page',
-    bottom: {
-      title: 'Community',
-      edit: 'https://github.com/nuxt-ui-pro/docs/edit/v3/content',
-      links: [{
-        icon: 'i-lucide-star',
-        label: 'Star on GitHub',
-        to: 'https://github.com/nuxt/ui',
-        target: '_blank'
-      }, {
-        icon: 'i-lucide-book-open',
-        label: 'Nuxt UI Pro docs',
-        to: 'https://ui.nuxt.com/pro/guide',
-        target: '_blank'
-      }, {
-        icon: 'i-simple-icons-nuxtdotjs',
-        label: 'Purchase a license',
-        to: 'https://ui.nuxt.com/pro/purchase',
-        target: '_blank'
-      }]
-    }
+    title: 'On this page'
+    // bottom: {
+    //   title: 'Community',
+    //   edit: 'https://github.com/nuxt-ui-pro/docs/edit/v3/content',
+    //   links: [{
+    //     icon: 'i-lucide-star',
+    //     label: 'Star on GitHub',
+    //     to: 'https://github.com/nuxt/ui',
+    //     target: '_blank'
+    //   }, {
+    //     icon: 'i-lucide-book-open',
+    //     label: 'Nuxt UI Pro docs',
+    //     to: 'https://ui.nuxt.com/pro/guide',
+    //     target: '_blank'
+    //   }, {
+    //     icon: 'i-simple-icons-nuxtdotjs',
+    //     label: 'Purchase a license',
+    //     to: 'https://ui.nuxt.com/pro/purchase',
+    //     target: '_blank'
+    //   }]
+    // }
   },
   toaster: {
     position: 'bottom-right' as const,
