@@ -24,7 +24,7 @@ export default defineContentConfig({
     }),
     machines: defineCollection({
       type: 'page',
-      source: 'machines/*.md',
+      source: 'machines/*.{md,yml}',
       schema: schemas.machines
     }),
     sparesLanding: defineCollection({
@@ -37,7 +37,7 @@ export default defineContentConfig({
     }),
     peripherals: defineCollection({
       type: 'page',
-      source: 'peripherals/*.md'
+      source: 'peripherals/*.{md,yml}'
     }),
     latest: defineCollection({
       type: 'page',
