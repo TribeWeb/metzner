@@ -16,10 +16,10 @@ export default defineNuxtConfig({
   ],
 
   devtools: {
-    enabled: false,
+    enabled: true,
 
     timeline: {
-      enabled: true
+      enabled: false
     }
   },
   css: ['~/assets/css/main.css'],
