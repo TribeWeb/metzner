@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    // '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap',
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-og-image',
@@ -24,7 +24,10 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
 
-  site: { url: 'metzner.nuxt.dev' },
+  site: {
+    url: 'metzner.netlify.app',
+    name: 'Metzner UK'
+  },
 
   runtimeConfig: {
     // Private keys are only available on the server
@@ -43,8 +46,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: [
-        '/'
-        //       '/sitemap.xml'
+        '/',
+        '/sitemap.xml'
       ],
       crawlLinks: true
     }
@@ -70,6 +73,10 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
+  },
+
+  sitemap: {
+    // strictNuxtContentPaths: true
   },
 
   studio: {
