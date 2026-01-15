@@ -24,7 +24,7 @@ export default defineContentConfig({
     }),
     machines: defineCollection({
       type: 'page',
-      source: 'machines/*.{md,yml}',
+      source: 'machines/*',
       schema: schemas.machines
     }),
     sparesLanding: defineCollection({
@@ -37,7 +37,7 @@ export default defineContentConfig({
     }),
     peripherals: defineCollection({
       type: 'page',
-      source: 'peripherals/*.{md,yml}'
+      source: 'peripherals/*'
     }),
     latest: defineCollection({
       type: 'page',
@@ -66,3 +66,89 @@ export default defineContentConfig({
     })
   }
 })
+// import { defineContentConfig, defineCollection, property } from '@nuxt/content'
+// import { z } from 'zod'
+// import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+// import { schemas } from './app/utils/schemas'
+
+// export default defineContentConfig({
+//   collections: {
+//     home: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'index.md'
+//       })
+//     ),
+//     about: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: [{
+//           include: 'about/*.md',
+//           prefix: '/'
+//         },
+//         { include: '1.about.md' }],
+//         schema: schemas.about
+//       })
+//     ),
+//     machinesLanding: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'machines.md'
+//       })
+//     ),
+//     machines: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'machines/*.{md,yml}',
+//         schema: schemas.machines
+//       })
+//     ),
+//     sparesLanding: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'spares.md'
+//       })
+//     ),
+//     peripheralsLanding: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'peripherals.md'
+//       })
+//     ),
+//     peripherals: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'peripherals/*.{md,yml}'
+//       })
+//     ),
+//     latest: defineCollection(
+//       asSitemapCollection({
+//         type: 'page',
+//         source: 'latest.md'
+//       })
+//     ),
+//     posts: defineCollection(
+//       asSitemapCollection({
+//         source: 'latest/**/*',
+//         type: 'page',
+//         schema: z.object({
+//           image: z.object({ src: property(z.string()).editor({ input: 'media' }) }),
+//           authors: z.array(
+//             z.object({
+//               name: z.string().nonempty(),
+//               to: z.string().nonempty(),
+//               avatar: z.object({ src: property(z.string()).editor({ input: 'media' }) })
+//             })
+//           ),
+//           date: z.date(),
+//           badge: z.object({ label: z.string().nonempty() })
+//         })
+//       })
+//     ),
+//     materials: defineCollection({
+//       type: 'data',
+//       source: 'data/materials/**',
+//       schema: schemas.materials
+//     })
+//   }
+// })
