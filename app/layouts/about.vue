@@ -11,6 +11,7 @@ const navigation = useAboutCategories()
             highlight
             :navigation="navigation"
             :collapsible="false"
+            :ui="{ linkLeadingIcon: 'group-data-[state=open]:text-dimmed' }"
           />
         </UPageAside>
       </template>

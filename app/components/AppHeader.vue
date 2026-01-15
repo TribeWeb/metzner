@@ -118,6 +118,7 @@ const mobileContentItems = computed<ContentNavigationItem[]>(() => {
       <UContentNavigation
         highlight
         :navigation="mobileContentItems"
+        :ui="{ linkLeadingIcon: 'group-data-[state=open]:text-dimmed' }"
       />
     </template>
   </UHeader>

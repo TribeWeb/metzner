@@ -13,6 +13,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('peripherals') || ref<Co
             type="single"
             highlight
             :navigation="navigation"
+            :ui="{ linkLeadingIcon: 'group-data-[state=open]:text-dimmed' }"
           />
         </UPageAside>
       </template>
