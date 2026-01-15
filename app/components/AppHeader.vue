@@ -32,7 +32,7 @@ const peripherals = inject<Ref<ContentNavigationItem[]>>('peripherals')
 const mobileContentItems = computed<ContentNavigationItem[]>(() => {
   if (route.meta.layout === 'about') {
     return about?.value || []
-  } else if (route.path.startsWith('/peripherals/')) {
+  } else if (route.meta.layout === 'peripherals') {
     return peripherals?.value || []
   }
   return machines?.value || []
