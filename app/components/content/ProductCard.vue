@@ -3,17 +3,20 @@ import type { Collections } from '@nuxt/content'
 
 const props = defineProps<{
   collection: keyof Collections
-  slug: string
+  slug: string | null
   description?: string
 }>()
 
-const { data: product } = await useAsyncData<{ title?: string, description?: string } | null>(props.slug, () => {
-  return queryCollection(props.collection).select('title', 'description').path(`/${props.collection}/${props.slug}`).first() as Promise<{ title?: string, description?: string } | null>
+const { data: product } = await useAsyncData<{ title?: string, description?: string } | null>(props.slug || '', () => {
+  return queryCollection(props.collection)
+    .select('title', 'description').path(`/${props.collection}/${props.slug}`)
+    .first() as Promise<{ title?: string, description?: string } | null>
 })
 </script>
 
 <template>
   <UPageCard
+    v-if="props.slug"
     orientation="horizontal"
     reverse
     :title="product?.title"
