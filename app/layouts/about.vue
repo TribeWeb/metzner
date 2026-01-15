@@ -1,18 +1,5 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
-
-const { footer } = useAppConfig()
-const columnHeaders = footer.columnHeaders || []
-
-const listAbout = inject<Ref<ContentNavigationItem[]>>('about') || ref<ContentNavigationItem[]>([])
-const columns = computed(() => {
-  return columnHeaders.map((header) => {
-    return {
-      ...header,
-      children: listAbout.value.filter(item => item.column === header.id)
-    }
-  })
-})
+const navigation = useAboutCategories()
 </script>
 
 <template>
@@ -22,7 +9,7 @@ const columns = computed(() => {
         <UPageAside>
           <UContentNavigation
             highlight
-            :navigation="columns"
+            :navigation="navigation"
             :collapsible="false"
           />
         </UPageAside>

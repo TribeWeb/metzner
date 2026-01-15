@@ -1,35 +1,41 @@
 <script setup lang="ts">
 import type { ContentNavigationItem } from '@nuxt/content'
 import type { NavigationMenuItem } from '@nuxt/ui'
-import { findPageChildren } from '@nuxt/content/utils'
 
 const route = useRoute()
 const { header } = useAppConfig()
 
-const menu = computed(() => header.menu || [])
+const menu = header.menu || []
 
-const menuItemsWithActiveProp = computed<NavigationMenuItem[]>(() => {
-  // add a `name` property to each menu item so that it can be matched to the route `name` property to show when active
-  return menu.value.map((menuItem) => {
+const desktopMenuItems = computed<NavigationMenuItem[]>(() => {
+  // add `name` property so that it can be matched to the route `name` property to show when active
+  // remove icons for desktop menu
+  return menu.map(({ icon, ...menuItem }) => {
     const isActive = route.path === menuItem.path
     return { ...menuItem, active: isActive, name: menuItem.name || menuItem.title }
   })
 })
 
-// const menuItemsWithRemovedProps = computed(() =>
-// // remove any unecessary properties. E.g. `name` is no longer required as we don't want to display one, `icon` is also not needed
-//   menuItemsWithActiveProp.value.map(({ icon, match, ...menu }) => menu)
-// )
-
-const navigation = inject<Ref<ContentNavigationItem[]>>('machines')
-
-const children = findPageChildren(navigation?.value, '/machines')
-
-const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
-  return children?.map((menuItem) => {
+const mobileMenuItems = computed<NavigationMenuItem[]>(() => {
+  // add `name` propertyso that it can be matched to the route `name` property to show when active
+  // add open-default to true for mobile menu items with children
+  return menu.map((menuItem) => {
     const isActive = route.path === menuItem.path
-    return { ...menuItem, active: isActive }
+    return { ...menuItem, active: isActive, name: menuItem.name || menuItem.title, defaultOpen: true }
   })
+})
+
+const machines = inject<Ref<ContentNavigationItem[]>>('machines')
+const about = useAboutCategories()
+const peripherals = inject<Ref<ContentNavigationItem[]>>('peripherals')
+
+const mobileContentItems = computed<ContentNavigationItem[]>(() => {
+  if (route.meta.layout === 'about') {
+    return about?.value || []
+  } else if (route.path.startsWith('/peripherals/')) {
+    return peripherals?.value || []
+  }
+  return machines?.value || []
 })
 </script>
 
@@ -50,9 +56,9 @@ const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
     </UContentSearchButton>
 
     <UNavigationMenu
-      v-if="menuItemsWithActiveProp"
+      v-if="desktopMenuItems"
       :ui="{ viewportWrapper: 'w-[150%] -left-1/2 -right-1/2 mx-auto' }"
-      :items="menuItemsWithActiveProp"
+      :items="desktopMenuItems"
       highlight
     />
 
@@ -101,7 +107,8 @@ const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
     <template #body>
       <UNavigationMenu
         orientation="vertical"
-        :items="menuItemsWithActiveProp"
+        highlight
+        :items="mobileMenuItems"
         class="-mx-2.5"
       />
       <USeparator
@@ -110,7 +117,7 @@ const mobileMenuItems = computed<ContentNavigationItem[]>(() => {
       />
       <UContentNavigation
         highlight
-        :navigation="mobileMenuItems"
+        :navigation="mobileContentItems"
       />
     </template>
   </UHeader>
