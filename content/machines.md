@@ -24,17 +24,20 @@ From single machines to complete, fully compatible production systems, Metzner d
 
 ## Modular Cutting Lines
 
-- ST-OB - Compact and durable design for cutting harder or thicker material.
-- CCM - Ideal for cutting steel reinforced materials of varying softness.
-- MBS
+- MBS-100
+- MBS-200
+- MBS-400
 
 ## Fly Knife Machines
 
-- SR 85
-- CCM 4 - Available with gap detection for precise, snag-free cuts in metal carriers.
-- KL-BV - Designed to accurately cut silicone or elastic material.
+- DYNAMAT-40
+- DYNAMAT-80
 
 ## Circular Saw Machines
+
+- CCM2
+- CCM4
+- CCM6
 
 ## Peripherals
 
