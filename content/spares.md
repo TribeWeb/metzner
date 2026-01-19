@@ -6,6 +6,8 @@ navigation:
 seo:
   title: Spare Parts and Service
   description: Advice and support for your Metzner machines
+sitemap:
+  loc: /spares
 ---
 
 With over 25 years of partnership with Metzner GmbH, Metzner UK continues to support machines sold over 20 years ago.
@@ -25,4 +27,13 @@ Whether it's routine maintenance or fault finding, we are here to help. Leave us
 
 ## Contact Us
 
-More stuff to say
+::div{#prospect-form-8}
+  :::div
+  ---
+  class: prospect-form-loading
+  style: width:50px;height:50px;margin:0
+    auto;background:url(https://userresources.prospect365.com/forms/spinner.svg)
+    center center no-repeat;background-size:contain
+  ---
+  :::
+::
