@@ -116,6 +116,10 @@ export default defineContentConfig({
         source: 'peripherals.md'
       })
     ),
+    materialsLanding: defineCollection({
+      type: 'page',
+      source: 'materials.md'
+    }),
     peripherals: defineCollection(
       asSitemapCollection({
         type: 'page',

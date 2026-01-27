@@ -80,6 +80,12 @@ export default defineAppConfig({
         icon: 'i-mynaui-tool-solid',
         description: 'Advice and support for your Metzner machines.',
         to: '/spares'
+      },
+      {
+        label: 'Materials',
+        icon: 'i-fa6-solid-cubes',
+        description: 'Overview of materials Metzner machines can cut.',
+        to: '/materials'
       }]
     }, {
       label: 'About',
