@@ -12,6 +12,12 @@ const items = [
     slot: 'datasheet' as const
   },
   {
+    label: 'Materials',
+    icon: 'i-fa6-solid-cubes',
+    content: 'List of materials this machine can cut.',
+    slot: 'materials' as const
+  },
+  {
     label: 'Peripherals',
     icon: 'i-lucide-square-plus',
     content: 'List of compatible peripherals.',
@@ -100,8 +106,8 @@ useSchemaOrg([
 <template>
   <UPage v-if="page">
     <UPageHeader
-      :title="page.title"
-      :description="page.description"
+      :title="`Metzner ${page.title}`"
+      :description="page.featurePrimary"
       :headline="headline"
     />
 
@@ -111,7 +117,29 @@ useSchemaOrg([
         :value="page"
       />
 
-      <UPageSection
+      <UPageHero
+        :title="page.features?.title"
+        :ui="{ container: 'flex flex-col lg:grid py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6 bg-muted rounded-lg',
+               title: 'font-normal text-3xl sm:text-4xl text-pretty tracking-tight font-bold text-highlighted',
+               description: 'text-left'
+        }"
+      >
+        <template #description>
+          <div class="flex flex-col lg:grid lg:grid-cols-2 py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6">
+            <div>
+              {{ page.features?.description }}
+            </div>
+            <NuxtImg
+              :src="`/machines/${route.params.slug}.png`"
+              format="webp"
+              alt="App screenshot"
+              class="rounded-lg shadow-2xl ring ring-default"
+            />
+          </div>
+        </template>
+      </UPageHero>
+
+      <!-- <UPageSection
         :title="page.features?.title"
         :description="page.features?.description"
         :features="page.benefits"
@@ -122,7 +150,7 @@ useSchemaOrg([
           alt="App screenshot"
           class="rounded-lg shadow-2xl ring ring-default"
         />
-      </UPageSection>
+      </UPageSection> -->
       <UTabs
         :items="items"
         :unmount-on-hide="false"
@@ -140,6 +168,11 @@ useSchemaOrg([
             download
             class="text-primary"
           >{{ page.title }} datasheet</ULink> (pdf will download or open in a new tab)
+        </template>
+        <template #materials="{ item }">
+          <p class="text-muted mb-4">
+            {{ item.content }}
+          </p>
         </template>
         <template #peripherals="{ item }">
           <p class="text-muted mb-4">
