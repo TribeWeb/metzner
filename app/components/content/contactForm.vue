@@ -2,14 +2,25 @@
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
-const { grecaptcha } = useScript({
-  src: 'https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js'
-  // src: 'https://www.google.com/recaptcha/api.js?render=6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU'
+const grecaptcha = useScript({
+  // src: 'https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js'
+  src: 'https://www.google.com/recaptcha/api.js?render=6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU'
 })
+// const bob = useScript({
+//   src: 'https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js'
+//   // src: 'https://www.google.com/recaptcha/api.js?render=6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU'
+// })
+
+const { data } = await useFetch<string>('https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js')
+
+// const bob = JSON.parse(JSON.stringify((data.value as string).toString()))
+const bob = data.value
+console.log(bob)
+
 // src: 'https://www.gstatic.com/recaptcha/releases/rW64dpMGAGrjU7JJQr9xxPl8/recaptcha__en.js',
 // crossorigin: 'anonymous',
 // integrity: 'sha384-stI8i0l4UnrupDOI6In0RQyfmG7x4RHoRSlzjf/yDu+T9clp2es/I4WNYpU4isM0'
-console.log(grecaptcha)
+console.log('grecaptcha', grecaptcha)
 const fields = {
   'text-1660649455927-0': {
     'label': 'First Name',
@@ -79,7 +90,7 @@ const schema = z.object({
   'text-1660649455927-0': z.string(),
   'text-1660649456958-0': z.string(),
   'text-1660649458928-0': z.string(),
-  'text-1660649457896-0': z.string().email('Invalid email'),
+  'text-1660649457896-0': z.email('Invalid email'),
   'textarea-1740493755578-0': z.string().optional(),
   'prospect-form-3-url': z.string()
 })
@@ -97,10 +108,10 @@ const state = reactive<Partial<Schema>>({
 
 const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event)
+  console.log('event', event)
   grecaptcha.enterprise.ready(async () => {
     const token = await grecaptcha.enterprise.execute('6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU', { action: 'prospect_form' })
-    console.log(token)
+    console.log('token', token)
     // IMPORTANT: The 'token' that results from execute is an encrypted response sent by
     // reCAPTCHA to the end user's browser.
     // This token must be validated by creating an assessment.
