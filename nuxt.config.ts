@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     '#types': '/<rootDir>/types'
   },
 
-  compatibilityDate: '2024-07-11',
+  compatibilityDate: '2026-01-27',
 
   nitro: {
     prerender: {
