@@ -27,5 +27,13 @@ Whether it's routine maintenance or fault finding, we are here to help. Leave us
 
 ## Contact Us
 
-::prospectFormEmbed{formId="8"}
+::div{#prospect-form-8}
+  :::div
+  ---
+  class: prospect-form-loading
+  style: width:50px;height:50px;margin:0
+    auto;background:url(https://userresources.prospect365.com/forms/spinner.svg)
+    center center no-repeat;background-size:contain
+  ---
+  :::
 ::
