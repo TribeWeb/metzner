@@ -5,11 +5,17 @@ import { findPageHeadline } from '@nuxt/content/utils'
 import type { TabsItem } from '@nuxt/ui'
 
 const items = [
+  // {
+  //   label: 'Datasheet',
+  //   icon: 'i-lucide-file-text',
+  //   content: 'Datasheet link goes here.',
+  //   slot: 'datasheet' as const
+  // },
   {
-    label: 'Datasheet',
-    icon: 'i-lucide-file-text',
-    content: 'Datasheet link goes here.',
-    slot: 'datasheet' as const
+    label: 'Specifications',
+    icon: 'i-lucide-notebook-tabs',
+    content: 'Full list of specs.',
+    slot: 'specifications' as const
   },
   {
     label: 'Materials',
@@ -22,12 +28,6 @@ const items = [
     icon: 'i-lucide-square-plus',
     content: 'List of compatible peripherals.',
     slot: 'peripherals' as const
-  },
-  {
-    label: 'Specifications',
-    icon: 'i-lucide-notebook-tabs',
-    content: 'Full list of specs.',
-    slot: 'specifications' as const
   }
 ] satisfies TabsItem[]
 
@@ -120,7 +120,7 @@ useSchemaOrg([
       <UPageHero
         :title="page.features?.title"
         :ui="{ container: 'flex flex-col lg:grid py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6 bg-muted rounded-lg',
-               title: 'font-normal text-3xl sm:text-4xl text-pretty tracking-tight font-bold text-highlighted',
+               title: 'font-normal text-3xl sm:text-4xl text-pretty tracking-tight text-highlighted',
                description: 'text-left'
         }"
       >
@@ -139,26 +139,17 @@ useSchemaOrg([
         </template>
       </UPageHero>
 
-      <!-- <UPageSection
-        :title="page.features?.title"
-        :description="page.features?.description"
-        :features="page.benefits"
-      >
-        <NuxtImg
-          :src="`/machines/${route.params.slug}.png`"
-          format="webp"
-          alt="App screenshot"
-          class="rounded-lg shadow-2xl ring ring-default"
-        />
-      </UPageSection> -->
       <UTabs
         :items="items"
         :unmount-on-hide="false"
-        variant="link"
-        :ui="{ trigger: 'md:grow' }"
+        variant="pill"
+        :ui="{ trigger: 'md:grow',
+               root: 'p-4 bg-default ring ring-default rounded-lg mt-6',
+               content: 'my-4!'
+        }"
         class="gap-4 display-block"
       >
-        <template #datasheet>
+        <template #specifications>
           <ULink
             as="button"
             :href="`/pdf/${route.params.slug}.pdf`"
@@ -168,6 +159,7 @@ useSchemaOrg([
             download
             class="text-primary"
           >{{ page.title }} datasheet</ULink> (pdf will download or open in a new tab)
+          <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96" />
         </template>
         <template #materials="{ item }">
           <p class="text-muted mb-4">
@@ -179,9 +171,9 @@ useSchemaOrg([
             {{ item.content }}
           </p>
         </template>
-        <template #specifications>
+        <!-- <template #specifications>
           <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96" />
-        </template>
+        </template> -->
       </UTabs>
 
       <USeparator v-if="surround?.length" />
