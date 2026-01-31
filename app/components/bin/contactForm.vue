@@ -4,7 +4,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 const grecaptcha = useScript({
   // src: 'https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js'
-  src: 'https://www.google.com/recaptcha/api.js?render=6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU'
+  src: 'https://www.google.com/recaptcha/api.js?render=6Le8OnwrAAAAADJpzAKQUb_b6lOjp5vKejYe0N2x'
 })
 // const bob = useScript({
 //   src: 'https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js'
@@ -14,8 +14,6 @@ const grecaptcha = useScript({
 const { data } = await useFetch<string>('https://userresources.prospect365.com/forms/QXZhbiBNZWR2ZWRldkFudvUt0fa+nPox7g%252Fhhu4C+wDua6PEgA==/2/form.js')
 
 // const bob = JSON.parse(JSON.stringify((data.value as string).toString()))
-const bob = data.value
-console.log(bob)
 
 // src: 'https://www.gstatic.com/recaptcha/releases/rW64dpMGAGrjU7JJQr9xxPl8/recaptcha__en.js',
 // crossorigin: 'anonymous',
@@ -110,7 +108,7 @@ const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   console.log('event', event)
   grecaptcha.enterprise.ready(async () => {
-    const token = await grecaptcha.enterprise.execute('6LePT-IqAAAAAMlFW4QvwRgoORJmmWlLzk4MMAlU', { action: 'prospect_form' })
+    const token = await grecaptcha.enterprise.execute('6Le8OnwrAAAAADJpzAKQUb_b6lOjp5vKejYe0N2x', { action: 'prospect_form' })
     console.log('token', token)
     // IMPORTANT: The 'token' that results from execute is an encrypted response sent by
     // reCAPTCHA to the end user's browser.

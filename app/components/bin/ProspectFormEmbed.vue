@@ -22,7 +22,7 @@ if (route.query.message === 'form-received') {
 
 <template>
   <div>
-    <div :id="`prospect-form-${formId}`">
+    <div :id="`prospect-form-${props.formId}`">
       <div
         class="prospect-form-loading"
         style="width:50px;height:50px;margin:0 auto;background:url(https://userresources.prospect365.com/forms/spinner.svg)
