@@ -81,7 +81,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div>
-    <pre>{{ formFields }}</pre>
+    <!-- <pre>{{ formFields }}</pre> -->
     <UForm
       :id="`prospect-form-${props.formId}-embed`"
       :schema="schema"
