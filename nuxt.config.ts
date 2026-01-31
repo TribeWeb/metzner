@@ -31,7 +31,16 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // Private keys are only available on the server
-    googleApiKey: ''
+    googleApiKey: '',
+    public: {
+      scripts: {
+        googleRecaptcha: {
+          // NUXT_PUBLIC_SCRIPTS_GOOGLE_RECAPTCHA_SITE_KEY=<your-key>
+          siteKey: ''
+        }
+      },
+      prospectFormOrgId: ''
+    }
     // spreadsheetId: '',
     // googleServiceAccountEmail: '',
     // googlePrivateKey: ''
