@@ -18,29 +18,59 @@ const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 
 const formFields = await useFormScriptFields(props.formId, prospectFormOrgId)
 
-const schema = z.object({
-  'text-1660649455927-0': z.string(),
-  'text-1660649456958-0': z.string(),
-  'text-1660649458928-0': z.string(),
-  'text-1660649457896-0': z.email('Invalid email'),
-  'textarea-1740493755578-0': z.string().optional(),
+const hiddenFields = {
   [`prospect-form-${props.formId}-url`]: z.url().optional(),
   [`prospect-form-${props.formId}-token`]: z.string().optional(),
-  'redirect': z.string().optional()
+  redirect: z.string().optional()
+}
+
+const fieldMap = [
+  {
+    prospectId: 'Email',
+    zodDef: z.email('Please enter a valid email')
+  },
+  {
+    prospectId: 'Forename',
+    zodDef: z.string('Please enter your first name')
+  },
+  {
+    prospectId: 'Surname',
+    zodDef: z.string('Please enter your last name')
+  },
+  {
+    prospectId: 'CompanyName',
+    zodDef: z.string('Please enter your company name')
+  }
+]
+
+const formSchema = computed(() => {
+  const prospectFields: Record<string, z.ZodEmail | z.ZodString | z.ZodOptional<z.ZodString>> = {}
+  formFields.value.forEach((field) => {
+    const fallBack = field.required === 'required' ? z.string() : z.string().optional()
+    if (field.id) {
+      prospectFields[field.id] = fieldMap.find(map => map.prospectId === field['field-mapping'])?.zodDef || fallBack
+    }
+  })
+  return { ...prospectFields, ...hiddenFields }
 })
+
+const formState = computed(() => {
+  const state: Record<string, string | undefined> = {}
+  Object.entries(formSchema.value).forEach(([key]) => {
+    state[key] = undefined
+  })
+  return state
+})
+
+const schema = z.object(
+  formSchema.value
+)
 
 type Schema = z.output<typeof schema>
 
-const state = reactive<Schema>({
-  'text-1660649455927-0': undefined,
-  'text-1660649456958-0': undefined,
-  'text-1660649458928-0': undefined,
-  'text-1660649457896-0': undefined,
-  'textarea-1740493755578-0': undefined,
-  [`prospect-form-${props.formId}-url`]: undefined,
-  [`prospect-form-${props.formId}-token`]: undefined,
-  'redirect': undefined
-})
+const state = reactive<Schema>(
+  formState.value
+)
 
 const toast = useToast()
 
@@ -81,7 +111,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div>
-    <!-- <pre>{{ formFields }}</pre> -->
+    <pre>{{ formFields }}</pre>
     <UForm
       :id="`prospect-form-${props.formId}-embed`"
       :schema="schema"
