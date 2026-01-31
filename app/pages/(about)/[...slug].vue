@@ -58,11 +58,11 @@ const headline = computed(() => findPageHeadline(navigation.value, route.path))
       v-if="page?.body?.toc?.links?.length"
       #right
     >
-      <UContentToc
+      <!-- <UContentToc
         highlight
         :title="toc?.title"
         :links="page.body?.toc?.links"
-      />
+      /> -->
     </template>
   </UPage>
 </template>
