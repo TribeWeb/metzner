@@ -14,6 +14,7 @@ const { proxy } = useScriptGoogleRecaptcha({
   siteKey: googleRecaptchaSiteKey
 })
 
+const toast = useToast()
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 
 const formFields = await useFormScriptFields(props.formId, prospectFormOrgId)
@@ -62,17 +63,9 @@ const formState = computed(() => {
   return state
 })
 
-const schema = z.object(
-  formSchema.value
-)
-
+const schema = z.object(formSchema.value)
 type Schema = z.output<typeof schema>
-
-const state = reactive<Schema>(
-  formState.value
-)
-
-const toast = useToast()
+const state = reactive<Schema>(formState.value)
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   status.value = 'loading'
@@ -98,11 +91,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       })
     })
     if ((result as string)?.includes('form-received')) {
-      status.value = 'success'
       toast.add({
-        title: 'Success',
-        description: 'Thanks for getting in touch. We\'ll get back to you as soon as possible',
-        color: 'success'
+        'title': 'Success',
+        'description': 'Thanks for getting in touch. We\'ll get back to you as soon as possible',
+        'color': 'success',
+        'onUpdate:open': (open) => {
+          if (!open) {
+            status.value = 'idle'
+          }
+        }
       })
     }
   })
