@@ -80,10 +80,7 @@ export const materials = z.strictObject({
   type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
   stiffness: z.enum(['flexible', 'rigid', '*']).optional(),
   shape: z.enum(['round', 'complex', 'square']).optional(),
-  core: z.array(z.union([
-    z.literal('hollow'),
-    z.literal('solid')
-  ])),
+  core: z.enum(['hollow', 'solid', 'mixed']).optional(),
   reinforced: z.enum(['steel', 'none']).optional(),
   material: z.array(z.union([
     z.literal('rubber'),

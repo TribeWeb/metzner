@@ -6,8 +6,7 @@ type: profile
 stiffness: flexible
 shape: complex
 core:
-  - hollow
-  - solid
+  - mixed
 reinforced: steel
 material:
   - rubber

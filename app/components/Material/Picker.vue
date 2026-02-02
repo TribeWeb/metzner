@@ -31,16 +31,17 @@ export type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({})
 
-const coreSchema = z.array(z.union([z.literal('hollow'), z.literal('solid')])).optional()
-const querySchema = schema.omit({ core: true })
-  .extend({ core: z.preprocess((val) => {
-    return typeof val === 'string' ? [val] : val
-  }, coreSchema) })
+// const coreSchema = z.array(z.union([z.literal('hollow'), z.literal('solid'), z.literal('mixed')])).optional()
+// const coreSchema = materials.shape.core
+// const querySchema = schema.omit({ core: true })
+//   .extend({ core: z.preprocess((val) => {
+//     return typeof val === 'string' ? [val] : val
+//   }, coreSchema) })
 
 const route = useRoute()
 
 onMounted(() => {
-  const parsedRoute = querySchema.parse(route.query) as Partial<Schema>
+  const parsedRoute = schema.parse(route.query) as Partial<Schema>
   Object.assign(state, parsedRoute)
 })
 
@@ -216,7 +217,7 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
       return [String(val)]
     }
   }).flat()
-  return Array.from(new Set(values))
+  return Array.from(new Set(values)).sort()
 }
 </script>
 
@@ -234,51 +235,50 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
         {{ headerCopy?.description }}
       </ProseP>
 
-      <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div class="md:grid md:grid-cols-3 lg:grid-cols-4 gap-2">
         <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'shape')">
           <URadioGroup
             v-model="state.shape"
             name="shape"
             :items="normalizedItems.shape.items"
             variant="table"
+            size="xs"
             :ui="{ label: 'relative' }"
           >
-            <template #label="{ item }">
-              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <template #label="{ item: { label, value } }">
+              <span>{{ label }}</span>
               <UIcon
-                :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}-hollow-none`"
-                class="absolute -top-1 right-3 size-12 text-muted"
-                :class="{
-                  'bg-primary':
-                    state.shape === (typeof item === 'object' && 'value' in item ? item.value : item)
-                }"
+                :name="`c-${value}-hollow-none`"
+                class="absolute -top-1 right-3 size-10 text-muted"
+                :class="{ 'bg-primary': state.core === value }"
               />
             </template>
-            <template #description="{ item }">
-              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            <template #description="{ item: { description } }">
+              <span class="italic">{{ description }}</span>
             </template>
           </URadioGroup>
         </MaterialFormItem>
         <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'core')">
-          <UCheckboxGroup
+          <URadioGroup
             v-model="state.core"
             name="core"
-            orientation="vertical"
-            variant="table"
             :items="normalizedItems.core.items"
+            variant="table"
+            size="xs"
+            :ui="{ label: 'relative' }"
           >
-            <template #label="{ item }">
-              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }} </span>
+            <template #label="{ item: { label, value } }">
+              <span>{{ label }}</span>
               <UIcon
-                :name="`c-${state.shape || 'round'}-${typeof item === 'object' && 'value' in item ? item.value : item}-none`"
-                class="absolute top-2 right-6 size-12 text-muted"
-                :class="{ 'bg-primary': state.core?.includes((typeof item === 'object' && 'value' in item && item.value !== undefined ? item.value : item) as 'hollow' | 'solid') }"
+                :name="`c-${state.shape || 'complex'}-${value || 'hollow'}-none`"
+                class="absolute -top-1 right-3 size-10 text-muted"
+                :class="{ 'bg-primary': state.core === value }"
               />
             </template>
-            <template #description="{ item }">
-              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            <template #description="{ item: { description } }">
+              <span class="italic">{{ description }}</span>
             </template>
-          </UCheckboxGroup>
+          </URadioGroup>
         </MaterialFormItem>
         <MaterialFormItem :copy="formItemsCopy?.find(item => item.id === 'reinforced')">
           <URadioGroup
@@ -286,18 +286,19 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
             name="reinforced"
             :items="normalizedItems.reinforced.items"
             variant="table"
+            size="xs"
             :ui="{ label: 'relative' }"
           >
-            <template #label="{ item }">
-              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <template #label="{ item: { label, value } }">
+              <span>{{ label }}</span>
               <UIcon
-                :name="`c-${state.shape || 'round'}-${state.core?.sort().join('-') || 'hollow'}-${typeof item === 'object' && 'value' in item ? item.value : item || 'none'}`"
-                class="absolute -top-1 right-3 size-12 text-muted"
-                :class="{ 'bg-primary': state.reinforced === (typeof item === 'object' && 'value' in item ? item.value : item) }"
+                :name="`c-${state.shape || 'round'}-${state.core || 'hollow'}-${value || 'none'}`"
+                class="absolute -top-1 right-3 size-10 text-muted"
+                :class="{ 'bg-primary': state.reinforced === value }"
               />
             </template>
-            <template #description="{ item }">
-              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            <template #description="{ item: { description } }">
+              <span class="italic">{{ description }}</span>
             </template>
           </URadioGroup>
         </MaterialFormItem>
@@ -307,18 +308,19 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
             name="stiffness"
             :items="normalizedItems.stiffness.items"
             variant="table"
+            size="xs"
             :ui="{ label: 'relative' }"
           >
-            <template #label="{ item }">
-              <span>{{ typeof item === 'object' && 'label' in item ? item.label : item }}</span>
+            <template #label="{ item: { label, value } }">
+              <span>{{ label }}</span>
               <UIcon
-                :name="`c-${typeof item === 'object' && 'value' in item ? item.value : item}`"
-                class="absolute -top-3 right-0 h-16 w-32 text-muted"
-                :class="{ 'bg-primary': state.stiffness === (typeof item === 'object' && 'value' in item ? item.value : item) }"
+                :name="`c-${value}`"
+                class="absolute -top-3 right-0 h-12 w-24 text-muted"
+                :class="{ 'bg-primary': state.stiffness === value }"
               />
             </template>
-            <template #description="{ item }">
-              <span class="italic">{{ typeof item === 'object' && 'description' in item ? item.description : item }}</span>
+            <template #description="{ item: { description } }">
+              <span class="italic">{{ description }}</span>
             </template>
           </URadioGroup>
         </MaterialFormItem>

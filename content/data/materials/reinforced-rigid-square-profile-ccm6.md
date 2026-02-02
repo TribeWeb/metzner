@@ -6,8 +6,7 @@ type: profile
 stiffness: rigid
 shape: square
 core:
-  - hollow
-  - solid
+  - mixed
 reinforced: steel
 material:
   - rubber
