@@ -69,7 +69,7 @@ const state = reactive<Schema>(formState.value)
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   status.value = 'loading'
-  event.data[`prospect-form-${props.formId}-url`] = location.hostname.toString()
+  event.data[`prospect-form-${props.formId}-url`] = location.toString()
   event.data['redirect'] = 'false'
 
   proxy.grecaptcha.ready(async () => {
