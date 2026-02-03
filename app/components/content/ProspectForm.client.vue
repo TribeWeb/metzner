@@ -3,7 +3,7 @@ import z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const props = defineProps<{
-  formId: string
+  formId: string // should be a number???
 }>()
 
 const runtimeConfig = useRuntimeConfig()
@@ -32,15 +32,15 @@ const fieldMap = [
   },
   {
     prospectId: 'Forename',
-    zodDef: z.string('Please enter your first name')
+    zodDef: z.string('Please enter your first name').optional()
   },
   {
     prospectId: 'Surname',
-    zodDef: z.string('Please enter your last name')
+    zodDef: z.string('Please enter your last name').optional()
   },
   {
     prospectId: 'CompanyName',
-    zodDef: z.string('Please enter your company name')
+    zodDef: z.string('The name of the company you represent')
   }
 ]
 
@@ -113,7 +113,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       :id="`prospect-form-${props.formId}-embed`"
       :schema="schema"
       :state="state"
-      class="space-y-4"
+      class="space-y-2"
       @submit.prevent="onSubmit"
     >
       <template v-for="(field, key) in formFields" :key="key">
@@ -124,12 +124,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             v-model="state[field.id]"
             :type="field.type"
             :placeholder="field.placeholder"
+            class="w-max-48"
           />
           <UTextarea
             v-else-if="field.element === 'textarea'"
             :id="field.id"
             v-model="state[field.id]"
             :placeholder="field.placeholder"
+            class="w-max-48"
           />
         </UFormField>
       </template>

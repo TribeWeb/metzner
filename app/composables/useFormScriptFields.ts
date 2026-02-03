@@ -8,7 +8,7 @@ export function extractFormFields($: cheerio.CheerioAPI) {
     for (const [name, value] of Object.entries(element.attribs || {})) {
       attrs[name] = value
     }
-    attrs['data-label'] = $(element).text().trim().replace(/\s*\*$/, '') // Remove trailing asterisks for required fields
+    attrs['data-label'] = $(element).text().trim().replace(/\s*\*$/, '').replace(/\s*\?$/, '') // Remove trailing asterisks and question amrks for required fields
     labels.push(attrs)
   })
 
