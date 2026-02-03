@@ -101,6 +101,18 @@ useSchemaOrg([
     }
   })
 ])
+
+const img = useImage()
+
+const bg = computed(() => {
+  const imgUrl = img(`/machines/${route.params.slug}.png`, { width: 220 })
+
+  return {
+    backgroundImage: `url('${imgUrl}')`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right'
+  }
+})
 </script>
 
 <template>
@@ -109,6 +121,8 @@ useSchemaOrg([
       :title="`Metzner ${page.title}`"
       :description="page.featurePrimary"
       :headline="headline"
+      :style="bg"
+      class="not-md:bg-none!"
     />
 
     <UPageBody>
@@ -117,28 +131,14 @@ useSchemaOrg([
         :value="page"
       />
 
-      <UPageHero
+      <UPageSection
         :title="page.features?.title"
-        :ui="{ container: 'flex flex-col lg:grid py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6 bg-muted rounded-lg',
-               title: 'font-normal text-3xl sm:text-4xl text-pretty tracking-tight text-highlighted',
-               description: 'text-left'
+        :description="page.features?.description"
+        :features="page.benefits"
+        :ui="{ container: 'flex flex-col lg:grid py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6',
+               title: 'text-3xl sm:text-4xl text-pretty tracking-tight text-highlighted'
         }"
-      >
-        <template #description>
-          <div class="flex flex-col lg:grid lg:grid-cols-2 py-2 sm:py-4 lg:py-6 gap-4 sm:gap-y-6">
-            <div>
-              {{ page.features?.description }}
-            </div>
-            <NuxtImg
-              :src="`/machines/${route.params.slug}.png`"
-              format="webp"
-              alt="App screenshot"
-              class="rounded-lg shadow-2xl ring ring-default"
-            />
-          </div>
-        </template>
-      </UPageHero>
-
+      />
       <UTabs
         :items="items"
         :unmount-on-hide="false"
@@ -157,8 +157,8 @@ useSchemaOrg([
             target="_blank"
             external
             download
-            class="text-primary"
-          >{{ page.title }} datasheet</ULink> <br><span>(pdf will download or open in a new tab)</span>
+            class="text-primary pl-4"
+          >{{ page.title }} datasheet</ULink> <br><span class="text-muted text-sm pl-4">(pdf will download or open in a new tab)</span>
           <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96 mt-4" />
         </template>
         <template #materials="{ item }">
