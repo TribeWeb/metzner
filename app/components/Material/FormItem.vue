@@ -13,11 +13,19 @@ const { copy } = defineProps({
 </script>
 
 <template>
-  <UCard variant="soft" :class="`col-span-${colCount}`" class="max-w-136">
+  <UCard
+    variant="soft"
+    :class="`col-span-${colCount}`"
+    class="max-w-136"
+    :ui="{ body: 'h-full' }"
+  >
     <UFormField
       :name="copy?.id"
       :description="copy?.description"
-      :ui="{ label: 'w-full flex justify-between', description: 'pt-1 pb-3' }"
+      :ui="{ label: 'w-full flex justify-between',
+             description: 'pt-1 pb-3',
+             root: 'h-full flex flex-col justify-between'
+      }"
     >
       <template #label>
         <h3> {{ copy?.legend }} </h3>
