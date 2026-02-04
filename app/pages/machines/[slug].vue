@@ -1,16 +1,11 @@
 <script setup lang="ts">
+import { modal } from '#build/ui'
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
 import type { TabsItem } from '@nuxt/ui'
 
 const items = [
-  // {
-  //   label: 'Datasheet',
-  //   icon: 'i-lucide-file-text',
-  //   content: 'Datasheet link goes here.',
-  //   slot: 'datasheet' as const
-  // },
   {
     label: 'Specifications',
     icon: 'i-lucide-notebook-tabs',
@@ -62,6 +57,26 @@ defineOgImageComponent('Docs')
 
 const headline = computed(() => findPageHeadline(navigation?.value, route.path))
 
+const imgHeaderProps = computed(() => ({
+  src: `/machines/${route.params.slug}.png`,
+  title: `Metzner ${page.value?.title} cutting machine`,
+  alt: `Photo of Metzner ${page.value?.title} cutting machine`,
+  height: 140,
+  width: 180,
+  modalHeight: 800,
+  modalWidth: 1200
+}))
+
+const imgProps = computed(() => ({
+  src: `/machines/${route.params.slug}.png`,
+  title: `Metzner ${page.value?.title} cutting machine`,
+  alt: `Photo of Metzner ${page.value?.title} cutting machine`,
+  height: 350,
+  width: 600,
+  modalHeight: 800,
+  modalWidth: 1200
+}))
+
 useSchemaOrg([
   defineProduct({
     name: `Metzner ${page.value.title}`,
@@ -101,29 +116,22 @@ useSchemaOrg([
     }
   })
 ])
-
-const img = useImage()
-
-const bg = computed(() => {
-  const imgUrl = img(`/machines/${route.params.slug}.png`, { width: 220 })
-
-  return {
-    backgroundImage: `url('${imgUrl}')`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right'
-  }
-})
 </script>
 
 <template>
   <UPage v-if="page">
-    <UPageHeader
-      :title="`Metzner ${page.title}`"
-      :description="page.featurePrimary"
-      :headline="headline"
-      :style="bg"
-      class="not-md:bg-none!"
-    />
+    <div class="md:flex md:flex-row border-b border-default">
+      <UPageHeader
+        :title="`Metzner ${page.title}`"
+        :description="page.featurePrimary"
+        :headline="headline"
+        class="md:basis-11/16"
+        :ui="{ root: 'border-none' }"
+      />
+      <div class="relative not-md:hidden grid justify-items-end p-4 basis-5/16">
+        <ImageModal v-bind="imgHeaderProps" />
+      </div>
+    </div>
 
     <UPageBody>
       <ContentRenderer
@@ -175,6 +183,7 @@ const bg = computed(() => {
           <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96" />
         </template> -->
       </UTabs>
+      <ImageModal v-bind="imgProps" />
 
       <USeparator v-if="surround?.length" />
       <UContentSurround :surround="surround" />
