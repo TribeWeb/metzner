@@ -116,25 +116,33 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       class="space-y-2"
       @submit.prevent="onSubmit"
     >
-      <template v-for="(field, key) in formFields" :key="key">
-        <UFormField v-if="field.id" :label="field.label" :name="field.name" :description="field.title">
-          <UInput
-            v-if="field.element === 'input'"
-            :id="field.id"
-            v-model="state[field.id]"
-            :type="field.type"
-            :placeholder="field.placeholder"
-            class="w-max-48"
-          />
-          <UTextarea
-            v-else-if="field.element === 'textarea'"
-            :id="field.id"
-            v-model="state[field.id]"
-            :placeholder="field.placeholder"
-            class="w-max-48"
-          />
-        </UFormField>
-      </template>
+      <UPageColumns class="lg:columns-2">
+        <template v-for="(field, key) in formFields" :key="key">
+          <UFormField
+            v-if="field.id"
+            :label="field.label"
+            :name="field.name"
+            :description="field.title"
+            class="w-full"
+          >
+            <UInput
+              v-if="field.element === 'input'"
+              :id="field.id"
+              v-model="state[field.id]"
+              :type="field.type"
+              :placeholder="field.placeholder"
+              class="w-full"
+            />
+            <UTextarea
+              v-else-if="field.element === 'textarea'"
+              :id="field.id"
+              v-model="state[field.id]"
+              :placeholder="field.placeholder"
+              class="w-full"
+            />
+          </UFormField>
+        </template>
+      </UPageColumns>
       <UButton
         type="submit"
         :loading="status === 'loading'"
