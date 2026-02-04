@@ -1,20 +1,26 @@
 <script setup lang="ts">
-const props = defineProps<{
-  src: string
-  title: string
-  alt?: string
-  height: number
-  width: number
-  modalHeight: number
-  modalWidth: number
-}>()
+import type { MaybeElement } from '@vueuse/core'
+
+const props = defineProps({
+  src: String,
+  title: String,
+  alt: String,
+  height: { type: Number, default: 450 },
+  width: { type: Number, default: 600 },
+  modalHeight: { type: Number, default: 800 },
+  modalWidth: { type: Number, default: 1200 }
+})
+
+const el = useTemplateRef<MaybeElement>('el')
+const { width: surroundWidth, height: surroundHeight } = useElementSize(el)
 
 const altText = computed(() => props.alt || `Photo of ${props.title}`)
 </script>
 
 <template>
-  <div class="relative -p-4" :style="`height: ${height}px; width: ${width}px;`">
+  <div class="relative">
     <NuxtImg
+      ref="el"
       :src="src"
       :alt="altText"
       :height="height"
@@ -29,7 +35,8 @@ const altText = computed(() => props.alt || `Photo of ${props.title}`)
         size="xs"
         variant="solid"
         color="neutral"
-        class="absolute bottom-2 right-2"
+        class="absolute"
+        :style="`top: ${surroundHeight-30}px; left: ${surroundWidth-30}px;`"
       />
       <template #body>
         <div class="flex justify-center">

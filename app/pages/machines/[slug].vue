@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { modal } from '#build/ui'
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
@@ -62,19 +61,13 @@ const imgHeaderProps = computed(() => ({
   title: `Metzner ${page.value?.title} cutting machine`,
   alt: `Photo of Metzner ${page.value?.title} cutting machine`,
   height: 140,
-  width: 180,
-  modalHeight: 800,
-  modalWidth: 1200
+  width: 180
 }))
 
 const imgProps = computed(() => ({
-  src: `/machines/${route.params.slug}.png`,
-  title: `Metzner ${page.value?.title} cutting machine`,
-  alt: `Photo of Metzner ${page.value?.title} cutting machine`,
+  ...imgHeaderProps.value,
   height: 350,
-  width: 600,
-  modalHeight: 800,
-  modalWidth: 1200
+  width: 600
 }))
 
 useSchemaOrg([
