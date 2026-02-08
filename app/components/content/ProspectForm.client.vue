@@ -116,7 +116,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       class="space-y-2"
       @submit.prevent="onSubmit"
     >
-      <UPageColumns class="lg:columns-2">
+      <UPageGrid class="lg:grid-cols-2 mb-8">
         <template v-for="(field, key) in formFields" :key="key">
           <UFormField
             v-if="field.id"
@@ -142,7 +142,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             />
           </UFormField>
         </template>
-      </UPageColumns>
+      </UPageGrid>
       <UButton
         type="submit"
         :loading="status === 'loading'"
