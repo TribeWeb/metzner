@@ -140,6 +140,7 @@ useSchemaOrg([
                title: 'text-3xl sm:text-4xl text-pretty tracking-tight text-highlighted'
         }"
       />
+      <MaterialAlert />
       <UTabs
         :items="items"
         :unmount-on-hide="false"

@@ -118,7 +118,33 @@ export default defineContentConfig({
     ),
     materialsLanding: defineCollection({
       type: 'page',
-      source: 'materials.md'
+      source: 'materials.md',
+      schema: z.object({
+        categories: z.array(
+          z.object({
+            id: z.string().nonempty(),
+            title: z.string().nonempty(),
+            collection: z.string().optional(),
+            order: z.number()
+          })
+        ),
+        attributes: z.array(
+          z.object({
+            id: z.string().nonempty(),
+            categoryId: z.string().nonempty(),
+            legend: z.string().nonempty(),
+            description: z.string().optional(),
+            unit: z.string().optional()
+          })
+        ),
+        attributeValues: z.array(
+          z.object({
+            id: z.string().nonempty(),
+            attributeId: z.string().nonempty(),
+            label: z.string().nonempty()
+          })
+        )
+      })
     }),
     peripherals: defineCollection(
       asSitemapCollection({
