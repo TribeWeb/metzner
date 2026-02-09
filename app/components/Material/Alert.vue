@@ -16,12 +16,12 @@ onMounted(() => {
   Object.assign(state, parsedRoute)
 })
 
-const { data: page } = await useAsyncData(route.path, () => {
+const { data: page } = await useAsyncData(`${route.path}-title`, () => {
   return queryCollection('machines').path(route.path).select('title').first()
 })
 
 const noMachineMatch = computed(() => {
-  return state.cutDiameter ? state.cutDiameter > 18 : true
+  return state.cutDiameter ? state.cutDiameter > 18 : false
 })
 
 const status = computed(() => {

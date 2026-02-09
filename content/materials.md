@@ -6,22 +6,29 @@ navigation:
 seo:
   title: Materials
   description: Information about materials that can be processed on Metzner machines
+collections:
+  - id: profile
+    title: Profile
+  - id: stiffness
+    title: Stiffness
+  - id: dimensions
+    title: Dimensions
 categories:
   - id: crossSection
     title: Cross section
-    collection: Profile
+    collectionId: profile
     order: 1
   - id: longitudinalSection
     title: Longitudinal section
-    collection: Stiffness
+    collectionId: stiffness
     order: 2
   - id: diameter
-    title: Dimensions
-    collection: Diameter
+    title: Diameter
+    collectionId: dimensions
     order: 3
   - id: widthHeight
-    title: Dimensions
-    collection: Width & height
+    title: Width & height
+    collectionId: dimensions
     order: 4
 attributes:
   - id: shape

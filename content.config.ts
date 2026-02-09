@@ -120,11 +120,17 @@ export default defineContentConfig({
       type: 'page',
       source: 'materials.md',
       schema: z.object({
+        collections: z.array(
+          z.object({
+            id: z.string().nonempty(),
+            title: z.string().nonempty()
+          })
+        ),
         categories: z.array(
           z.object({
             id: z.string().nonempty(),
             title: z.string().nonempty(),
-            collection: z.string().optional(),
+            collectionId: z.string().nonempty(),
             order: z.number()
           })
         ),

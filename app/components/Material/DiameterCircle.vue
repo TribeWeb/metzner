@@ -16,7 +16,7 @@ const viewBox = computed(() => {
 const coordinates = computed(() =>
   calculateCircleCoordinates(props.cutDiameter, viewBox.value.height)
 )
-const strokeWidth = computed(() => props.cutDiameter / 25)
+const strokeWidth = computed(() => props.cutDiameter / 10)
 </script>
 
 <template>

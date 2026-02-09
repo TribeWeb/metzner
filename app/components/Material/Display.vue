@@ -16,13 +16,10 @@ onMounted(() => {
   Object.assign(state, parsedRoute)
 })
 
-const { data: materialsCopy } = await useAsyncData('materialsDisplay', () => {
-  return queryCollection('materialsLanding').select('categories', 'attributes', 'attributeValues').first()
+const { data: copy } = await useAsyncData('materialsDisplay', () => {
+  return queryCollection('materialsLanding').select('collections', 'categories', 'attributes', 'attributeValues').first()
 })
 
-const materialCategories = computed(() => materialsCopy.value?.categories || [])
-const materialAttributes = computed(() => materialsCopy.value?.attributes || [])
-const materialAttributeValues = computed(() => materialsCopy.value?.attributeValues || [])
 const icons = computed(() => {
   return {
     crossSection: `c-${state.shape}-${state.core}-${state.reinforced ? state.reinforced : 'none'}`,
@@ -35,13 +32,13 @@ const icons = computed(() => {
 const descriptions = computed(() => {
   const descriptions: Record<string, string | number | undefined>[] = []
   for (const [key, value] of Object.entries(state)) {
-    const formItem = materialAttributes.value?.find(item => item.id === key)
+    const attributes = copy.value?.attributes.find(item => item.id === key)
     descriptions.push({
       id: key,
-      attr: formItem?.legend || key,
-      value: materialAttributeValues.value?.find(av => av.attributeId === key)?.label || value,
-      unit: formItem?.unit || '',
-      category: formItem?.categoryId || ''
+      attr: attributes?.legend || key,
+      value: copy.value?.attributeValues?.find(av => av.attributeId === key)?.label || value as string | number | undefined,
+      unit: attributes?.unit || '',
+      category: attributes?.categoryId || ''
     })
   }
   return descriptions
@@ -49,15 +46,17 @@ const descriptions = computed(() => {
 
 const cards = computed(() => {
   const uniqueCategoryIds = [...new Set(descriptions.value.map(item => item.category))]
-  const uniqueCategories = materialCategories.value
+  const uniqueCategories = (copy.value?.categories || [])
     .filter(category => uniqueCategoryIds.includes(category.id))
     .sort((a, b) => (a.order) - (b.order))
   return uniqueCategories.map((category) => {
     return {
-      collection: category.collection,
+      collection: copy.value?.collections.find(c => c.id === category.collectionId)?.title || '',
+      collectionId: copy.value?.collections.find(c => c.id === category.collectionId)?.id || '',
       category: category.title,
-      content: {
-        icon: icons.value[category?.id as keyof typeof icons.value] || 'i-lucide-box',
+      categoryId: category.id,
+      slotContent: {
+        icon: icons.value[category.id as keyof typeof icons.value] || 'i-lucide-box',
         description: descriptions.value.filter(item => item.category === category.id)
       }
     }
@@ -66,47 +65,44 @@ const cards = computed(() => {
 </script>
 
 <template>
-  <UPageGrid v-if="state.shape && state.core">
-    <UPageCard
-      v-for="(card, index) in cards"
-      :key="index"
-      variant="soft"
-      orientation="vertical"
-
-      v-bind="card"
-      :ui="{ header: 'w-full flex justify-between text-base text-pretty font-semibold text-highlighted',
-             body: 'w-full flex flex-row justify-between gap-4',
-             container: 'p-2 sm:p-4'
-      }"
-    >
-      <template #header>
-        <p> {{ card.collection }} </p>
-        <UBadge size="md" variant="soft" :label="card.category" class="block" />
-      </template>
-      <template #body>
-        <div class="flex flex-col">
-          <template v-for="(description, i) in card.content.description" :key="i">
-            <p v-if="state[description.id as keyof typeof state]" class="text-sm text-muted">
-              {{ description.attr }}:&nbsp;&nbsp;<span class="text-sm text-default">{{ description.value }}{{ description.unit }}</span>
-            </p>
-          </template>
+  <UStepper
+    :items="cards"
+    class="w-full"
+    size="xl"
+    :ui="{
+      title: 'flex flex-col gap-y-2 items-center justify-center text-base text-pretty font-semibold text-highlighted',
+      // eslint-disable-next-line @stylistic/max-len
+      trigger: 'p-1 rounded-sm ring-primary group-data-[state=completed]:ring-4 group-data-[state=active]:ring-4 group-data-[state=completed]:bg-elevated group-data-[state=active]:bg-elevated group-data-[state=completed]:text-default group-data-[state=active]:text-default',
+      description: 'flex flex-col items-center justify-center',
+      separator: 'group-data-[state=completed]:bg-primary'
+    }"
+  >
+    <template #indicator="{ item }">
+      <MaterialDiameterCircle v-if="item.slotContent.icon === 'MaterialDiameterCircle'" />
+      <MaterialWidthHeightSquare v-else-if="item.slotContent.icon === 'MaterialWidthHeightSquare'" />
+      <UIcon v-else :name="item.slotContent.icon" class="size-16" />
+    </template>
+    <template #title="{ item }">
+      <UBadge size="md" variant="soft" :label="item.category" />
+      <p> {{ item.collection }} </p>
+    </template>
+    <template #description="{ item }">
+      <p v-for="(description, i) in item.slotContent.description" :key="i" class="text-sm text-muted">
+        {{ description.attr }}:&nbsp;&nbsp;<span class="text-sm text-default">{{ description.value }}{{ description.unit }}</span>
+      </p>
+    </template>
+    <template #content="{ item }">
+      <UPageGrid>
+        <div v-if="item?.collectionId==='profile'">
+          {{ item?.collection }} - {{ item?.category }}
         </div>
-        <div class="flex items-center justify-center">
-          <MaterialDiameterCircle v-if="card.content.icon === 'MaterialDiameterCircle'" />
-          <MaterialWidthHeightSquare v-else-if="card.content.icon === 'MaterialWidthHeightSquare'" />
-          <UIcon v-else :name="card.content.icon" :size="60" class="bg-primary" />
+        <div v-else-if="item?.collectionId==='stiffness'">
+          {{ item?.collection }} - {{ item?.category }}
         </div>
-      </template>
-      <template #footer>
-        <UFieldGroup>
-          <UButton size="sm" variant="subtle" color="neutral">
-            Edit
-          </UButton>
-          <UButton v-if="card.category === 'Cross section'" size="sm" variant="outline" color="neutral">
-            Clear all
-          </UButton>
-        </UFieldGroup>
-      </template>
-    </UPageCard>
-  </UPageGrid>
+        <div v-else-if="item?.collectionId==='dimensions'">
+          {{ item?.collection }} - {{ item?.category }}
+        </div>
+      </UPageGrid>
+    </template>
+  </UStepper>
 </template>
