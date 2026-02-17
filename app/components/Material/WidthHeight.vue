@@ -65,6 +65,8 @@ onMounted(() => {
   nextTick(() => {
     sliderWidth.value = cutWidth.value || widthMin.value
     sliderHeight.value = cutHeight.value || heightMin.value
+    updateWidth(sliderWidth.value)
+    updateHeight(sliderHeight.value)
   })
 })
 

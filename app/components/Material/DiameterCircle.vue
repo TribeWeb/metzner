@@ -3,34 +3,89 @@ const props = defineProps({
   cutDiameter: {
     type: Number,
     default: 20
+  },
+  viewBoxHeight: {
+    type: Number,
+    default: undefined
+  },
+  strokeWidth: {
+    type: Number,
+    default: undefined
+  },
+  circleStrokeWidth: {
+    type: Number,
+    default: undefined
+  },
+  patternScale: {
+    type: Number,
+    default: undefined
+  },
+  dashScale: {
+    type: Number,
+    default: 1
+  },
+  circleYOffset: {
+    type: Number,
+    default: 0
+  },
+  inline: {
+    type: Boolean,
+    default: false
+  },
+  svgClass: {
+    type: String,
+    default: 'size-16'
   }
 })
+
+const svgId = useId()
+
+const diameter = computed(() => props.cutDiameter)
+const resolvedViewBoxHeight = computed(() => props.viewBoxHeight ?? diameter.value)
+const resolvedStrokeWidth = computed(() => props.strokeWidth ?? (diameter.value / 10))
+const resolvedCircleStrokeWidth = computed(() => props.circleStrokeWidth ?? (resolvedStrokeWidth.value / 4))
+const resolvedPatternScale = computed(() => props.patternScale ?? (diameter.value / 50))
+const hatchPatternId = computed(() => `diagonalHatchDiameter-${svgId}`)
+const dashArray = computed(() => `${resolvedStrokeWidth.value * props.dashScale}, ${resolvedStrokeWidth.value * props.dashScale}`)
 
 const viewBox = computed(() => {
   return {
     y: 0,
-    width: props.cutDiameter,
-    height: props.cutDiameter
+    width: diameter.value,
+    height: resolvedViewBoxHeight.value
   }
 })
 const coordinates = computed(() =>
-  calculateCircleCoordinates(props.cutDiameter, viewBox.value.height)
+  calculateCircleCoordinates(diameter.value, viewBox.value.height)
 )
-const strokeWidth = computed(() => props.cutDiameter / 10)
+const svgViewBox = computed(() => {
+  const stroke = resolvedStrokeWidth.value
+  return `-${stroke / 2} -${stroke / 2} ${viewBox.value.width + stroke} ${viewBox.value.height + stroke}`
+})
+
+const rootElement = computed(() => props.inline ? 'g' : 'svg')
+const rootAttrs = computed(() => {
+  if (props.inline) {
+    return {}
+  }
+
+  return {
+    xmlns: 'http://www.w3.org/2000/svg',
+    viewBox: svgViewBox.value,
+    class: props.svgClass
+  }
+})
 </script>
 
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    :viewBox="`-${strokeWidth / 2} -${strokeWidth / 2} ${viewBox.width + strokeWidth} ${viewBox.height + strokeWidth}`"
-    class="size-16"
-  >
+  <component :is="rootElement" v-bind="rootAttrs">
+    <slot />
     <pattern
-      id="diagonalHatchDiameter"
+      :id="hatchPatternId"
       width="16"
       height="16"
       patternUnits="userSpaceOnUse"
-      :patternTransform="`scale(${strokeWidth / 2}, ${strokeWidth / 2})`"
+      :patternTransform="`scale(${resolvedPatternScale})`"
     >
       <rect width="16" height="16" fill="var(--ui-bg-muted)" />
       <path
@@ -39,14 +94,13 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
         stroke-width="5"
       />
     </pattern>
-    <slot />
     <circle
       :cx="coordinates.circleCentre.x"
-      :cy="coordinates.circleCentre.y"
-      :r="cutDiameter / 2"
-      fill="url(#diagonalHatchDiameter)"
+      :cy="coordinates.circleCentre.y + circleYOffset"
+      :r="diameter / 2"
+      :fill="`url(#${hatchPatternId})`"
       stroke="var(--ui-primary)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedCircleStrokeWidth"
       stroke-align="inset"
     />
     <line
@@ -55,8 +109,8 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.topRight.perimeter.x"
       :y2="coordinates.topRight.perimeter.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
-      :stroke-dasharray="`${strokeWidth * 2}, ${strokeWidth * 2}`"
+      :stroke-width="resolvedStrokeWidth / 4"
+      :stroke-dasharray="dashArray"
     />
     <line
       :x1="coordinates.bottomLeft.perimeter.x"
@@ -64,7 +118,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.bottomLeft.corner.x"
       :y2="coordinates.bottomLeft.corner.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
     <line
       :x1="coordinates.bottomLeft.perimeter.x"
@@ -72,7 +126,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.bottomLeft.perimeter.x"
       :y2="coordinates.bottomLeft.corner.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
     <line
       :x1="coordinates.bottomLeft.perimeter.x"
@@ -80,7 +134,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.bottomLeft.corner.x"
       :y2="coordinates.bottomLeft.perimeter.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
     <line
       :x1="coordinates.topRight.perimeter.x"
@@ -88,7 +142,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.topRight.corner.x"
       :y2="coordinates.topRight.corner.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
     <line
       :x1="coordinates.topRight.perimeter.x"
@@ -96,7 +150,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.topRight.corner.x"
       :y2="coordinates.topRight.perimeter.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
     <line
       :x1="coordinates.topRight.perimeter.x"
@@ -104,7 +158,7 @@ const strokeWidth = computed(() => props.cutDiameter / 10)
       :x2="coordinates.topRight.perimeter.x"
       :y2="coordinates.topRight.corner.y"
       stroke="var(--ui-bg-inverted)"
-      :stroke-width="strokeWidth / 4"
+      :stroke-width="resolvedStrokeWidth / 4"
     />
-  </svg>
+  </component>
 </template>
