@@ -5,8 +5,7 @@ modelName: MBS
 type: profile
 stiffness: rigid
 shape: complex
-core:
-  - mixed
+core: mixed
 reinforced: none
 material:
   - rubber

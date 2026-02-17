@@ -5,8 +5,7 @@ modelName: ST-OB
 type: profile
 stiffness: flexible
 shape: square
-core:
-  - mixed
+core: mixed
 reinforced: none
 material:
   - rubber

@@ -5,8 +5,7 @@ modelName: KL-BV
 type: cord
 stiffness: flexible
 shape: round
-core:
-  - solid
+core: solid
 reinforced: none
 material:
   - rubber

@@ -5,8 +5,7 @@ modelName: Variocut
 type: hose
 stiffness: rigid
 shape: round
-core:
-  - hollow
+core: hollow
 reinforced: none
 material:
   - rubber

@@ -5,8 +5,7 @@ modelName: KL-BV
 type: profile
 stiffness: flexible
 shape: complex
-core:
-  - mixed
+core: mixed
 reinforced: none
 material:
   - rubber

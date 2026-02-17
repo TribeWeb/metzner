@@ -5,8 +5,7 @@ modelName: CCM
 type: gasket
 stiffness: '*'
 shape: round
-core:
-  - solid
+core: solid
 reinforced: none
 material:
   - rubber

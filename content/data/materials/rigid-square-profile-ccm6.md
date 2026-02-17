@@ -5,8 +5,7 @@ modelName: CCM
 type: profile
 stiffness: rigid
 shape: square
-core:
-  - mixed
+core: mixed
 reinforced: none
 material:
   - rubber

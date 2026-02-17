@@ -5,8 +5,7 @@ modelName: ST-OB
 type: hose
 stiffness: flexible
 shape: round
-core:
-  - hollow
+core: hollow
 reinforced: none
 material:
   - rubber
