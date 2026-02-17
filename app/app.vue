@@ -26,6 +26,10 @@ provide('materials', materials)
 const { data: latest } = await useAsyncData('latestList', () => queryCollectionNavigation('latest'))
 provide('latest', latest)
 
+const state = reactive<Partial<Schema>>({})
+useMountedState(state)
+provide('state', state)
+
 // const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('machines'), {
 //   server: false
 // })

@@ -1,5 +1,85 @@
 import { z } from 'zod'
 
+type FieldId = 'stiffness' | 'shape' | 'core' | 'reinforced' | 'material' | 'width' | 'height' | 'diameter'
+type FieldGroupId = 'crossSection' | 'longSection' | 'material' | 'widthHeight' | 'diameter'
+
+type StepId = 'length' | 'profile' | 'dimensions'
+
+type ValueMeta = Record<string, unknown> & {
+  label: string
+  fieldId: FieldId
+  fieldGroupId: FieldGroupId
+}
+
+type MaterialMeta = ValueMeta & {
+  stepId: StepId
+}
+
+const literalValue = <T extends string>(value: T, meta: ValueMeta) => z.literal(value).meta(meta)
+
+const numericValue = (meta: ValueMeta) => z.coerce.number().meta({ ...meta, unit: 'mm' })
+
+export const fieldValues = z.object({
+  flexible: literalValue('flexible', { label: 'Flexible', fieldId: 'stiffness', fieldGroupId: 'crossSection' }),
+  rigid: literalValue('rigid', { label: 'Rigid', fieldId: 'stiffness', fieldGroupId: 'crossSection' }),
+  star: literalValue('*', { label: 'Any', fieldId: 'stiffness', fieldGroupId: 'crossSection' }),
+  round: literalValue('round', { label: 'Round', fieldId: 'shape', fieldGroupId: 'crossSection' }),
+  complex: literalValue('complex', { label: 'Complex', fieldId: 'shape', fieldGroupId: 'crossSection' }),
+  square: literalValue('square', { label: 'Square', fieldId: 'shape', fieldGroupId: 'crossSection' }),
+  hollow: literalValue('hollow', { label: 'Hollow', fieldId: 'core', fieldGroupId: 'crossSection' }),
+  solid: literalValue('solid', { label: 'Solid', fieldId: 'core', fieldGroupId: 'crossSection' }),
+  mixed: literalValue('mixed', { label: 'Mixed', fieldId: 'core', fieldGroupId: 'crossSection' }),
+  steel: literalValue('steel', { label: 'Steel', fieldId: 'reinforced', fieldGroupId: 'longSection' }),
+  none: literalValue('none', { label: 'None', fieldId: 'reinforced', fieldGroupId: 'longSection' }),
+  rubber: literalValue('rubber', { label: 'Rubber', fieldId: 'material', fieldGroupId: 'material' }),
+  plastic: literalValue('plastic', { label: 'Plastic', fieldId: 'material', fieldGroupId: 'material' }),
+  epdm: literalValue('epdm', { label: 'EPDM', fieldId: 'material', fieldGroupId: 'material' }),
+  pvc: literalValue('pvc', { label: 'PVC', fieldId: 'material', fieldGroupId: 'material' }),
+  silicone: literalValue('silicone', { label: 'Silicone', fieldId: 'material', fieldGroupId: 'material' }),
+  sponge: literalValue('sponge', { label: 'Sponge', fieldId: 'material', fieldGroupId: 'material' }),
+  width: numericValue({ label: 'Width', fieldId: 'width', fieldGroupId: 'widthHeight' }),
+  height: numericValue({ label: 'Height', fieldId: 'height', fieldGroupId: 'widthHeight' }),
+  diameter: numericValue({ label: 'Diameter', fieldId: 'diameter', fieldGroupId: 'diameter' })
+})
+
+export const materials = z.strictObject({
+  slug: z.string(),
+  modelId: z.string(),
+  modelName: z.string(),
+  type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
+  stiffness: z.xor([
+    fieldValues.shape.flexible.optional(),
+    fieldValues.shape.rigid.optional(),
+    fieldValues.shape.star.optional()
+  ]).meta({ label: 'Stiffness', fieldId: 'stiffness', fieldGroupId: 'longSection', stepId: 'length' } satisfies MaterialMeta),
+  shape: z.xor([
+    fieldValues.shape.round.optional(),
+    fieldValues.shape.complex.optional(),
+    fieldValues.shape.square.optional()
+  ]).meta({ label: 'Shape', fieldId: 'shape', fieldGroupId: 'crossSection', stepId: 'profile' } satisfies MaterialMeta),
+  core: z.xor([
+    fieldValues.shape.hollow.optional(),
+    fieldValues.shape.solid.optional(),
+    fieldValues.shape.mixed.optional()
+  ]).meta({ label: 'Core', fieldId: 'core', fieldGroupId: 'crossSection', stepId: 'profile' } satisfies MaterialMeta),
+  reinforced: z.xor([
+    fieldValues.shape.none.optional(),
+    fieldValues.shape.steel.optional()
+  ]).meta({ label: 'Reinforced', fieldId: 'reinforced', fieldGroupId: 'crossSection', stepId: 'profile' } satisfies MaterialMeta),
+  diameter: fieldValues.shape.diameter.optional().meta({ label: 'Diameter', fieldId: 'diameter', fieldGroupId: 'diameter', stepId: 'dimensions' } satisfies MaterialMeta),
+  width: fieldValues.shape.width.optional().meta({ label: 'Width', fieldId: 'width', fieldGroupId: 'widthHeight', stepId: 'dimensions' } satisfies MaterialMeta),
+  height: fieldValues.shape.height.optional().meta({ label: 'Height', fieldId: 'height', fieldGroupId: 'widthHeight', stepId: 'dimensions' } satisfies MaterialMeta),
+  material: z.array(z.union([
+    fieldValues.shape.rubber,
+    fieldValues.shape.plastic,
+    fieldValues.shape.epdm,
+    fieldValues.shape.pvc,
+    fieldValues.shape.silicone,
+    fieldValues.shape.sponge
+  ])).meta({ label: 'Material', fieldGroupId: 'material' }),
+  config: z.enum(['standard', 'optional'])
+})
+
 export const machines = z.strictObject({
   title: z.string().optional(),
   description: z.string().optional(),
@@ -71,26 +151,6 @@ export const about = z.strictObject({
       })
     })
   )
-})
-
-export const materials = z.strictObject({
-  slug: z.string(),
-  modelId: z.string(),
-  modelName: z.string(),
-  type: z.enum(['hose', 'profile', 'cord', 'gasket', 'tape']),
-  stiffness: z.enum(['flexible', 'rigid', '*']).optional(),
-  shape: z.enum(['round', 'complex', 'square']).optional(),
-  core: z.enum(['hollow', 'solid', 'mixed']).optional(),
-  reinforced: z.enum(['steel', 'none']).optional(),
-  material: z.array(z.union([
-    z.literal('rubber'),
-    z.literal('plastic'),
-    z.literal('epdm'),
-    z.literal('pvc'),
-    z.literal('silicone'),
-    z.literal('sponge')
-  ])),
-  config: z.enum(['standard', 'optional'])
 })
 
 // export const pageCollectionItemBaseSchema = z.strictObject({

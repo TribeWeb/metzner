@@ -4,43 +4,6 @@ seo:
   description: Nuxt UI Pro is a collection of premium Vue components built on top of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
 ---
 
-::material-picker
----
-formItemsCopy:
-  - id: shape
-    category: Cross section
-    legend: Shape
-    description: Is the material a pipe, hose, conduit or cord with a round cross
-      section? Or does it have a more complex profile?
-  - id: core
-    category: Cross section
-    legend: Core
-    description: Is the core of the material solid or hollow? Complex profiles may
-      have both solid and hollow portions.
-  - id: reinforced
-    category: Cross section
-    legend: Reinforced
-    description: Is there steel reinforcement running along the length of the material?
-  - id: stiffness
-    category: Longitudinal section
-    legend: Stiffness
-    description: Is the material a flexible hose, cord or profile? Or is it a rigid
-      pipe or extrusion?
-  - id: cutDiameter
-    category: Dimensions
-    legend: Diameter
-    description: What is the outer diameter of the material cross section?
-  - id: cutWidthHeight
-    category: Dimensions
-    legend: Width & height
-    description: What is the width and height of the material cross section?
-headerCopy:
-  title: Material Picker
-  description: Specify the material you need to cut, and we'll identify the most
-    suitable cutting machines from our range.
----
-::
-
 ::u-page-hero
 ---
 orientation: vertical

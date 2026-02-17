@@ -2,6 +2,7 @@
 import type { MaterialsCollectionItem } from '@nuxt/content'
 import { z } from 'zod'
 import { materials, machines } from '#imports'
+import type { Reactive } from 'vue'
 
 export type FormItem = {
   id: keyof Schema | 'cutWidthHeight'
@@ -27,10 +28,10 @@ const materialSchema = materials.pick({ stiffness: true, shape: true, reinforced
 
 const schema = z.object({ ...machineSchema.shape, ...materialSchema.shape })
 
-export type Schema = z.output<typeof schema>
+// export type Schema = z.output<typeof schema>
 
-const state = reactive<Partial<Schema>>({})
-
+// const state = reactive<Partial<Schema>>({})
+const state = inject('state') as Reactive<Partial<Schema>>
 // const coreSchema = z.array(z.union([z.literal('hollow'), z.literal('solid'), z.literal('mixed')])).optional()
 // const coreSchema = materials.shape.core
 // const querySchema = schema.omit({ core: true })
@@ -39,11 +40,15 @@ const state = reactive<Partial<Schema>>({})
 //   }, coreSchema) })
 
 const route = useRoute()
+// const isReady = ref(false)
 
-onMounted(() => {
-  const parsedRoute = schema.parse(route.query) as Partial<Schema>
-  Object.assign(state, parsedRoute)
-})
+// onMounted(() => {
+//   const parsedRoute = schema.parse(route.query) as Partial<Schema>
+//   Object.assign(state, parsedRoute)
+//   isReady.value = true
+// })
+
+// whenever(isReady, () => console.log(state))
 
 const router = useRouter()
 watchEffect(() => {

@@ -1,4 +1,4 @@
-import { executeTransition, TransitionPresets } from '@vueuse/core'
+import { transition, TransitionPresets } from '@vueuse/core'
 
 interface Box {
   viewBoxWidth: number
@@ -35,7 +35,7 @@ export function useAnimateViewBox(container: Box, options: Options = {}): Comput
   })
 
   function animateViewBox(to: [number, number, number], from: [number, number, number] = [0, 0, 0]): void {
-    executeTransition(viewBoxArray, from, to, {
+    transition(viewBoxArray, from, to, {
       duration,
       transition: TransitionPresets[transitionPreset] || TransitionPresets.easeOutCubic
     })

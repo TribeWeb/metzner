@@ -1,108 +1,269 @@
 <script setup lang="ts">
-import { materials, machines } from '#imports'
-import { z } from 'zod'
+import type { StepperItem } from '@nuxt/ui'
+import type { Reactive } from 'vue'
+import type { MaterialsLandingCollectionItem } from '@nuxt/content'
+import type { FieldGroupItem, Schema, SchemaKey } from '#imports'
 
-const machineSchema = machines.pick({ cutDiameter: true, cutWidth: true, cutHeight: true })
-const materialSchema = materials.pick({ stiffness: true, shape: true, reinforced: true, core: true })
+const state = inject<Reactive<Partial<Schema>>>('state')!
 
-const schema = z.object({ ...machineSchema.shape, ...materialSchema.shape })
-type Schema = z.output<typeof schema>
-
-const state = reactive<Partial<Schema>>({})
-
-const route = useRoute()
-onMounted(() => {
-  const parsedRoute = schema.parse(route.query) as Partial<Schema>
-  Object.assign(state, parsedRoute)
+const router = useRouter()
+watchEffect(() => {
+  if (state.shape === 'round') {
+    state.width = undefined
+    state.height = undefined
+  } else {
+    state.diameter = undefined
+  }
+  router.replace({ query: state })
 })
 
-const { data: copy } = await useAsyncData('materialsDisplay', () => {
-  return queryCollection('materialsLanding').select('collections', 'categories', 'attributes', 'attributeValues').first()
+const { data: copy } = await useAsyncData('materialsCopy', () => {
+  return queryCollection('materialsLanding').select('steps', 'fieldGroupStepMap', 'questions', 'collections', 'categories', 'attributes', 'attributeValues').first()
 })
 
-const icons = computed(() => {
+const { data: machinesData } = useNuxtData('machinesData')
+
+const fieldGroups = useFieldGroups.value
+const items = useItems.value
+
+const icons = computed<Record<string, string>>(() => {
   return {
-    crossSection: `c-${state.shape}-${state.core}-${state.reinforced ? state.reinforced : 'none'}`,
-    longitudinalSection: `c-${state.stiffness ? state.stiffness : 'flexible'}`,
-    diameter: 'MaterialDiameterCircle',
-    widthHeight: 'MaterialWidthHeightSquare'
+    crossSection: `c-${state.shape ? state.shape : 'round'}-${state.core ? state.core : 'hollow'}-${state.reinforced ? state.reinforced : 'none'}`,
+    longSection: `c-${state.stiffness ? state.stiffness : 'flexible'}`,
+    dimensions: `${state.shape === 'round' ? 'diameter' : 'widthHeight'}`
   }
 })
 
-const descriptions = computed(() => {
-  const descriptions: Record<string, string | number | undefined>[] = []
-  for (const [key, value] of Object.entries(state)) {
-    const attributes = copy.value?.attributes.find(item => item.id === key)
-    descriptions.push({
-      id: key,
-      attr: attributes?.legend || key,
-      value: copy.value?.attributeValues?.find(av => av.attributeId === key)?.label || value as string | number | undefined,
-      unit: attributes?.unit || '',
-      category: attributes?.categoryId || ''
-    })
-  }
-  return descriptions
+const activeSteps = computed<FieldGroupItem[]>(() => {
+  const activeKeys = new Set(
+    (Object.keys(state) as SchemaKey[])
+      .filter(key => state[key] !== undefined)
+  )
+  const dedupedByGroupId = new Set<string>()
+  return fieldGroups.filter((field) => {
+    if (!activeKeys.has(field.id) || !field.fieldGroupId) {
+      return false
+    }
+    if (dedupedByGroupId.has(field.fieldGroupId)) {
+      return false
+    }
+    dedupedByGroupId.add(field.fieldGroupId)
+    return true
+  })
 })
 
-const cards = computed(() => {
-  const uniqueCategoryIds = [...new Set(descriptions.value.map(item => item.category))]
-  const uniqueCategories = (copy.value?.categories || [])
-    .filter(category => uniqueCategoryIds.includes(category.id))
-    .sort((a, b) => (a.order) - (b.order))
-  return uniqueCategories.map((category) => {
+interface MaterialStepItem extends StepperItem {
+  stepTitle: string
+  stepId: string
+  fieldGroupLegend: string
+  fieldGroupId: string
+  slotContent: {
+    icon: string
+    fields: FieldGroupItem[]
+  }
+}
+
+const steps: ComputedRef<MaterialStepItem[]> = computed(() => {
+  const defaultDimension = state.shape === 'round' ? 'diameter' : 'widthHeight'
+  return (copy.value?.steps || []).map((step) => {
+    const defaultFieldGroup = copy.value?.fieldGroupStepMap.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroupStepMap'][number]) => fieldGroup.stepId === step.id)?.id
+    const fieldGroupId = activeSteps.value.find(activeStep => activeStep.stepId === step.id)?.fieldGroupId
+      || defaultFieldGroup
+      || defaultDimension
+    const fieldGroup = copy.value?.fieldGroupStepMap.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroupStepMap'][number]) => fieldGroup.id === fieldGroupId)
     return {
-      collection: copy.value?.collections.find(c => c.id === category.collectionId)?.title || '',
-      collectionId: copy.value?.collections.find(c => c.id === category.collectionId)?.id || '',
-      category: category.title,
-      categoryId: category.id,
+      stepTitle: fieldGroup?.stepTitle || '',
+      stepId: fieldGroup?.stepId || '',
+      fieldGroupLegend: fieldGroup?.legend || '',
+      fieldGroupId: fieldGroup?.id || '',
       slotContent: {
-        icon: icons.value[category.id as keyof typeof icons.value] || 'i-lucide-box',
-        description: descriptions.value.filter(item => item.category === category.id)
+        icon: icons.value[fieldGroup?.id || ''] || 'i-lucide-box',
+        fields: fieldGroups.filter(item => item.fieldGroupId === fieldGroup?.id)
       }
     }
   })
 })
+
+function getFieldValueLabel(fieldId: SchemaKey): string | number {
+  const fieldValue = state[fieldId]
+  if (typeof fieldValue === 'number') {
+    return fieldValue
+  }
+  const fieldGroupItem = items.find(item => item.value === fieldValue)
+  return fieldGroupItem?.label || ''
+}
+
+function getFieldUnit(fieldId: SchemaKey): string {
+  const fieldGroupItem = items.find(item => item.id === fieldId)
+  return fieldGroupItem?.unit || ''
+}
+
+function findFieldById(fields: FieldGroupItem[], id: string): FieldGroupItem | undefined {
+  return fields.find(field => field.id === id)
+}
+
+function updateStepperModel(index: string | number | undefined): void {
+  if (typeof index === 'number') {
+    updateDirection(index)
+  }
+}
+
+const stepper = useTemplateRef<StepperItem>('stepper')
+const display = ref(false)
+
+const lastStep = ref(0)
+const direction = ref<'forward' | 'backward'>('forward')
+function updateDirection(newIndex: number): void {
+  const currentIndex = lastStep.value
+
+  if (newIndex > currentIndex) {
+    direction.value = 'forward'
+  } else {
+    direction.value = 'backward'
+  }
+
+  lastStep.value = newIndex
+}
 </script>
 
 <template>
   <UStepper
-    :items="cards"
+    ref="stepper"
+    :items="steps"
+    :disabled="!display"
     class="w-full"
     size="xl"
     :ui="{
       title: 'flex flex-col gap-y-2 items-center justify-center text-base text-pretty font-semibold text-highlighted',
       // eslint-disable-next-line @stylistic/max-len
-      trigger: 'p-1 rounded-sm ring-primary group-data-[state=completed]:ring-4 group-data-[state=active]:ring-4 group-data-[state=completed]:bg-elevated group-data-[state=active]:bg-elevated group-data-[state=completed]:text-default group-data-[state=active]:text-default',
+      trigger: 'p-1 rounded-sm border border-muted group-data-[state=completed]:border-primary/50 group-data-[state=active]:border-primary/50 group-data-[state=completed]:bg-primary/10 group-data-[state=active]:bg-primary/10 group-data-[state=completed]:text-primary group-data-[state=active]:text-primary disabled:border-muted disabled:text-muted',
       description: 'flex flex-col items-center justify-center',
       separator: 'group-data-[state=completed]:bg-primary'
     }"
+    @update:model-value="updateStepperModel"
   >
     <template #indicator="{ item }">
-      <MaterialDiameterCircle v-if="item.slotContent.icon === 'MaterialDiameterCircle'" />
-      <MaterialWidthHeightSquare v-else-if="item.slotContent.icon === 'MaterialWidthHeightSquare'" />
-      <UIcon v-else :name="item.slotContent.icon" class="size-16" />
+      <MaterialDiameterCircle v-if="item.fieldGroupId === 'diameter'" />
+      <MaterialWidthHeightSquare v-else-if="item.fieldGroupId === 'widthHeight'" />
+      <UIcon v-else :name="icons[item.fieldGroupId as keyof typeof icons]" class="size-16" />
     </template>
     <template #title="{ item }">
-      <UBadge size="md" variant="soft" :label="item.category" />
-      <p> {{ item.collection }} </p>
+      <UBadge size="md" variant="soft" :label="item.fieldGroupLegend" />
+      <p> {{ item.stepTitle }} </p>
     </template>
     <template #description="{ item }">
-      <p v-for="(description, i) in item.slotContent.description" :key="i" class="text-sm text-muted">
-        {{ description.attr }}:&nbsp;&nbsp;<span class="text-sm text-default">{{ description.value }}{{ description.unit }}</span>
+      <p v-for="(field, i) in item.slotContent.fields" :key="i" class="text-sm text-muted">
+        {{ field?.label }}:&nbsp;&nbsp;<span class="text-sm text-default">
+          {{ getFieldValueLabel(field.id) }}
+          {{ getFieldUnit(field.id) }}</span>
       </p>
     </template>
+
     <template #content="{ item }">
-      <UPageGrid>
-        <div v-if="item?.collectionId==='profile'">
-          {{ item?.collection }} - {{ item?.category }}
+      <MaterialStepperNavigation v-model:display="display" :stepper="stepper" :show-picker="false" />
+      <Transition name="slideX-forward" mode="out-in">
+        <div v-if="display">
+          <UForm
+            ref="form"
+            :state="state"
+            :schema="commonSchema"
+            class="relative overflow-hidden"
+          >
+            <Transition :name="direction === 'forward' ? 'slideX-forward' : 'slideX-backward'">
+              <UPageGrid v-if="item?.stepId==='profile'">
+                <MaterialFormItem v-model="state.shape" :field-object="findFieldById(item.slotContent.fields, 'shape')" />
+                <MaterialFormItem
+                  v-model="state.core"
+                  :field-object="findFieldById(item.slotContent.fields, 'core')"
+                />
+                <MaterialFormItem
+                  v-model="state.reinforced"
+                  :field-object="findFieldById(item.slotContent.fields, 'reinforced')"
+                />
+              </UPageGrid>
+              <UPageGrid v-else-if="item?.stepId==='length'">
+                <MaterialFormItem
+                  v-model="state.stiffness"
+                  :field-object="findFieldById(item.slotContent.fields, 'stiffness')"
+                  :col-start="2"
+                />
+              </UPageGrid>
+              <UPageGrid v-else-if="item?.stepId==='dimensions'">
+                <UForm v-if="state.shape === 'round'" :schema="diameterSchema" nested class="col-start-2 col-span-2">
+                  <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'diameter')">
+                    <MaterialDiameter
+                      v-model="state.diameter"
+                      :machines="machinesData"
+                    />
+                  </MaterialFormItem>
+                </UForm>
+                <UForm v-else :schema="widthHeightSchema" nested class="col-start-2 col-span-2">
+                  <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'widthHeight')">
+                    <MaterialWidthHeight
+                      v-model:cut-width="state.width"
+                      v-model:cut-height="state.height"
+                      :machines="machinesData"
+                    />
+                  </MaterialFormItem>
+                </UForm>
+              </UPageGrid>
+            </Transition>
+          </UForm>
         </div>
-        <div v-else-if="item?.collectionId==='stiffness'">
-          {{ item?.collection }} - {{ item?.category }}
-        </div>
-        <div v-else-if="item?.collectionId==='dimensions'">
-          {{ item?.collection }} - {{ item?.category }}
-        </div>
-      </UPageGrid>
+      </Transition>
     </template>
   </UStepper>
 </template>
+
+<style>
+.slideX-forward-enter-active,
+.slideX-forward-leave-active {
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.slideX-forward-leave-active,
+.slideX-backward-leave-active {
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease-out;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+}
+
+.slideX-forward-enter-from {
+  transform: translateX(32%);
+}
+
+.slideX-forward-leave-to {
+  transform: translateX(-32%);
+  opacity: 0;
+}
+
+.slideX-backward-enter-active,
+.slideX-backward-leave-active {
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.slideX-backward-enter-from {
+  transform: translateX(-32%);
+}
+
+.slideX-backward-leave-to {
+  transform: translateX(32%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
