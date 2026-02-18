@@ -6,14 +6,7 @@ navigation:
 seo:
   title: Materials
   description: Information about materials that can be processed on Metzner machines
-steps:
-  - id: profile
-    title: Profile
-  - id: length
-    title: Length
-  - id: dimensions
-    title: Dimensions
-fieldGroupStepMap:
+fieldGroup:
   - id: crossSection
     legend: Cross section
     stepId: profile
@@ -22,7 +15,7 @@ fieldGroupStepMap:
   - id: longSection
     legend: Longitudinal section
     stepId: length
-    stepTitle: Length
+    stepTitle: Lengthwise
     order: 2
   - id: diameter
     legend: Dimensions

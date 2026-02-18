@@ -47,63 +47,29 @@ export default defineContentConfig({
         source: 'peripherals.md'
       })
     ),
-    materialsLanding: defineCollection({
-      type: 'page',
-      source: 'materials.md',
-      schema: z.object({
-        steps: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            title: z.string().nonempty()
-          })
-        ),
-        fieldGroupStepMap: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            legend: z.string().nonempty(),
-            stepId: z.string().nonempty(),
-            stepTitle: z.string().nonempty(),
-            order: z.number()
-          })
-        ),
-        questions: z.array(
-          z.object({
-            fieldId: z.string().nonempty(),
-            question: z.string().nonempty()
-          })
-        ),
-        collections: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            title: z.string().nonempty()
-          })
-        ),
-        categories: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            title: z.string().nonempty(),
-            collectionId: z.string().nonempty(),
-            order: z.number()
-          })
-        ),
-        attributes: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            categoryId: z.string().nonempty(),
-            legend: z.string().nonempty(),
-            description: z.string().optional(),
-            unit: z.string().optional()
-          })
-        ),
-        attributeValues: z.array(
-          z.object({
-            id: z.string().nonempty(),
-            attributeId: z.string().nonempty(),
-            label: z.string().nonempty()
-          })
-        )
+    materialsLanding: defineCollection(
+      asSitemapCollection({
+        type: 'page',
+        source: 'materials.md',
+        schema: z.object({
+          fieldGroup: z.array(
+            z.object({
+              id: z.string().nonempty(),
+              legend: z.string().nonempty(),
+              stepId: z.string().nonempty(),
+              stepTitle: z.string().nonempty(),
+              order: z.number()
+            })
+          ),
+          questions: z.array(
+            z.object({
+              fieldId: z.string().nonempty(),
+              question: z.string().nonempty()
+            })
+          )
+        })
       })
-    }),
+    ),
     peripherals: defineCollection(
       asSitemapCollection({
         type: 'page',
