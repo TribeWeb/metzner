@@ -2,6 +2,7 @@
 import type { MaterialsLandingCollectionItem } from '@nuxt/content'
 import type { FieldGroupItem, Schema } from '#imports'
 import type { RadioGroupItem } from '@nuxt/ui'
+import type { MatcherFilterField, MaterialMatcherContext } from '~/composables/useCompatibleMachines'
 
 const props = withDefaults(defineProps<{
   fieldObject?: FieldGroupItem
@@ -14,22 +15,46 @@ const props = withDefaults(defineProps<{
 const stateProp = defineModel<string | number | undefined>()
 
 const state = inject<Partial<Schema>>('state')!
+const materialMatcher = inject<MaterialMatcherContext | null>('materialMatcher', null)
 
 const allItems = useItems.value
+const matcherFields: MatcherFilterField[] = ['shape', 'core', 'reinforced', 'stiffness']
+
 const filteredItems = computed<RadioGroupItem[]>(() => {
-  return allItems.filter(item => item.fieldId === props.fieldObject?.id) as RadioGroupItem[]
+  const fieldId = props.fieldObject?.id
+  const items = allItems.filter(item => item.fieldId === fieldId) as RadioGroupItem[]
+
+  if (!fieldId || !materialMatcher || !matcherFields.includes(fieldId as MatcherFilterField)) {
+    return items
+  }
+
+  return items.map((item) => {
+    if (!item || typeof item !== 'object') {
+      return item
+    }
+
+    const itemValue = 'value' in item ? item.value : undefined
+    if (itemValue === undefined) {
+      return item
+    }
+
+    const isSelected = stateProp.value === itemValue
+    const isCompatible = materialMatcher.hasMatchesFor(fieldId as MatcherFilterField, String(itemValue))
+
+    return {
+      ...item,
+      disabled: isSelected ? false : !isCompatible
+    }
+  })
 })
 
 const { data: copy } = useNuxtData('materialsCopy')
 
 const fieldGroupObject = computed(() => {
-  return copy.value?.fieldGroupStepMap.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroupStepMap'][number]) =>
+  return copy.value?.fieldGroup.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroup'][number]) =>
     fieldGroup.id === props.fieldObject?.fieldGroupId)
 })
-const stepObject = computed(() => {
-  return copy.value?.steps.find((step: MaterialsLandingCollectionItem['steps'][number]) =>
-    step.id === fieldGroupObject.value?.stepId)
-})
+
 const question = computed(() => {
   return copy.value?.questions.find((question: MaterialsLandingCollectionItem['questions'][number]) =>
     question.fieldId === props.fieldObject?.id)?.question
@@ -67,7 +92,7 @@ function formIconString(currentValue: unknown): string {
       }"
     >
       <template #label>
-        <h3> {{ stepObject?.title }} </h3>
+        <h3> {{ fieldObject?.label }} </h3>
         <UBadge size="md" variant="soft" :label="fieldGroupObject?.legend" class="block" />
       </template>
       <slot>

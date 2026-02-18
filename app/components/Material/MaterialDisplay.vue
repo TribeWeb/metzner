@@ -18,7 +18,7 @@ watchEffect(() => {
 })
 
 const { data: copy } = await useAsyncData('materialsCopy', () => {
-  return queryCollection('materialsLanding').select('steps', 'fieldGroupStepMap', 'questions', 'collections', 'categories', 'attributes', 'attributeValues').first()
+  return queryCollection('materialsLanding').select('fieldGroup', 'questions').first()
 })
 
 const { data: machinesData } = useNuxtData('machinesData')
@@ -65,12 +65,13 @@ interface MaterialStepItem extends StepperItem {
 
 const steps: ComputedRef<MaterialStepItem[]> = computed(() => {
   const defaultDimension = state.shape === 'round' ? 'diameter' : 'widthHeight'
-  return (copy.value?.steps || []).map((step) => {
-    const defaultFieldGroup = copy.value?.fieldGroupStepMap.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroupStepMap'][number]) => fieldGroup.stepId === step.id)?.id
-    const fieldGroupId = activeSteps.value.find(activeStep => activeStep.stepId === step.id)?.fieldGroupId
+  const uniqueSteps = new Set<string>(copy.value?.fieldGroup.map((fieldGroup: MaterialsLandingCollectionItem['fieldGroup'][number]) => fieldGroup.stepId) || [])
+  return Array.from(uniqueSteps).map((step) => {
+    const defaultFieldGroup = copy.value?.fieldGroup.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroup'][number]) => fieldGroup.stepId === step)?.id
+    const fieldGroupId = activeSteps.value.find(activeStep => activeStep.stepId === step)?.fieldGroupId
       || defaultFieldGroup
       || defaultDimension
-    const fieldGroup = copy.value?.fieldGroupStepMap.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroupStepMap'][number]) => fieldGroup.id === fieldGroupId)
+    const fieldGroup = copy.value?.fieldGroup.find((fieldGroup: MaterialsLandingCollectionItem['fieldGroup'][number]) => fieldGroup.id === fieldGroupId)
     return {
       stepTitle: fieldGroup?.stepTitle || '',
       stepId: fieldGroup?.stepId || '',

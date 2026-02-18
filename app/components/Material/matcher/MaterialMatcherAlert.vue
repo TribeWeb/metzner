@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import type { Reactive } from 'vue'
+import type { MaterialMatcherContext } from '~/composables/useCompatibleMachines'
 
 const route = useRoute()
+const { data: page } = useNuxtData(route.path)
+
 const state = inject('state') as Reactive<Partial<Schema>>
-
-const { data: page } = await useAsyncData(`${route.path}-title`, () => {
-  return queryCollection('machines').path(route.path).select('title').first()
-})
-
-await useAsyncData(`machinesData`, () => {
-  return queryCollection('machines')
-    .select('modelId', 'machineName', 'machineId', 'cutDiameter', 'cutWidth', 'cutHeight')
-    .all()
-})
+const materialMatcher = inject<MaterialMatcherContext | null>('materialMatcher', null)
 
 const copy = computed(() => ({
   success: {
@@ -21,7 +15,7 @@ const copy = computed(() => ({
     icon: 'i-lucide-circle-check-big',
     actions: [
       {
-        label: 'View specifications',
+        label: 'Your material',
         trailingIcon: `${showDisplay.value ? 'i-lucide-arrow-big-up' : 'i-lucide-arrow-big-down'}`,
         onClick: openDisplay
       }
@@ -46,7 +40,7 @@ const copy = computed(() => ({
   },
   info: {
     title: 'Machine choosing guide',
-    description: 'Specify the material you need to cut, and we\'ll identify the most suitable cutting machines from our range...',
+    description: 'Tell us about the material you\'re cutting, and we\'ll identify the most suitable cutting machines from our range.',
     icon: 'i-lucide-info',
     actions: [
       {
@@ -59,18 +53,16 @@ const copy = computed(() => ({
 })
 )
 
-const noMachineMatch = computed(() => {
-  return state.diameter ? state.diameter > 19 : false
-})
+const currentModelId = computed(() => page.value?.modelId)
 
 const status = computed(() => {
   if (!state.shape || !state.core || !state.reinforced) {
     return 'info'
   }
-  if (noMachineMatch.value) {
-    return 'warning'
+  if (materialMatcher?.isModelCompatible(currentModelId.value)) {
+    return 'success'
   }
-  return 'success'
+  return 'warning'
 })
 
 const showDisplay = ref(false)
