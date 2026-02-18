@@ -55,8 +55,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: [
-        '/',
-        '/sitemap.xml'
+        '/'
+      //  '/sitemap.xml'
       ],
       crawlLinks: true
     }
@@ -82,10 +82,6 @@ export default defineNuxtConfig({
 
   ogImage: {
     zeroRuntime: true
-  },
-
-  sitemap: {
-    // strictNuxtContentPaths: true
   },
 
   studio: {
