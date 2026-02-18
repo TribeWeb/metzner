@@ -126,31 +126,31 @@ export const machines = z.strictObject({
 })
 
 export const about = z.strictObject({
-  column: z.enum(['company', 'website']),
-  sheets: z.array(z.string()).optional(),
-  contentFolderPath: z.string().optional(),
-  googleSheets: z.array(
-    z.object({
-      label: z.string(),
-      id: z.string().length(44)
-    })
-  ).optional(),
-  googleSheets1: z.array(
-    z.object({
-      source: z.object({
-        label: z.string(),
-        id: z.string().length(44),
-        sheetTitle: z.string(),
-        range: z.string()
-      }),
-      destination: z.object({
-        path: z.string(),
-        folder: z.string(),
-        slug: z.string(),
-        type: z.enum(['frontmatter', 'json', 'yaml'])
-      })
-    })
-  )
+  column: z.enum(['company', 'website'])
+  // sheets: z.array(z.string()).optional(),
+  // contentFolderPath: z.string().optional(),
+  // googleSheets: z.array(
+  //   z.object({
+  //     label: z.string(),
+  //     id: z.string().length(44)
+  //   })
+  // ).optional(),
+  // googleSheets1: z.array(
+  //   z.object({
+  //     source: z.object({
+  //       label: z.string(),
+  //       id: z.string().length(44),
+  //       sheetTitle: z.string(),
+  //       range: z.string()
+  //     }),
+  //     destination: z.object({
+  //       path: z.string(),
+  //       folder: z.string(),
+  //       slug: z.string(),
+  //       type: z.enum(['frontmatter', 'json', 'yaml'])
+  //     })
+  //   })
+  // )
 })
 
 // export const pageCollectionItemBaseSchema = z.strictObject({
