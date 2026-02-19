@@ -11,7 +11,8 @@ watchEffect(() => {
   if (state.shape === 'round') {
     state.width = undefined
     state.height = undefined
-  } else {
+  }
+  else {
     state.diameter = undefined
   }
   router.replace({ query: state })
@@ -30,14 +31,14 @@ const icons = computed<Record<string, string>>(() => {
   return {
     crossSection: `c-${state.shape ? state.shape : 'round'}-${state.core ? state.core : 'hollow'}-${state.reinforced ? state.reinforced : 'none'}`,
     longSection: `c-${state.stiffness ? state.stiffness : 'flexible'}`,
-    dimensions: `${state.shape === 'round' ? 'diameter' : 'widthHeight'}`
+    dimensions: `${state.shape === 'round' ? 'diameter' : 'widthHeight'}`,
   }
 })
 
 const activeSteps = computed<FieldGroupItem[]>(() => {
   const activeKeys = new Set(
     (Object.keys(state) as SchemaKey[])
-      .filter(key => state[key] !== undefined)
+      .filter(key => state[key] !== undefined),
   )
   const dedupedByGroupId = new Set<string>()
   return fieldGroups.filter((field) => {
@@ -79,8 +80,8 @@ const steps: ComputedRef<MaterialStepItem[]> = computed(() => {
       fieldGroupId: fieldGroup?.id || '',
       slotContent: {
         icon: icons.value[fieldGroup?.id || ''] || 'i-lucide-box',
-        fields: fieldGroups.filter(item => item.fieldGroupId === fieldGroup?.id)
-      }
+        fields: fieldGroups.filter(item => item.fieldGroupId === fieldGroup?.id),
+      },
     }
   })
 })
@@ -119,7 +120,8 @@ function updateDirection(newIndex: number): void {
 
   if (newIndex > currentIndex) {
     direction.value = 'forward'
-  } else {
+  }
+  else {
     direction.value = 'backward'
   }
 
@@ -139,21 +141,33 @@ function updateDirection(newIndex: number): void {
       // eslint-disable-next-line @stylistic/max-len
       trigger: 'p-1 rounded-sm border border-muted group-data-[state=completed]:border-primary/50 group-data-[state=active]:border-primary/50 group-data-[state=completed]:bg-primary/10 group-data-[state=active]:bg-primary/10 group-data-[state=completed]:text-primary group-data-[state=active]:text-primary disabled:border-muted disabled:text-muted',
       description: 'flex flex-col items-center justify-center',
-      separator: 'group-data-[state=completed]:bg-primary'
+      separator: 'group-data-[state=completed]:bg-primary',
     }"
     @update:model-value="updateStepperModel"
   >
     <template #indicator="{ item }">
       <MaterialDiameterCircle v-if="item.fieldGroupId === 'diameter'" />
       <MaterialWidthHeightSquare v-else-if="item.fieldGroupId === 'widthHeight'" />
-      <UIcon v-else :name="icons[item.fieldGroupId as keyof typeof icons]" class="size-16" />
+      <UIcon
+        v-else
+        :name="icons[item.fieldGroupId as keyof typeof icons]"
+        class="size-16"
+      />
     </template>
     <template #title="{ item }">
-      <UBadge size="md" variant="soft" :label="item.fieldGroupLegend" />
+      <UBadge
+        size="md"
+        variant="soft"
+        :label="item.fieldGroupLegend"
+      />
       <p> {{ item.stepTitle }} </p>
     </template>
     <template #description="{ item }">
-      <p v-for="(field, i) in item.slotContent.fields" :key="i" class="text-sm text-muted">
+      <p
+        v-for="(field, i) in item.slotContent.fields"
+        :key="i"
+        class="text-sm text-muted"
+      >
         {{ field?.label }}:&nbsp;&nbsp;<span class="text-sm text-default">
           {{ getFieldValueLabel(field.id) }}
           {{ getFieldUnit(field.id) }}</span>
@@ -161,8 +175,15 @@ function updateDirection(newIndex: number): void {
     </template>
 
     <template #content="{ item }">
-      <MaterialStepperNavigation v-model:display="display" :stepper="stepper" :show-picker="false" />
-      <Transition name="slideX-forward" mode="out-in">
+      <MaterialStepperNavigation
+        v-model:display="display"
+        :stepper="stepper"
+        :show-picker="false"
+      />
+      <Transition
+        name="slideX-forward"
+        mode="out-in"
+      >
         <div v-if="display">
           <UForm
             ref="form"
@@ -172,7 +193,10 @@ function updateDirection(newIndex: number): void {
           >
             <Transition :name="direction === 'forward' ? 'slideX-forward' : 'slideX-backward'">
               <UPageGrid v-if="item?.stepId==='profile'">
-                <MaterialFormItem v-model="state.shape" :field-object="findFieldById(item.slotContent.fields, 'shape')" />
+                <MaterialFormItem
+                  v-model="state.shape"
+                  :field-object="findFieldById(item.slotContent.fields, 'shape')"
+                />
                 <MaterialFormItem
                   v-model="state.core"
                   :field-object="findFieldById(item.slotContent.fields, 'core')"
@@ -190,7 +214,12 @@ function updateDirection(newIndex: number): void {
                 />
               </UPageGrid>
               <UPageGrid v-else-if="item?.stepId==='dimensions'">
-                <UForm v-if="state.shape === 'round'" :schema="diameterSchema" nested class="col-start-2 col-span-2">
+                <UForm
+                  v-if="state.shape === 'round'"
+                  :schema="diameterSchema"
+                  nested
+                  class="col-start-2 col-span-2"
+                >
                   <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'diameter')">
                     <MaterialDiameter
                       v-model="state.diameter"
@@ -198,7 +227,12 @@ function updateDirection(newIndex: number): void {
                     />
                   </MaterialFormItem>
                 </UForm>
-                <UForm v-else :schema="widthHeightSchema" nested class="col-start-2 col-span-2">
+                <UForm
+                  v-else
+                  :schema="widthHeightSchema"
+                  nested
+                  class="col-start-2 col-span-2"
+                >
                   <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'widthHeight')">
                     <MaterialWidthHeight
                       v-model:cut-width="state.width"
