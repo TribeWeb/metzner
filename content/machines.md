@@ -4,8 +4,6 @@ description: With 30 years of experience, Metzner cutting systems provide repeat
 navigation:
   title: null
   icon: null
-sitemap:
-  loc: /machines
 ---
 
 Simple tubing, complex sealing profiles, standard and reinforced extrusions. Metzner's cutting machines are designed to meet the vast majority of cutting requirements, but each system is built to meet your specific project demands. Every Metzner solution is designed, engineered and built in Germany, with a focus on repeatability and accuracy.
