@@ -161,7 +161,11 @@ useSchemaOrg([
             download
             class="text-primary pl-4"
           >{{ page.title }} datasheet</ULink> <br><span class="text-muted text-sm pl-4">(pdf will download or open in a new tab)</span>
-          <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96 mt-4" />
+          <UTable
+            sticky
+            :data="useSpecification(page)"
+            class="flex-1 max-h-96 mt-4"
+          />
         </template>
         <template #materials="{ item }">
           <p class="text-muted mb-4">

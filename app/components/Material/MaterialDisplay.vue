@@ -11,8 +11,7 @@ watchEffect(() => {
   if (state.shape === 'round') {
     state.width = undefined
     state.height = undefined
-  }
-  else {
+  } else {
     state.diameter = undefined
   }
   router.replace({ query: state })
@@ -31,14 +30,14 @@ const icons = computed<Record<string, string>>(() => {
   return {
     crossSection: `c-${state.shape ? state.shape : 'round'}-${state.core ? state.core : 'hollow'}-${state.reinforced ? state.reinforced : 'none'}`,
     longSection: `c-${state.stiffness ? state.stiffness : 'flexible'}`,
-    dimensions: `${state.shape === 'round' ? 'diameter' : 'widthHeight'}`,
+    dimensions: `${state.shape === 'round' ? 'diameter' : 'widthHeight'}`
   }
 })
 
 const activeSteps = computed<FieldGroupItem[]>(() => {
   const activeKeys = new Set(
     (Object.keys(state) as SchemaKey[])
-      .filter(key => state[key] !== undefined),
+      .filter(key => state[key] !== undefined)
   )
   const dedupedByGroupId = new Set<string>()
   return fieldGroups.filter((field) => {
@@ -80,8 +79,8 @@ const steps: ComputedRef<MaterialStepItem[]> = computed(() => {
       fieldGroupId: fieldGroup?.id || '',
       slotContent: {
         icon: icons.value[fieldGroup?.id || ''] || 'i-lucide-box',
-        fields: fieldGroups.filter(item => item.fieldGroupId === fieldGroup?.id),
-      },
+        fields: fieldGroups.filter(item => item.fieldGroupId === fieldGroup?.id)
+      }
     }
   })
 })
@@ -120,8 +119,7 @@ function updateDirection(newIndex: number): void {
 
   if (newIndex > currentIndex) {
     direction.value = 'forward'
-  }
-  else {
+  } else {
     direction.value = 'backward'
   }
 
@@ -141,7 +139,7 @@ function updateDirection(newIndex: number): void {
       // eslint-disable-next-line @stylistic/max-len
       trigger: 'p-1 rounded-sm border border-muted group-data-[state=completed]:border-primary/50 group-data-[state=active]:border-primary/50 group-data-[state=completed]:bg-primary/10 group-data-[state=active]:bg-primary/10 group-data-[state=completed]:text-primary group-data-[state=active]:text-primary disabled:border-muted disabled:text-muted',
       description: 'flex flex-col items-center justify-center',
-      separator: 'group-data-[state=completed]:bg-primary',
+      separator: 'group-data-[state=completed]:bg-primary'
     }"
     @update:model-value="updateStepperModel"
   >

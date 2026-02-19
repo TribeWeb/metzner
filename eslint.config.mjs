@@ -1,36 +1,71 @@
 // @ts-check
-// import withNuxt from './.nuxt/eslint.config.mjs'
+import withNuxt from './.nuxt/eslint.config.mjs'
+import { mdcLint } from 'mdclint'
 
-// export default withNuxt({
-//   rules: {
-//     '@stylistic/max-len': ['error', { code: 200 }],
-//     '@stylistic/eol-last': ['error', 'always']
-//   }
-// })
-//   .overrideRules({
-//     'vue/max-attributes-per-line': ['error', { singleline: 5 }]
-//   })
-
-import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
-
-// Run `npx @eslint/config-inspector` to inspect the resolved config interactively
-export default createConfigForNuxt({
-  features: {
-    // Rules for module authors
-    // tooling: true,
-    // Rules for formatting
-    stylistic: true,
-  },
-  // dirs: {
-  //   src: [
-  //     './playground',
-  //   ],
-  // },
+export default withNuxt({
+  // rules: {
+  //   '@stylistic/max-len': ['error', { code: 200 }],
+  //   '@stylistic/eol-last': ['error', 'always']
+  // }
 })
-  .append(
-    {
-      rules: {
-        'vue/multi-word-component-names': 'off',
-      },
-    },
-  )
+  // .overrideRules({
+  //   'vue/max-attributes-per-line': ['error', { singleline: 5 }]
+  // })
+  .append(await mdcLint({
+    files: [
+      'content/**/*.md'
+    ],
+    preset: 'mdc',
+    config: {
+      // MD013: { line_length: 100 },
+      // TODO: detect the issue
+      MD051: false,
+
+      // TODO: fix the issue
+      MD060: false
+    }
+  }))
+
+// @ts-check
+// import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
+// import { mdcLint } from 'mdclint'
+
+// // Run `npx @eslint/config-inspector` to inspect the resolved config interactively
+// export default createConfigForNuxt({
+//   features: {
+//     // Rules for module authors
+//     // tooling: true,
+//     // Rules for formatting
+//     stylistic: {
+//       commaDangle: 'never'
+//     }
+//   }
+//   // dirs: {
+//   //   src: [
+//   //     './playground',
+//   //     './examples/blog',
+//   //   ],
+//   // },
+// })
+//   .append(
+//     {
+//       rules: {
+//         'vue/multi-word-component-names': 'off',
+//         '@typescript-eslint/no-empty-object-type': 'off'
+//       }
+//     }
+//   )
+//   .append(await mdcLint({
+//     files: [
+//       'content/**/*.md'
+//     ],
+//     preset: 'mdc',
+//     config: {
+//       MD013: { line_length: 100 },
+//       // TODO: detect the issue
+//       MD051: false,
+
+//       // TODO: fix the issue
+//       MD060: false
+//     }
+//   }))

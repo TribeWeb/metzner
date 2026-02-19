@@ -14,6 +14,9 @@ defineProps({
 
 <template>
   <div>
-    <LazyProspectForm :form-id="formId" hydrate-never />
+    <LazyProspectForm
+      :form-id="formId"
+      hydrate-never
+    />
   </div>
 </template>

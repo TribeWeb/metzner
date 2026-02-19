@@ -24,8 +24,17 @@ const viewBox = computed(() => {
     :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`"
     class="size-16"
   >
-    <pattern id="diagonalHatchWidthHeight" patternUnits="userSpaceOnUse" width="16" height="16">
-      <rect width="16" height="16" fill="var(--ui-bg-muted)" />
+    <pattern
+      id="diagonalHatchWidthHeight"
+      patternUnits="userSpaceOnUse"
+      width="16"
+      height="16"
+    >
+      <rect
+        width="16"
+        height="16"
+        fill="var(--ui-bg-muted)"
+      />
       <path
         d="M 12 -4 l 8 8 M -0 0 l 16 16 M -4 12 l 8 8"
         stroke="var(--ui-bg-accented)"

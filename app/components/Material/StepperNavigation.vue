@@ -21,8 +21,14 @@ onMounted(() => {
 
 <template>
   <div class="mb-4">
-    <Transition name="fade" mode="out-in">
-      <div v-if="!display" class="flex flex-row-reverse justify-between ">
+    <Transition
+      name="fade"
+      mode="out-in"
+    >
+      <div
+        v-if="!display"
+        class="flex flex-row-reverse justify-between "
+      >
         <UButton
           variant="solid"
           size="md"
@@ -32,7 +38,10 @@ onMounted(() => {
           Edit
         </UButton>
       </div>
-      <div v-else class="flex flex-row-reverse justify-between mb-2">
+      <div
+        v-else
+        class="flex flex-row-reverse justify-between mb-2"
+      >
         <UButton
           variant="subtle"
           color="neutral"

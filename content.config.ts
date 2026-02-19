@@ -4,7 +4,7 @@ import { schemas } from './app/utils/schemas'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
 const sitemapSchemaField = {
-  sitemap: property(z.object({})).editor({ hidden: true }),
+  sitemap: property(z.object({})).editor({ hidden: true })
 }
 
 const withSitemapCollection = ((collection, options) => {
@@ -13,7 +13,7 @@ const withSitemapCollection = ((collection, options) => {
     ...collection,
     schema: schema instanceof z.ZodObject
       ? schema.extend(sitemapSchemaField)
-      : z.object(sitemapSchemaField),
+      : z.object(sitemapSchemaField)
   }
 
   return asSitemapCollection(collectionWithSitemapSchema as never, options)
@@ -24,44 +24,44 @@ export default defineContentConfig({
     home: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'index.md',
-      }),
+        source: 'index.md'
+      })
     ),
     about: defineCollection(
       withSitemapCollection({
         type: 'page',
         source: [{
           include: 'about/*.md',
-          prefix: '/',
+          prefix: '/'
         },
         { include: '1.about.md' }],
-        schema: schemas.about,
-      }),
+        schema: schemas.about
+      })
     ),
     machinesLanding: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'machines.md',
-      }),
+        source: 'machines.md'
+      })
     ),
     machines: defineCollection(
       withSitemapCollection({
         type: 'page',
         source: 'machines/*',
-        schema: schemas.machines,
-      }),
+        schema: schemas.machines
+      })
     ),
     sparesLanding: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'spares.md',
-      }),
+        source: 'spares.md'
+      })
     ),
     peripheralsLanding: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'peripherals.md',
-      }),
+        source: 'peripherals.md'
+      })
     ),
     materialsLanding: defineCollection(
       withSitemapCollection({
@@ -74,29 +74,29 @@ export default defineContentConfig({
               legend: z.string().nonempty(),
               stepId: z.string().nonempty(),
               stepTitle: z.string().nonempty(),
-              order: z.number(),
-            }),
+              order: z.number()
+            })
           ),
           questions: z.array(
             z.object({
               fieldId: z.string().nonempty(),
-              question: z.string().nonempty(),
-            }),
-          ),
-        }),
-      }),
+              question: z.string().nonempty()
+            })
+          )
+        })
+      })
     ),
     peripherals: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'peripherals/*',
-      }),
+        source: 'peripherals/*'
+      })
     ),
     latest: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'latest.md',
-      }),
+        source: 'latest.md'
+      })
     ),
     posts: defineCollection(
       withSitemapCollection({
@@ -108,18 +108,18 @@ export default defineContentConfig({
             z.object({
               name: z.string().nonempty(),
               to: z.string().nonempty(),
-              avatar: z.object({ src: property(z.string()).editor({ input: 'media' }) }),
-            }),
+              avatar: z.object({ src: property(z.string()).editor({ input: 'media' }) })
+            })
           ),
           date: z.date(),
-          badge: z.object({ label: z.string().nonempty() }),
-        }),
-      }),
+          badge: z.object({ label: z.string().nonempty() })
+        })
+      })
     ),
     materials: defineCollection({
       type: 'data',
       source: 'data/materials/**',
-      schema: schemas.materials,
-    }),
-  },
+      schema: schemas.materials
+    })
+  }
 })

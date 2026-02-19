@@ -117,7 +117,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       @submit.prevent="onSubmit"
     >
       <UPageGrid class="lg:grid-cols-2 mb-8">
-        <template v-for="(field, key) in formFields" :key="key">
+        <template
+          v-for="(field, key) in formFields"
+          :key="key"
+        >
           <UFormField
             v-if="field.id"
             :label="field.label"

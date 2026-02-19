@@ -22,10 +22,22 @@ const columns = computed(() => {
       <UContainer>
         <UFooterColumns :columns="columns">
           <template #right>
-            <UFormField name="email" label="Subscribe to our newsletter" size="lg">
-              <UInput type="email" class="w-full">
+            <UFormField
+              name="email"
+              label="Subscribe to our newsletter"
+              size="lg"
+            >
+              <UInput
+                type="email"
+                class="w-full"
+              >
                 <template #trailing>
-                  <UButton type="submit" size="xs" color="neutral" label="Subscribe" />
+                  <UButton
+                    type="submit"
+                    size="xs"
+                    color="neutral"
+                    label="Subscribe"
+                  />
                 </template>
               </UInput>
             </UFormField>

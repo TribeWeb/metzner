@@ -265,10 +265,27 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     method="POST"
     @submit="onSubmit"
   >
-    <template v-for="(field, key) in fields" :key="key">
-      <UFormField :label="field.label" :name="field.name">
-        <UInput v-if="field.formField === 'UInput'" :id="key" v-model="state[key]" :type="field.type" :field-mapping="field['field-mapping']" />
-        <UTextarea v-else-if="field.formField === 'UTextarea'" :id="key" v-model="state[key]" :field-mapping="field['field-mapping']" />
+    <template
+      v-for="(field, key) in fields"
+      :key="key"
+    >
+      <UFormField
+        :label="field.label"
+        :name="field.name"
+      >
+        <UInput
+          v-if="field.formField === 'UInput'"
+          :id="key"
+          v-model="state[key]"
+          :type="field.type"
+          :field-mapping="field['field-mapping']"
+        />
+        <UTextarea
+          v-else-if="field.formField === 'UTextarea'"
+          :id="key"
+          v-model="state[key]"
+          :field-mapping="field['field-mapping']"
+        />
       </UFormField>
     </template>
     <!-- <UFormField v-for="(field, key) in state" :key="fields[key].id" :label="fields[key].label" :name="fields[key].name">

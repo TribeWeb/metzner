@@ -84,7 +84,11 @@ function updateWidth(value) {
 <template>
   <div class="flex flex-col">
     <div class="flex flex-row">
-      <div ref="elSliderY" :style="`height: ${displayHeight - sliderXHeight + 2}px`" class="flex-none w-20 py-3 border border-r-0 border-muted rounded-tl-lg">
+      <div
+        ref="elSliderY"
+        :style="`height: ${displayHeight - sliderXHeight + 2}px`"
+        class="flex-none w-20 py-3 border border-r-0 border-muted rounded-tl-lg"
+      >
         <USlider
           v-model="sliderHeight"
           orientation="vertical"
@@ -99,14 +103,26 @@ function updateWidth(value) {
         />
       </div>
       <div class="flex flex-col flex-1">
-        <div ref="elDisplay" class="flex-1 bg-primary/10 border border-primary/50 rounded-tr-lg">
+        <div
+          ref="elDisplay"
+          class="flex-1 bg-primary/10 border border-primary/50 rounded-tr-lg"
+        >
           <svg
             v-if="containingXY"
             :viewBox="`-1 ${viewBox.y + 1} ${viewBox.width + viewBoxOffset} ${viewBox.height + viewBoxOffset}`"
             class="size-full"
           >
-            <pattern id="diagonalHatchWidthHeight" patternUnits="userSpaceOnUse" width="16" height="16">
-              <rect width="16" height="16" fill="var(--ui-bg-muted)" />
+            <pattern
+              id="diagonalHatchWidthHeight"
+              patternUnits="userSpaceOnUse"
+              width="16"
+              height="16"
+            >
+              <rect
+                width="16"
+                height="16"
+                fill="var(--ui-bg-muted)"
+              />
               <path
                 d="M 12 -4 l 8 8 M -0 0 l 16 16 M -4 12 l 8 8"
                 stroke="var(--ui-bg-accented)"
@@ -136,7 +152,10 @@ function updateWidth(value) {
             />
           </svg>
         </div>
-        <div ref="elSliderX" class="flex-none h-12 px-3 pb-6 pt-14 border border-t-0 border-muted rounded-br-lg">
+        <div
+          ref="elSliderX"
+          class="flex-none h-12 px-3 pb-6 pt-14 border border-t-0 border-muted rounded-br-lg"
+        >
           <USlider
             v-model="sliderWidth"
             :tooltip="{ text: `${sliderWidth} mm`,

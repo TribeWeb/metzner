@@ -29,7 +29,10 @@ const altText = computed(() => props.alt || `Photo of ${props.title}`)
       format="webp"
       fit="cover"
     />
-    <UModal fullscreen :title="title">
+    <UModal
+      fullscreen
+      :title="title"
+    >
       <UButton
         icon="i-heroicons-camera-20-solid"
         size="xs"

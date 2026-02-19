@@ -93,7 +93,12 @@ function formIconString(currentValue: unknown): string {
     >
       <template #label>
         <h3> {{ fieldObject?.label }} </h3>
-        <UBadge size="md" variant="soft" :label="fieldGroupObject?.legend" class="block" />
+        <UBadge
+          size="md"
+          variant="soft"
+          :label="fieldGroupObject?.legend"
+          class="block"
+        />
       </template>
       <slot>
         <URadioGroup
@@ -112,7 +117,10 @@ function formIconString(currentValue: unknown): string {
               :class="{ 'bg-primary text-primary': stateProp === value }"
             />
           </template>
-          <slot name="label" v-bind="{ items: filteredItems }" />
+          <slot
+            name="label"
+            v-bind="{ items: filteredItems }"
+          />
           <template #description="{ item: { description } }">
             <span class="italic">{{ description }}</span>
           </template>

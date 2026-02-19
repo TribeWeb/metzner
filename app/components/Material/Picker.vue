@@ -329,13 +329,21 @@ function getAllPossibleValues(allValues: MaterialsCollectionItem[], key: keyof M
             </template>
           </URadioGroup>
         </MaterialFormItem>
-        <MaterialFormItem v-if="state.shape === 'round'" :copy="formItemsCopy?.find(item => item.id === 'cutDiameter')" :col-count="2">
+        <MaterialFormItem
+          v-if="state.shape === 'round'"
+          :copy="formItemsCopy?.find(item => item.id === 'cutDiameter')"
+          :col-count="2"
+        >
           <MaterialDiameter
             v-model="state.cutDiameter"
             :machines="allMachines"
           />
         </MaterialFormItem>
-        <MaterialFormItem v-else :copy="formItemsCopy?.find(item => item.id === 'cutWidthHeight')" :col-count="2">
+        <MaterialFormItem
+          v-else
+          :copy="formItemsCopy?.find(item => item.id === 'cutWidthHeight')"
+          :col-count="2"
+        >
           <MaterialWidthHeight
             v-model:cut-width="state.cutWidth"
             v-model:cut-height="state.cutHeight"

@@ -13,20 +13,21 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-schema-org',
     'nuxt-studio',
+    '@nuxtjs/mdc'
   ],
 
   devtools: {
     enabled: true,
 
     timeline: {
-      enabled: false,
-    },
+      enabled: false
+    }
   },
   css: ['~/assets/css/main.css'],
 
   site: {
     url: 'metzner.netlify.app',
-    name: 'Metzner UK',
+    name: 'Metzner UK'
   },
 
   runtimeConfig: {
@@ -36,18 +37,18 @@ export default defineNuxtConfig({
       scripts: {
         googleRecaptcha: {
           // NUXT_PUBLIC_SCRIPTS_GOOGLE_RECAPTCHA_SITE_KEY=<your-key>
-          siteKey: '',
-        },
+          siteKey: ''
+        }
       },
-      prospectFormOrgId: '',
-    },
+      prospectFormOrgId: ''
+    }
     // spreadsheetId: '',
     // googleServiceAccountEmail: '',
     // googlePrivateKey: ''
   },
 
   alias: {
-    '#types': '/<rootDir>/types',
+    '#types': '/<rootDir>/types'
   },
 
   compatibilityDate: '2026-01-27',
@@ -56,19 +57,19 @@ export default defineNuxtConfig({
     prerender: {
       routes: [
         '/',
-        '/sitemap.xml',
+        '/sitemap.xml'
       ],
-      crawlLinks: true,
-    },
+      crawlLinks: true
+    }
   },
 
   eslint: {
     config: {
       stylistic: {
         commaDangle: 'never',
-        braceStyle: '1tbs',
-      },
-    },
+        braceStyle: '1tbs'
+      }
+    }
   },
 
   icon: {
@@ -76,13 +77,13 @@ export default defineNuxtConfig({
     serverBundle: false,
     customCollections: [{
       prefix: 'c',
-      dir: './app/assets/icons',
-    }],
+      dir: './app/assets/icons'
+    }]
   },
 
   ogImage: {
-    zeroRuntime: true,
-  },
+    zeroRuntime: true
+  }
 
   // studio: {
   //   repository: {

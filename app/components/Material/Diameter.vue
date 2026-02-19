@@ -67,7 +67,11 @@ function updateDiameter(value) {
 <template>
   <div class="flex flex-col">
     <div class="flex-1 bg-primary/10 border border-primary/50 rounded-t-lg">
-      <svg v-if="cutDiameter" :viewBox="svgViewBox" class="size-full">
+      <svg
+        v-if="cutDiameter"
+        :viewBox="svgViewBox"
+        class="size-full"
+      >
         <MaterialDiameterCircle
           inline
           :cut-diameter="slider"
@@ -92,7 +96,10 @@ function updateDiameter(value) {
         </MaterialDiameterCircle>
       </svg>
     </div>
-    <div ref="elSliderX" class="flex-none h-12 px-3 pb-6 pt-14 border border-t-0 border-muted rounded-b-lg">
+    <div
+      ref="elSliderX"
+      class="flex-none h-12 px-3 pb-6 pt-14 border border-t-0 border-muted rounded-b-lg"
+    >
       <USlider
         v-model="slider"
         :tooltip="{ text: `⌀${slider} mm`,
