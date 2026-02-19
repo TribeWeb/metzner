@@ -8,7 +8,7 @@ seo:
   description: Advice and support for your Metzner machines
 ---
 
-With over 25 years of partnership with Metzner GmbH, Metzner UK continues to support machines sold over 20 years ago.
+With over 25 years of partnership with Metzner GmbH, Metzner UK continues to support machines sold over 20 years ago. 
 
 ## Spare Parts
 
@@ -25,8 +25,5 @@ Whether it's routine maintenance or fault finding, we are here to help. Leave us
 
 ## Contact Us
 
-::prospect-form
----
-formId: 8
----
+::prospect-form{:formId='8'}
 ::
