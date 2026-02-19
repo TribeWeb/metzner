@@ -1,18 +1,26 @@
 import { defineContentConfig, defineCollection, property } from '@nuxt/content'
 import { z } from 'zod'
-import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 import { schemas } from './app/utils/schemas'
+// To re-enable sitemap wrapping, add:
+import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+
+// const withSitemapCollection = <T>(collection: T): T => collection
+// then replace the line above with:
+const withSitemapCollection = asSitemapCollection
 
 export default defineContentConfig({
   collections: {
     home: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
-        source: 'index.md'
+        source: 'index.md',
+        schema: z.object({
+          sitemap: property(z.object({})).editor({ hidden: true })
+        })
       })
     ),
     about: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: [{
           include: 'about/*.md',
@@ -23,32 +31,32 @@ export default defineContentConfig({
       })
     ),
     machinesLanding: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'machines.md'
       })
     ),
     machines: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'machines/*',
         schema: schemas.machines
       })
     ),
     sparesLanding: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'spares.md'
       })
     ),
     peripheralsLanding: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'peripherals.md'
       })
     ),
     materialsLanding: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'materials.md',
         schema: z.object({
@@ -71,19 +79,19 @@ export default defineContentConfig({
       })
     ),
     peripherals: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'peripherals/*'
       })
     ),
     latest: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         type: 'page',
         source: 'latest.md'
       })
     ),
     posts: defineCollection(
-      asSitemapCollection({
+      withSitemapCollection({
         source: 'latest/**/*',
         type: 'page',
         schema: z.object({
