@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    // '@nuxtjs/sitemap',
+    '@nuxtjs/sitemap',
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-og-image',
@@ -55,8 +55,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: [
-        '/'
-      //  '/sitemap.xml'
+        '/',
+        '/sitemap.xml'
       ],
       crawlLinks: true
     }
