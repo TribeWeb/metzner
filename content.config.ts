@@ -1,22 +1,30 @@
 import { defineContentConfig, defineCollection, property } from '@nuxt/content'
 import { z } from 'zod'
 import { schemas } from './app/utils/schemas'
-// To re-enable sitemap wrapping, add:
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
-// const withSitemapCollection = <T>(collection: T): T => collection
-// then replace the line above with:
-const withSitemapCollection = asSitemapCollection
+const sitemapSchemaField = {
+  sitemap: property(z.object({})).editor({ hidden: true })
+}
+
+const withSitemapCollection = ((collection, options) => {
+  const schema = (collection as { schema?: unknown }).schema
+  const collectionWithSitemapSchema = {
+    ...collection,
+    schema: schema instanceof z.ZodObject
+      ? schema.extend(sitemapSchemaField)
+      : z.object(sitemapSchemaField)
+  }
+
+  return asSitemapCollection(collectionWithSitemapSchema as never, options)
+}) as typeof asSitemapCollection
 
 export default defineContentConfig({
   collections: {
     home: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'index.md',
-        schema: z.object({
-          sitemap: property(z.object({})).editor({ hidden: true })
-        })
+        source: 'index.md'
       })
     ),
     about: defineCollection(
