@@ -3,9 +3,6 @@ title: Materials
 description: Information about materials that can be processed on Metzner machines 
 navigation:
   title: Materials
-seo:
-  title: Materials
-  description: Information about materials that can be processed on Metzner machines
 fieldGroup:
   - id: crossSection
     legend: Cross section

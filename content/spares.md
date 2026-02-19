@@ -3,9 +3,6 @@ title: Spare Parts and Service
 description: Advice, support and spares for your Metzner machines
 navigation:
   title: Spare Parts and Service
-seo:
-  title: Spare Parts and Service
-  description: Advice and support for your Metzner machines
 ---
 
 With over 25 years of partnership with Metzner GmbH, Metzner UK continues to support machines sold over 20 years ago.
@@ -14,8 +11,13 @@ With over 25 years of partnership with Metzner GmbH, Metzner UK continues to sup
 
 As Metzner's UK distributor, we understand the importance of knowledgeable support and OEM spares parts and consumables for your cutting machines and peripherals.
 
-- **Spare Parts** - Offering the full range of Metzner's spares direct from the factory in Germany. From belts, bearings, gears & shafts, to motors and drives. To motors, drives and everything inbetween.
-- **Consumables** - Access to wearing parts such as cutting blades and material guides, for your own routine maintenance.
+### Full Range of Spare Parts
+
+Offering the full range of Metzner's spares direct from the factory in Germany. From belts, bearings, gears & shafts, to motors and drives. To motors, drives and everything inbetween.
+
+### Consumables
+
+Access to wearing parts such as cutting blades and material guides, for your own routine maintenance.
 
 ## Service
 
