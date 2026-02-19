@@ -25,6 +25,5 @@ Whether it's routine maintenance or fault finding, we are here to help. Leave us
 
 ## Contact Us
 
-::prospect-form
-{:formId='3'}
+::prospect-form{form-id=3}
 ::

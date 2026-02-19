@@ -3,7 +3,7 @@ import z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const props = defineProps<{
-  formId: string // should be a number???
+  formId: number // should be a number???
 }>()
 
 const runtimeConfig = useRuntimeConfig()
