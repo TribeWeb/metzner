@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"content/**/*.md\"",
+    "format:frontmatter": "node scripts/sort-frontmatter.mjs",
+    "format": "pnpm run format:frontmatter && prettier --write \"content/**/*.md\"",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
