@@ -3,7 +3,7 @@ slug: round-gasket-ccm4
 modelId: ccm4
 modelName: CCM
 type: gasket
-stiffness: '*'
+stiffness: "*"
 shape: round
 core: solid
 reinforced: none

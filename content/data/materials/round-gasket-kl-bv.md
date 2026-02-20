@@ -3,7 +3,7 @@ slug: round-gasket-kl-bv
 modelId: kl-bv
 modelName: KL-BV
 type: gasket
-stiffness: '*'
+stiffness: "*"
 shape: round
 core: solid
 reinforced: none

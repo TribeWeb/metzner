@@ -12,13 +12,11 @@ From single machines to complete, fully compatible production systems, Metzner d
 
 ## Universal Cutting Machines
 
-::u-page-list
-:product-card{collection="machines" description="Compact and durable design for cutting harder or thicker material." slug="st-ob"}
+::u-page-list :product-card{collection="machines" description="Compact and durable design for cutting harder or thicker material." slug="st-ob"}
 
 :product-card{collection="machines" description="Designed to accurately cut silicone or elastic material." slug="kl-bv"}
 
-:product-card{collection="machines" description="Highly versatile for cutting a variety of different materials." slug="variocut"}
-::
+:product-card{collection="machines" description="Highly versatile for cutting a variety of different materials." slug="variocut"} ::
 
 ## Modular Cutting Lines
 
