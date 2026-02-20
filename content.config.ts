@@ -3,8 +3,9 @@ import { z } from 'zod'
 import { schemas } from './app/utils/schemas'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
-const sitemapSchemaField = {
-  sitemap: property(z.object({})).editor({ hidden: true })
+const sitemapSchemaFields = {
+  sitemap: property(z.object({})).editor({ hidden: true }),
+  navigation: property(z.object({})).editor({ hidden: true })
 }
 
 const withSitemapCollection = ((collection, options) => {
@@ -12,8 +13,8 @@ const withSitemapCollection = ((collection, options) => {
   const collectionWithSitemapSchema = {
     ...collection,
     schema: schema instanceof z.ZodObject
-      ? schema.extend(sitemapSchemaField)
-      : z.object(sitemapSchemaField)
+      ? schema.extend(sitemapSchemaFields)
+      : z.object(sitemapSchemaFields)
   }
 
   return asSitemapCollection(collectionWithSitemapSchema as never, options)
