@@ -84,11 +84,11 @@ export const machines = z.strictObject({
   title: z.string().optional(),
   description: z.string().optional(),
   pageOrder: z.coerce.number().optional(),
-  navigation: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    icon: z.string().optional()
-  }),
+  // navigation: z.object({
+  //   title: z.string().optional(),
+  //   description: z.string().optional(),
+  //   icon: z.string().optional()
+  // }),
   machineId: z.string(),
   machineName: z.string(),
   modelId: z.string(),
