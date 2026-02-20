@@ -2,7 +2,7 @@
 title: Get Products
 navigation:
   icon: i-lucide-file-text
-  badge:
+  badge: null
   label: Get Content
 sheets:
   - Unique
@@ -24,12 +24,12 @@ googleSheets1:
     destination:
       root: ../../content/
       folder: machines
-      type: frontmatter # frontmatter | json | yaml
+      type: frontmatter
       slug: slug
   - source:
       label: Power
       id: 1aiWp4kqvyRzvy81i4wzxSVraMtIk_Y1cTdwwZ0NC3zk
-contentFolderPath: "../../content/"
+contentFolderPath: ../../content/
 ---
 
 # Get Products from Google Sheets

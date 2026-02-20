@@ -1,8 +1,6 @@
 ---
 title: Materials
 description: Information about materials that can be processed on Metzner machines
-navigation:
-  title: Materials
 fieldGroup:
   - id: crossSection
     legend: Cross section
@@ -24,6 +22,8 @@ fieldGroup:
     stepId: dimensions
     stepTitle: Width & height
     order: 4
+navigation:
+  title: Materials
 questions:
   - fieldId: shape
     question: Is the material a pipe, hose, conduit or cord with a round cross section? Or does it have a more complex profile?
