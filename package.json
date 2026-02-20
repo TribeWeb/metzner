@@ -10,8 +10,6 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format:frontmatter": "node scripts/sort-frontmatter.mjs",
-    "format": "pnpm run format:frontmatter && prettier --write \"content/**/*.md\"",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
@@ -22,7 +20,6 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/scripts": "1.0.0-beta.1",
     "@nuxt/ui": "^4.4.0",
-    "@nuxtjs/mdc": "0.20.1",
     "@nuxtjs/sitemap": "7.6.0",
     "@unhead/vue": "2.1.4",
     "@vueuse/nuxt": "14.2.1",
@@ -41,7 +38,6 @@
     "baseline-browser-mapping": "^2.10.0",
     "eslint": "^10.0.0",
     "mdclint": "^0.1.2",
-    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.2.4",
     "zod": "^4.3.6"
