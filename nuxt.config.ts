@@ -85,12 +85,4 @@ export default defineNuxtConfig({
     zeroRuntime: true
   }
 
-  // studio: {
-  //   repository: {
-  //     provider: 'github', // 'github' or 'gitlab'
-  //     owner: 'tribeweb',
-  //     repo: 'metzner',
-  //     branch: 'main',
-  //   },
-  // },
 })

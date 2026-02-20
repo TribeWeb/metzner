@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"content/**/*.md\"",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "baseline-browser-mapping": "^2.10.0",
     "eslint": "^10.0.0",
     "mdclint": "^0.1.2",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.2.4",
     "zod": "^4.3.6"
