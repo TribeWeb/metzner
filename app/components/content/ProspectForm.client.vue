@@ -3,7 +3,7 @@ import z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const props = defineProps<{
-  formId: number // should be a number???
+  id: number // should be a number???
 }>()
 
 const runtimeConfig = useRuntimeConfig()
@@ -17,11 +17,11 @@ const { proxy } = useScriptGoogleRecaptcha({
 const toast = useToast()
 const status = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 
-const formFields = await useFormScriptFields(props.formId, prospectFormOrgId)
+const formFields = await useFormScriptFields(props.id, prospectFormOrgId)
 
 const hiddenFields = {
-  [`prospect-form-${props.formId}-url`]: z.url().optional(),
-  [`prospect-form-${props.formId}-token`]: z.string().optional(),
+  [`prospect-form-${props.id}-url`]: z.url().optional(),
+  [`prospect-form-${props.id}-token`]: z.string().optional(),
   redirect: z.string().optional()
 }
 
@@ -69,13 +69,13 @@ const state = reactive<Schema>(formState.value)
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   status.value = 'loading'
-  event.data[`prospect-form-${props.formId}-url`] = location.toString()
+  event.data[`prospect-form-${props.id}-url`] = location.toString()
   event.data['redirect'] = 'false'
 
   proxy.grecaptcha.ready(async () => {
     const token = await proxy.grecaptcha.execute(googleRecaptchaSiteKey, { action: 'prospect_form' })
-    event.data[`prospect-form-${props.formId}-token`] = token as unknown as string
-    const result = await $fetch(`https://userresources.prospect365.com/forms/${prospectFormOrgId}/${props.formId}/submit`, {
+    event.data[`prospect-form-${props.id}-token`] = token as unknown as string
+    const result = await $fetch(`https://userresources.prospect365.com/forms/${prospectFormOrgId}/${props.id}/submit`, {
       method: 'POST',
       body: new URLSearchParams(event.data as Record<string, string>)
     }).catch((error) => {
@@ -110,7 +110,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   <div>
     <!-- <pre>{{ formFields }}</pre> -->
     <UForm
-      :id="`prospect-form-${props.formId}-embed`"
+      :id="`prospect-form-${props.id}-embed`"
       :schema="schema"
       :state="state"
       class="space-y-2"

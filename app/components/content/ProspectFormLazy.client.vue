@@ -5,8 +5,8 @@
 // )
 
 defineProps({
-  formId: {
-    type: String,
+  id: {
+    type: Number,
     required: true
   }
 })
@@ -15,7 +15,7 @@ defineProps({
 <template>
   <div>
     <LazyProspectForm
-      :form-id="formId"
+      :id="id"
       hydrate-never
     />
   </div>
