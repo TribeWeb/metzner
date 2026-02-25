@@ -7,7 +7,8 @@ const props = defineProps<{
   description?: string
 }>()
 
-const { data: product } = await useAsyncData<{ title?: string, description?: string } | null>(props.slug || '', () => {
+const cacheKey = `product:${props.collection}:${props.slug ?? 'no-slug'}`
+const { data: product } = await useAsyncData<{ title?: string, description?: string } | null>(cacheKey, () => {
   return queryCollection(props.collection)
     .select('title', 'description').path(`/${props.collection}/${props.slug}`)
     .first() as Promise<{ title?: string, description?: string } | null>
