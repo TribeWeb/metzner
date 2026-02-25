@@ -5,6 +5,8 @@ import type { MaterialsLandingCollectionItem } from '@nuxt/content'
 import type { FieldGroupItem, Schema, SchemaKey } from '#imports'
 
 const state = inject<Reactive<Partial<Schema>>>('state')!
+const showModal = inject<Ref<boolean>>('showMaterialDisplayModal')!
+const showPicker = inject<Ref<boolean>>('showMaterialPicker')!
 
 const router = useRouter()
 watchEffect(() => {
@@ -105,15 +107,22 @@ function findFieldById(fields: FieldGroupItem[], id: string): FieldGroupItem | u
 
 function updateStepperModel(index: string | number | undefined): void {
   if (typeof index === 'number') {
+    activeStepIndex.value = index
     updateDirection(index)
   }
 }
 
 const stepper = useTemplateRef<StepperItem>('stepper')
-const display = ref(false)
 
+const activeStepIndex = ref(0)
 const lastStep = ref(0)
 const direction = ref<'forward' | 'backward'>('forward')
+
+function isIncompleteStep(stepId: string): boolean {
+  const stepIndex = steps.value.findIndex(step => step.stepId === stepId)
+  return stepIndex > activeStepIndex.value
+}
+
 function updateDirection(newIndex: number): void {
   const currentIndex = lastStep.value
 
@@ -122,130 +131,158 @@ function updateDirection(newIndex: number): void {
   } else {
     direction.value = 'backward'
   }
-
   lastStep.value = newIndex
 }
 </script>
 
 <template>
-  <UStepper
-    ref="stepper"
-    :items="steps"
-    :disabled="!display"
-    class="w-full"
-    size="xl"
-    :ui="{
-      title: 'flex flex-col gap-y-2 items-center justify-center text-base text-pretty font-semibold text-highlighted',
-      // eslint-disable-next-line @stylistic/max-len
-      trigger: 'p-1 rounded-sm border border-muted group-data-[state=completed]:border-primary/50 group-data-[state=active]:border-primary/50 group-data-[state=completed]:bg-primary/10 group-data-[state=active]:bg-primary/10 group-data-[state=completed]:text-primary group-data-[state=active]:text-primary disabled:border-muted disabled:text-muted',
-      description: 'flex flex-col items-center justify-center',
-      separator: 'group-data-[state=completed]:bg-primary'
+  <UModal
+    v-model:open="showModal"
+    title="Your material specification"
+    :ui="{ content: `${showPicker ? 'lg:h-[calc(100vh-5rem)]' : 'lg:h-fit'} lg:w-[calc(100vw-2rem)] lg:place-self-center lg:max-w-5xl lg:rounded-lg lg:shadow-lg lg:ring lg:ring-default`,
+           footer: 'flex flex-row-reverse justify-between',
+           header: 'flex flex-row justify-between',
+           title: 'text-lg font-semibold text-highlighted'
     }"
-    @update:model-value="updateStepperModel"
+    fullscreen
   >
-    <template #indicator="{ item }">
-      <MaterialDiameterCircle v-if="item.fieldGroupId === 'diameter'" />
-      <MaterialWidthHeightSquare v-else-if="item.fieldGroupId === 'widthHeight'" />
-      <UIcon
-        v-else
-        :name="icons[item.fieldGroupId as keyof typeof icons]"
-        class="size-16"
-      />
-    </template>
-    <template #title="{ item }">
-      <UBadge
-        size="md"
+    <template #close>
+      <UButton
         variant="soft"
-        :label="item.fieldGroupLegend"
-      />
-      <p> {{ item.stepTitle }} </p>
-    </template>
-    <template #description="{ item }">
-      <p
-        v-for="(field, i) in item.slotContent.fields"
-        :key="i"
-        class="text-sm text-muted"
+        color="neutral"
+        size="md"
+        :trailing-icon="`${showPicker ? 'i-lucide-save' : 'i-lucide-x'}`"
+        @click="showModal = false"
       >
-        {{ field?.label }}:&nbsp;&nbsp;<span class="text-sm text-default">
-          {{ getFieldValueLabel(field.id) }}
-          {{ getFieldUnit(field.id) }}</span>
-      </p>
+        Close
+        <!-- {{ `${showPicker ? 'Close' : 'Close'}` }} -->
+      </UButton>
     </template>
-
-    <template #content="{ item }">
-      <MaterialStepperNavigation
-        v-model:display="display"
-        :stepper="stepper"
-        :show-picker="false"
-      />
-      <Transition
-        name="slideX-forward"
-        mode="out-in"
+    <template #body>
+      <UStepper
+        ref="stepper"
+        :items="steps"
+        :disabled="!showModal"
+        class="w-full"
+        size="xl"
+        :ui="{
+          title: 'flex flex-col gap-y-2 items-center justify-center text-base text-pretty font-semibold text-highlighted',
+          // eslint-disable-next-line @stylistic/max-len
+          trigger: 'p-1 rounded-sm border border-muted group-data-[state=completed]:border-primary/50 group-data-[state=active]:border-primary/50 group-data-[state=completed]:bg-primary/10 group-data-[state=active]:bg-primary/10 group-data-[state=completed]:text-primary group-data-[state=active]:text-primary disabled:border-muted disabled:text-muted',
+          description: 'flex flex-col items-center justify-center',
+          separator: 'group-data-[state=completed]:bg-primary'
+        }"
+        @update:model-value="updateStepperModel"
       >
-        <div v-if="display">
-          <UForm
-            ref="form"
-            :state="state"
-            :schema="commonSchema"
-            class="relative overflow-hidden"
+        <template #indicator="{ item }">
+          <MaterialDiameterCircle v-if="item.fieldGroupId === 'diameter'" />
+          <MaterialWidthHeightSquare v-else-if="item.fieldGroupId === 'widthHeight'" />
+          <UIcon
+            v-else
+            :name="icons[item.fieldGroupId as keyof typeof icons]"
+            class="size-16"
+          />
+        </template>
+        <template #title="{ item }">
+          <UBadge
+            size="md"
+            variant="soft"
+            :color="isIncompleteStep(item.stepId) ? 'neutral' : 'primary'"
+            :class="isIncompleteStep(item.stepId) ? 'text-muted' : ''"
+            :label="item.fieldGroupLegend"
+          />
+          <p :class="isIncompleteStep(item.stepId) ? 'text-muted' : ''">
+            {{ item.stepTitle }}
+          </p>
+        </template>
+        <template #description="{ item }">
+          <p
+            v-for="(field, i) in item.slotContent.fields"
+            :key="i"
+            class="text-sm text-muted"
           >
-            <Transition :name="direction === 'forward' ? 'slideX-forward' : 'slideX-backward'">
-              <UPageGrid v-if="item?.stepId==='profile'">
-                <MaterialFormItem
-                  v-model="state.shape"
-                  :field-object="findFieldById(item.slotContent.fields, 'shape')"
-                />
-                <MaterialFormItem
-                  v-model="state.core"
-                  :field-object="findFieldById(item.slotContent.fields, 'core')"
-                />
-                <MaterialFormItem
-                  v-model="state.reinforced"
-                  :field-object="findFieldById(item.slotContent.fields, 'reinforced')"
-                />
-              </UPageGrid>
-              <UPageGrid v-else-if="item?.stepId==='length'">
-                <MaterialFormItem
-                  v-model="state.stiffness"
-                  :field-object="findFieldById(item.slotContent.fields, 'stiffness')"
-                  :col-start="2"
-                />
-              </UPageGrid>
-              <UPageGrid v-else-if="item?.stepId==='dimensions'">
-                <UForm
-                  v-if="state.shape === 'round'"
-                  :schema="diameterSchema"
-                  nested
-                  class="col-start-2 col-span-2"
-                >
-                  <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'diameter')">
-                    <MaterialDiameter
-                      v-model="state.diameter"
-                      :machines="machinesData"
+            {{ field?.label }}:&nbsp;&nbsp;<span class="text-sm text-default">
+              {{ getFieldValueLabel(field.id) }}
+              {{ getFieldUnit(field.id) }}</span>
+          </p>
+        </template>
+
+        <template #content="{ item }">
+          <Transition
+            name="slideX-forward"
+            mode="out-in"
+          >
+            <div v-if="showPicker">
+              <UForm
+                ref="form"
+                :state="state"
+                :schema="commonSchema"
+                class="relative overflow-hidden"
+              >
+                <Transition :name="direction === 'forward' ? 'slideX-forward' : 'slideX-backward'">
+                  <UPageGrid v-if="item?.stepId==='profile'">
+                    <MaterialFormItem
+                      v-model="state.shape"
+                      :field-object="findFieldById(item.slotContent.fields, 'shape')"
                     />
-                  </MaterialFormItem>
-                </UForm>
-                <UForm
-                  v-else
-                  :schema="widthHeightSchema"
-                  nested
-                  class="col-start-2 col-span-2"
-                >
-                  <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'widthHeight')">
-                    <MaterialWidthHeight
-                      v-model:cut-width="state.width"
-                      v-model:cut-height="state.height"
-                      :machines="machinesData"
+                    <MaterialFormItem
+                      v-model="state.core"
+                      :field-object="findFieldById(item.slotContent.fields, 'core')"
                     />
-                  </MaterialFormItem>
-                </UForm>
-              </UPageGrid>
-            </Transition>
-          </UForm>
-        </div>
-      </Transition>
+                    <MaterialFormItem
+                      v-model="state.reinforced"
+                      :field-object="findFieldById(item.slotContent.fields, 'reinforced')"
+                    />
+                  </UPageGrid>
+                  <UPageGrid v-else-if="item?.stepId==='length'">
+                    <MaterialFormItem
+                      v-model="state.stiffness"
+                      :field-object="findFieldById(item.slotContent.fields, 'stiffness')"
+                      :col-start="2"
+                    />
+                  </UPageGrid>
+                  <UPageGrid v-else-if="item?.stepId==='dimensions'">
+                    <UForm
+                      v-if="state.shape === 'round'"
+                      :schema="diameterSchema"
+                      nested
+                      class="col-start-2 col-span-2"
+                    >
+                      <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'diameter')">
+                        <MaterialDiameter
+                          v-model="state.diameter"
+                          :machines="machinesData"
+                        />
+                      </MaterialFormItem>
+                    </UForm>
+                    <UForm
+                      v-else
+                      :schema="widthHeightSchema"
+                      nested
+                      class="col-start-2 col-span-2"
+                    >
+                      <MaterialFormItem :field-object="findFieldById(item.slotContent.fields, 'widthHeight')">
+                        <MaterialWidthHeight
+                          v-model:cut-width="state.width"
+                          v-model:cut-height="state.height"
+                          :machines="machinesData"
+                        />
+                      </MaterialFormItem>
+                    </UForm>
+                  </UPageGrid>
+                </Transition>
+              </UForm>
+            </div>
+          </Transition>
+        </template>
+      </UStepper>
     </template>
-  </UStepper>
+    <template #footer>
+      <MaterialStepperNavigation
+        :stepper="stepper"
+      />
+    </template>
+  </UModal>
 </template>
 
 <style>

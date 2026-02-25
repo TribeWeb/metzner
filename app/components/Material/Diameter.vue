@@ -15,7 +15,7 @@ const slider = ref(0)
 
 const elSliderX = useTemplateRef('elSliderX')
 
-const displayAspectRatio = ref(2.4)
+const displayAspectRatio = ref(3.4)
 
 const machinesWithDiameter = computed(() =>
   machines.filter(m => m.cutDiameter)

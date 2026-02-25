@@ -16,8 +16,8 @@ const copy = computed(() => ({
     actions: [
       {
         label: 'Your material',
-        trailingIcon: `${showDisplay.value ? 'i-lucide-arrow-big-up' : 'i-lucide-arrow-big-down'}`,
-        onClick: openDisplay
+        trailingIcon: 'i-lucide-eye',
+        onClick: toggleModal
       }
     ]
   },
@@ -29,7 +29,7 @@ const copy = computed(() => ({
       {
         label: 'View compatible machines',
         trailingIcon: 'i-tabler-blade-filled',
-        onClick: openDisplay
+        onClick: toggleModal
       },
       {
         label: 'Edit specifications',
@@ -65,16 +65,34 @@ const status = computed(() => {
   return 'warning'
 })
 
-const showDisplay = ref(false)
-function openDisplay() {
-  showDisplay.value = !showDisplay.value
+const showModal = defineModel('open', {
+  type: Boolean,
+  default: false
+})
+
+provide('showMaterialDisplayModal', showModal)
+
+function toggleModal() {
+  showModal.value = !showModal.value
 }
-const showPicker = ref(false)
+
+const showPicker = defineModel('picker', {
+  type: Boolean,
+  default: false
+})
+
+provide('showMaterialPicker', showPicker)
 
 function openDisplayAndPicker() {
-  showDisplay.value = true
+  showModal.value = true
   showPicker.value = true
 }
+
+watch(showModal, (newVal) => {
+  if (!newVal) {
+    showPicker.value = false
+  }
+})
 
 const alertActions = computed(() => {
   return copy.value[status.value].actions
@@ -98,22 +116,5 @@ const alertActions = computed(() => {
     :ui="{ icon: 'size-11', title: 'text-lg' }"
     :actions="alertActions"
   />
-  <Transition name="slide-fade">
-    <div v-if="showDisplay">
-      <MaterialDisplay :show-picker="showPicker" />
-    </div>
-  </Transition>
+  <MaterialDisplay />
 </template>
-
-<style>
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(-80px);
-  opacity: 0;
-}
-</style>
