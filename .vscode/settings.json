@@ -3,17 +3,5 @@
     "files.associations": {
         "*.xml": "html",
         "*.svg": "html"
-    },
-    // "[markdown]": {
-    //     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    //     "editor.formatOnSave": true,
-    //     "editor.formatOnType": true,
-    //     "editor.formatOnPaste": true
-    // },
-    // "[mdc]": {
-    //     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    //     "editor.formatOnSave": true,
-    //     "editor.formatOnType": true,
-    //     "editor.formatOnPaste": true
-    // }
+    }
 }
