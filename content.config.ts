@@ -4,16 +4,7 @@ import { schemas } from './app/utils/schemas'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
 const sitemapSchemaFields = {
-  sitemap: property(z.object({})).editor({ hidden: true }),
-  seo: property(z.object({})).editor({ hidden: true })
-  // navigation: property(z.union([
-  //   z.boolean(),
-  //   z.object({
-  //     title: z.string().optional(),
-  //     description: z.string().optional(),
-  //     icon: z.string().optional()
-  //   })
-  // ])).editor({ hidden: true })
+  sitemap: property(z.object({})).editor({ hidden: true })
 }
 
 const withSitemapCollection = ((collection, options) => {
