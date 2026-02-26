@@ -80,7 +80,7 @@ export const materials = z.strictObject({
   config: z.enum(['standard', 'optional'])
 })
 
-export const machines = z.strictObject({
+export const machines = z.object({
   // title: z.string().optional(),
   // description: z.string().optional(),
   pageOrder: z.coerce.number().optional(),
