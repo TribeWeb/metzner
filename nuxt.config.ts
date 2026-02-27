@@ -100,9 +100,8 @@ export default defineNuxtConfig({
         tone: 'Professional yet approachable'
       },
       experimental: {
-        collectionContext: true // Enable AI Tab
+        collectionContext: false // Enable AI Tab
       }
     }
   }
-
 })
