@@ -26,12 +26,7 @@ Precision cutting systems built for repeatability.
 From compact standalone cutters to complete modular lines, Metzner machines are designed to deliver accurate, consistent results with minimal waste and dependable uptime.
 
 #links
-  :::u-button
-  ---
-  size: xl
-  to: /machines
-  trailing-icon: i-lucide-arrow-right
-  ---
+  :::u-button{size="xl" to="/machines" trailing-icon="i-lucide-arrow-right"}
   Explore cutting machines
   :::
 
@@ -44,7 +39,7 @@ From compact standalone cutters to complete modular lines, Metzner machines are 
   ---
   Speak to an engineer
   :::
-::  
+::
 
 ::u-page-section
 #title
@@ -56,35 +51,36 @@ Explore three of our most requested machine platforms, each designed for consist
   :::u-page-grid{.mt-16}
     ::::u-page-card
     ---
-    title: ST-OB
     description: Compact and robust for high-volume cable, tube and profile cutting.
-    to: /machines/st-ob
     icon: i-lucide-scissors
+    title: ST-OB
+    to: /machines/st-ob
     variant: subtle
     ---
-    :nuxt-img{src="/machines/st-ob.png" alt="Metzner ST-OB cutting machine" width="280px"}
+    :nuxt-img{alt="Metzner ST-OB cutting machine" src="/machines/st-ob.png" width="280px"}
     ::::
 
     ::::u-page-card
     ---
-    title: KL-BV
-    description: Precision cutting for elastic and silicone materials with excellent repeatability.
-    to: /machines/kl-bv
+    description: Precision cutting for elastic and silicone materials with excellent
+      repeatability.
     icon: i-lucide-ruler
+    title: KL-BV
+    to: /machines/kl-bv
     variant: subtle
     ---
-    :nuxt-img{src="/machines/kl-bv.png" alt="Metzner KL-BV cutting machine" width="280px"}
+    :nuxt-img{alt="Metzner KL-BV cutting machine" src="/machines/kl-bv.png" width="280px"}
     ::::
 
     ::::u-page-card
     ---
-    title: Variocut
     description: Flexible configuration for a wide range of material types and applications.
-    to: /machines/variocut
     icon: i-lucide-settings-2
+    title: Variocut
+    to: /machines/variocut
     variant: subtle
     ---
-    :nuxt-img{src="/machines/variocut.png" alt="Metzner Variocut cutting machine" width="280px"}
+    :nuxt-img{alt="Metzner Variocut cutting machine" src="/machines/variocut.png" width="280px"}
     ::::
   :::
 ::
@@ -172,29 +168,15 @@ Build the right cutting solution
 Select from complete cutting machines, supporting peripherals and material compatibility guidance.
 
 #links
-  :::u-button
-  ---
-  to: /machines
-  trailing-icon: i-lucide-arrow-right
-  ---
+  :::u-button{to="/machines" trailing-icon="i-lucide-arrow-right"}
   View machine range
   :::
 
-  :::u-button
-  ---
-  color: neutral
-  to: /peripherals
-  variant: subtle
-  ---
+  :::u-button{color="neutral" to="/peripherals" variant="subtle"}
   Browse peripherals
   :::
 
-  :::u-button
-  ---
-  color: neutral
-  to: /materials
-  variant: subtle
-  ---
+  :::u-button{color="neutral" to="/materials" variant="subtle"}
   Check material compatibility
   :::
 ::
