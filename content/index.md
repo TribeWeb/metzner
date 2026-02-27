@@ -1,153 +1,200 @@
 ---
 seo:
-  title: Welcome!
-  description: Nuxt UI Pro is a collection of premium Vue components built on top of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.
+  title: Precision Cutting Machines | Metzner UK
+  description: German-engineered cutting machines and peripherals for repeatable, accurate cuts across hose, profile, tubing and cable applications.
 ---
 
 ::u-page-hero
 ---
 orientation: vertical
 ---
-  :::u-marquee{:overlay='false' pause-on-hover=""}
-    ::::u-page-card
-    ---
-    description: bob
-    icon: i-simple-icons-nuxtdotjs
-    title: Nuxt UI Pro
-    variant: subtle
-    ---
-    :nuxt-img{alt="undefined" src="/machines/st-ob.png" width="250px"}
-    ::::
-
-    ::::u-page-card
-    ---
-    description: bobina
-    icon: i-simple-icons-nuxtdotjs
-    title: Nuxt UI Ama
-    ---
-    :nuxt-img{alt="undefined" src="/machines/st-ob.png" width="250px"}
-    ::::
+#headline
+  :::u-badge
+  ---
+  class: rounded-full
+  color: neutral
+  size: lg
+  variant: subtle
+  ---
+  Engineered in Germany. Supported in the UK.
   :::
 
 #title
-Machines that cut stuff really well
+Precision cutting systems built for repeatability.
 
 #description
-They're very excellent
-
-#headline
-  :::u-button
-  ---
-  class: rounded-full
-  size: sm
-  to: https://ui.nuxt.com/pro
-  variant: subtle
-  ---
-  Made with German engineering
-  :::
+From compact standalone cutters to complete modular lines, Metzner machines are designed to deliver accurate, consistent results with minimal waste and dependable uptime.
 
 #links
-  :::u-button{:to='null' size="xl" trailing-icon="i-lucide-arrow-down"}
-  Get started
+  :::u-button
+  ---
+  size: xl
+  to: /machines
+  trailing-icon: i-lucide-arrow-right
+  ---
+  Explore cutting machines
+  :::
+
+  :::u-button
+  ---
+  color: neutral
+  size: xl
+  to: /contact
+  variant: subtle
+  ---
+  Speak to an engineer
+  :::
+::  
+
+::u-page-section
+#title
+Featured cutting machines
+
+#description
+Explore three of our most requested machine platforms, each designed for consistent, production-ready cutting performance.
+
+  :::u-page-grid{.mt-16}
+    ::::u-page-card
+    ---
+    title: ST-OB
+    description: Compact and robust for high-volume cable, tube and profile cutting.
+    to: /machines/st-ob
+    icon: i-lucide-scissors
+    variant: subtle
+    ---
+    :nuxt-img{src="/machines/st-ob.png" alt="Metzner ST-OB cutting machine" width="280px"}
+    ::::
+
+    ::::u-page-card
+    ---
+    title: KL-BV
+    description: Precision cutting for elastic and silicone materials with excellent repeatability.
+    to: /machines/kl-bv
+    icon: i-lucide-ruler
+    variant: subtle
+    ---
+    :nuxt-img{src="/machines/kl-bv.png" alt="Metzner KL-BV cutting machine" width="280px"}
+    ::::
+
+    ::::u-page-card
+    ---
+    title: Variocut
+    description: Flexible configuration for a wide range of material types and applications.
+    to: /machines/variocut
+    icon: i-lucide-settings-2
+    variant: subtle
+    ---
+    :nuxt-img{src="/machines/variocut.png" alt="Metzner Variocut cutting machine" width="280px"}
+    ::::
   :::
 ::
 
 ::u-page-section
 #title
-Precision cutting.
+Why manufacturers choose Metzner
 
 #description
-Perfectly repeated. Again and again…
-
-#links
-  :::u-button
-  ---
-  color: neutral
-  size: lg
-  target: _blank
-  to: /latest
-  trailingIcon: i-lucide-arrow-right
-  variant: subtle
-  ---
-  Explore the Metzner range
-  :::
+Purpose-built cutting systems that improve consistency, productivity and quality control.
 
 #features
   :::u-page-feature
   ---
-  icon: i-emojione-monotone:flag-for-germany
-  target: _blank
-  to: https://nuxt.com
+  icon: i-lucide-badge-check
   ---
   #title
   Engineered in Germany
 
   #description
-  Maximise production uptime and enjoy reliable operation year after year.
+  Durable build quality and robust mechanics for long-term, reliable operation.
   :::
 
   :::u-page-feature
   ---
-  icon: i-tdesign:precise-monitor
-  target: _blank
-  to: https://content.nuxt.com
+  icon: i-lucide-crosshair
   ---
   #title
-  Optimised for accurate, repeatable cuts
+  Repeatable cut accuracy
 
   #description
-  Enhance the quality of your products while minimising wastage.
+  Maintain product quality while reducing material waste and rework.
   :::
 
   :::u-page-feature
   ---
-  icon: i-game-icons:spanner
-  target: _blank
-  to: https://ui.nuxt.com
+  icon: i-lucide-wrench
   ---
   #title
-  Serviceable with parts availablity
+  Service and support in the UK
 
   #description
-  Enjoy an assured and maximised return on investment.
+  Fast access to technical advice, setup support and spare parts.
   :::
 
   :::u-page-feature
   ---
-  icon: i-streamline:user-protection-2-solid
-  target: _blank
-  to: https://www.typescriptlang.org
+  icon: i-lucide-shield-check
   ---
   #title
-  Safety designed in
+  Safety-first operation
 
   #description
-  Integrated guards and stop systems help operators work safely.
+  Integrated guarding and control systems designed for safer working.
   :::
 
   :::u-page-feature
   ---
-  icon: i-material-symbols:machine-image
-  target: _blank
-  to: https://content.nuxt.com/docs/studio
+  icon: i-lucide-workflow
   ---
   #title
-  Full range of peripherals
+  Complete line integration
 
   #description
-  Integrate with compatible peripherals and existing systems to automate whole sections of production.
+  Combine cutters with peripherals to streamline handling and downstream processes.
   :::
 
   :::u-page-feature
   ---
-  icon: i-ic:baseline-dashboard-customize
-  target: _blank
-  to: https://ui.nuxt.com/pro/components/docs/docs-search
+  icon: i-lucide-sliders-horizontal
   ---
   #title
-  Customisation
+  Configured to your application
 
   #description
-  Specify special requirements. E.g. stainless steel for medical applications.
+  Machine options can be tailored to material, throughput and compliance needs.
+  :::
+::
+
+::u-page-section
+#title
+Build the right cutting solution
+
+#description
+Select from complete cutting machines, supporting peripherals and material compatibility guidance.
+
+#links
+  :::u-button
+  ---
+  to: /machines
+  trailing-icon: i-lucide-arrow-right
+  ---
+  View machine range
+  :::
+
+  :::u-button
+  ---
+  color: neutral
+  to: /peripherals
+  variant: subtle
+  ---
+  Browse peripherals
+  :::
+
+  :::u-button
+  ---
+  color: neutral
+  to: /materials
+  variant: subtle
+  ---
+  Check material compatibility
   :::
 ::
