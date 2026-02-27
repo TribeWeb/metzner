@@ -27,13 +27,17 @@ const peripheralItems = computed(() => {
       title: 'Printers',
       description: 'Integrate inline marking and identification so products leave the line ready for handling and traceability.',
       icon: 'i-lucide-printer',
-      to: '/peripherals/printers'
+      to: '/peripherals/printers',
+      supportsFlexible: true,
+      supportsRigid: true
     },
     {
       title: 'Take-Off Conveyors',
       description: 'Automate product transfer away from the cutter to maintain flow and reduce manual handling interruptions.',
       icon: 'i-lucide-arrow-right-left',
-      to: '/peripherals/take-off-conveyors'
+      to: '/peripherals/take-off-conveyors',
+      supportsFlexible: true,
+      supportsRigid: true
     }
   ]
 
@@ -46,19 +50,25 @@ const peripheralItems = computed(() => {
       title: 'Dereelers',
       description: 'Provide controlled unwinding for steady, tension-managed feeding into the machine.',
       icon: 'i-lucide-disc-3',
-      to: '/peripherals/dereelers'
+      to: '/peripherals/dereelers',
+      supportsFlexible: true,
+      supportsRigid: false
     },
     {
       title: 'Pre-Feeders',
       description: 'Deliver stable material advance before cutting, helping consistency and cycle reliability.',
       icon: 'i-lucide-gauge',
-      to: '/peripherals/prefeeders'
+      to: '/peripherals/prefeeders',
+      supportsFlexible: true,
+      supportsRigid: false
     },
     {
       title: 'Loop Control',
       description: 'Maintain a buffered feed path to decouple line speeds and improve uninterrupted operation.',
       icon: 'i-lucide-git-compare-arrows',
-      to: '/peripherals/loop-control'
+      to: '/peripherals/loop-control',
+      supportsFlexible: true,
+      supportsRigid: false
     },
     ...baseItems
   ]
@@ -70,12 +80,6 @@ const peripheralItems = computed(() => {
     <p class="text-muted">
       {{ props.machineName }} can be expanded with peripherals to improve automation, throughput and output consistency.
     </p>
-    <p
-      v-if="supportsRigid"
-      class="text-muted"
-    >
-      For rigid-capable processing, feed-control peripherals can be added to improve handling stability and cut repeatability.
-    </p>
 
     <UPageGrid>
       <UPageCard
@@ -86,7 +90,24 @@ const peripheralItems = computed(() => {
         :icon="item.icon"
         :to="item.to"
         variant="subtle"
-      />
+      >
+        <template #default>
+          <div class="flex flex-wrap gap-2">
+            <UBadge
+              v-if="item.supportsFlexible"
+              label="Flexible"
+              color="primary"
+              variant="soft"
+            />
+            <UBadge
+              v-if="item.supportsRigid"
+              label="Rigid"
+              color="primary"
+              variant="soft"
+            />
+          </div>
+        </template>
+      </UPageCard>
     </UPageGrid>
   </div>
 </template>
