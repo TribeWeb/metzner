@@ -96,7 +96,7 @@ export default defineNuxtConfig({
       context: {
         title: 'Metzner UK',
         description: 'German-engineered cutting machines and peripherals for repeatable, accurate cuts across hose, profile, tubing and cable applications.',
-        style: 'Technical and detailed, with practical examples',
+        style: 'In British English, technical and detailed, with practical examples',
         tone: 'Professional yet approachable'
       },
       experimental: {
