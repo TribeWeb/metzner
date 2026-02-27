@@ -11,7 +11,7 @@ seo:
 
 Peripherals integrate with Metzner cutting systems to add features and capabilities. From streamlining material handling, improving accuracy and adding automation, peripherals are used to complete your Metzner solution.
 
-### Why Do I need Peripherals?
+## Why Do I need Peripherals?
 
 - **Extra Features** - Add printing to your system, to provide a finished product within a single process.
 - **Increased Automation** - By adding take off conveyors or pre-feed solutions, you can reduce operator intervention and operator time cost.
