@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MaterialsCollectionItem } from '@nuxt/content'
+import type { MaterialsCollectionItem, PeripheralsCollectionItem } from '@nuxt/content'
 
 const props = defineProps<{
   modelId: string
@@ -7,10 +7,17 @@ const props = defineProps<{
 }>()
 
 type MaterialStiffnessItem = Pick<MaterialsCollectionItem, 'modelId' | 'stiffness'>
+type PeripheralTabItem = Pick<PeripheralsCollectionItem, 'title' | 'description' | 'path' | 'icon' | 'supportsFlexible' | 'supportsRigid' | 'peripheralOrder'>
 
 const { data: materialsData } = await useAsyncData(`machine-tabs-peripherals-${props.modelId}`, () => {
   return queryCollection('materials')
     .select('modelId', 'stiffness')
+    .all()
+})
+
+const { data: peripheralsData } = await useAsyncData('machine-tabs-peripherals-content', () => {
+  return queryCollection('peripherals')
+    .select('title', 'description', 'path', 'icon', 'supportsFlexible', 'supportsRigid', 'peripheralOrder')
     .all()
 })
 
@@ -22,56 +29,22 @@ const supportsRigid = computed(() => {
 })
 
 const peripheralItems = computed(() => {
-  const baseItems = [
-    {
-      title: 'Printers',
-      description: 'Integrate inline marking and identification so products leave the line ready for handling and traceability.',
-      icon: 'i-lucide-printer',
-      to: '/peripherals/printers',
-      supportsFlexible: true,
-      supportsRigid: true
-    },
-    {
-      title: 'Take-Off Conveyors',
-      description: 'Automate product transfer away from the cutter to maintain flow and reduce manual handling interruptions.',
-      icon: 'i-lucide-arrow-right-left',
-      to: '/peripherals/take-off-conveyors',
-      supportsFlexible: true,
-      supportsRigid: true
-    }
-  ]
+  const allPeripherals = ((peripheralsData.value || []) as PeripheralTabItem[])
+    .filter(item => Boolean(item.path))
+    .sort((a, b) => {
+      const aOrder = a.peripheralOrder ?? Number.MAX_SAFE_INTEGER
+      const bOrder = b.peripheralOrder ?? Number.MAX_SAFE_INTEGER
+      if (aOrder !== bOrder) {
+        return aOrder - bOrder
+      }
+      return (a.title || '').localeCompare(b.title || '')
+    })
 
-  if (!supportsRigid.value) {
-    return baseItems
+  if (supportsRigid.value) {
+    return allPeripherals
   }
 
-  return [
-    {
-      title: 'Dereelers',
-      description: 'Provide controlled unwinding for steady, tension-managed feeding into the machine.',
-      icon: 'i-lucide-disc-3',
-      to: '/peripherals/dereelers',
-      supportsFlexible: true,
-      supportsRigid: false
-    },
-    {
-      title: 'Pre-Feeders',
-      description: 'Deliver stable material advance before cutting, helping consistency and cycle reliability.',
-      icon: 'i-lucide-gauge',
-      to: '/peripherals/prefeeders',
-      supportsFlexible: true,
-      supportsRigid: false
-    },
-    {
-      title: 'Loop Control',
-      description: 'Maintain a buffered feed path to decouple line speeds and improve uninterrupted operation.',
-      icon: 'i-lucide-git-compare-arrows',
-      to: '/peripherals/loop-control',
-      supportsFlexible: true,
-      supportsRigid: false
-    },
-    ...baseItems
-  ]
+  return allPeripherals.filter(item => item.supportsRigid === true)
 })
 </script>
 
@@ -88,7 +61,7 @@ const peripheralItems = computed(() => {
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
-        :to="item.to"
+        :to="item.path"
         variant="subtle"
       >
         <template #default>

@@ -137,6 +137,13 @@ export const about = z.strictObject({
   // )
 })
 
+export const peripherals = z.strictObject({
+  icon: z.string(),
+  supportsFlexible: z.boolean(),
+  supportsRigid: z.boolean(),
+  peripheralOrder: z.coerce.number().optional()
+})
+
 // const pageCollectionItemBaseSchema = z.object({
 //   path: z.string(),
 //   title: z.string(),
@@ -172,11 +179,13 @@ export const about = z.strictObject({
 export const schemas = {
   machines,
   about,
+  peripherals,
   materials
 }
 
 export interface Import {
   machines: z.infer<typeof machines>
   about: z.infer<typeof about>
+  peripherals: z.infer<typeof peripherals>
   materials: z.infer<typeof materials>
 }

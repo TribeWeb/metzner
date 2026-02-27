@@ -89,7 +89,8 @@ export default defineContentConfig({
     peripherals: defineCollection(
       withSitemapCollection({
         type: 'page',
-        source: 'peripherals/*'
+        source: 'peripherals/*.md',
+        schema: schemas.peripherals
       })
     ),
     latest: defineCollection(
