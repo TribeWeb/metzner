@@ -2,29 +2,6 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { findPageHeadline } from '@nuxt/content/utils'
 
-import type { TabsItem } from '@nuxt/ui'
-
-const items = [
-  {
-    label: 'Specifications',
-    icon: 'i-lucide-notebook-tabs',
-    content: 'Full list of specs.',
-    slot: 'specifications' as const
-  },
-  {
-    label: 'Materials',
-    icon: 'i-fa6-solid-cubes',
-    content: 'List of materials this machine can cut.',
-    slot: 'materials' as const
-  },
-  {
-    label: 'Peripherals',
-    icon: 'i-lucide-square-plus',
-    content: 'List of compatible peripherals.',
-    slot: 'peripherals' as const
-  }
-] satisfies TabsItem[]
-
 definePageMeta({
   layout: 'machines'
 })
@@ -141,46 +118,10 @@ useSchemaOrg([
         }"
       />
       <MaterialMatcher />
-      <UTabs
-        :items="items"
-        :unmount-on-hide="false"
-        variant="pill"
-        :ui="{ trigger: 'md:grow',
-               root: 'p-4 bg-default ring ring-default rounded-lg mt-6',
-               content: 'my-4!'
-        }"
-        class="gap-4 display-block"
-      >
-        <template #specifications>
-          <ULink
-            as="button"
-            :href="`/pdf/${route.params.slug}.pdf`"
-            :alt="`download or open ${page.title} datasheet in a new tab`"
-            target="_blank"
-            external
-            download
-            class="text-primary pl-4"
-          >{{ page.title }} datasheet</ULink> <br><span class="text-muted text-sm pl-4">(pdf will download or open in a new tab)</span>
-          <UTable
-            sticky
-            :data="useSpecification(page)"
-            class="flex-1 max-h-96 mt-4"
-          />
-        </template>
-        <template #materials="{ item }">
-          <p class="text-muted mb-4">
-            {{ item.content }}
-          </p>
-        </template>
-        <template #peripherals="{ item }">
-          <p class="text-muted mb-4">
-            {{ item.content }}
-          </p>
-        </template>
-        <!-- <template #specifications>
-          <UTable sticky :data="useSpecification(page)" class="flex-1 max-h-96" />
-        </template> -->
-      </UTabs>
+      <MachineTabs
+        :page="page"
+        :slug="String(route.params.slug)"
+      />
       <ImageModal v-bind="imgProps" />
 
       <USeparator v-if="surround?.length" />
