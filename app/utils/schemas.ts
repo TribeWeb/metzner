@@ -1,18 +1,13 @@
 import { z } from 'zod'
 
-type FieldId = 'stiffness' | 'shape' | 'core' | 'reinforced' | 'material' | 'width' | 'height' | 'diameter'
-type FieldGroupId = 'crossSection' | 'longSection' | 'material' | 'widthHeight' | 'diameter'
-
-type StepId = 'length' | 'profile' | 'dimensions'
-
 type ValueMeta = Record<string, unknown> & {
   label: string
-  fieldId: FieldId
-  fieldGroupId: FieldGroupId
+  fieldId: string
+  fieldGroupId: string
 }
 
 type MaterialMeta = ValueMeta & {
-  stepId: StepId
+  stepId: string
 }
 
 const literalValue = <T extends string>(value: T, meta: ValueMeta) => z.literal(value).meta(meta)
@@ -81,14 +76,7 @@ export const materials = z.strictObject({
 })
 
 export const machines = z.object({
-  // title: z.string().optional(),
-  // description: z.string().optional(),
   pageOrder: z.coerce.number().optional(),
-  // navigation: z.object({
-  //   title: z.string().optional(),
-  //   description: z.string().optional(),
-  //   icon: z.string().optional()
-  // }),
   machineId: z.string(),
   machineName: z.string(),
   modelId: z.string(),
@@ -119,10 +107,6 @@ export const machines = z.object({
     description: z.string().optional(),
     icon: z.string().optional()
   })).optional()
-  // seo: z.object({
-  //   title: z.string().optional(),
-  //   description: z.string().optional()
-  // }).optional()
 })
 
 export const about = z.strictObject({
@@ -153,7 +137,7 @@ export const about = z.strictObject({
   // )
 })
 
-// export const pageCollectionItemBaseSchema = z.strictObject({
+// const pageCollectionItemBaseSchema = z.object({
 //   path: z.string(),
 //   title: z.string(),
 //   description: z.string(),
@@ -166,17 +150,22 @@ export const about = z.strictObject({
 //     }),
 //     z.record(z.string(), z.any())
 //   ).optional().default({}),
+//   body: z.object({
+//     type: z.string(),
+//     children: z.any(),
+//     toc: z.any()
+//   }),
 //   navigation: z.union([
 //     z.boolean(),
 //     z.object({
-//       title: z.string().optional(),
-//       description: z.string().optional(),
-//       icon: z.string().optional()
+//       title: z.string(),
+//       description: z.string(),
+//       icon: z.string()
 //     })
 //   ]).default(true)
 // })
 
-// const mergedMachines = machines.merge(pageCollectionItemBaseSchema)
+// const _mergedMachines = pageCollectionItemBaseSchema.extend(machines)
 // const mergedAbout = about.merge(pageCollectionItemBaseSchema)
 // const mergedMaterials = materials.merge(pageCollectionItemBaseSchema)
 
