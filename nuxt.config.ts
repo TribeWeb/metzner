@@ -91,6 +91,17 @@ export default defineNuxtConfig({
       owner: 'tribeweb',
       repo: 'metzner',
       branch: 'main' // Optional, defaults to 'main'
+    },
+    ai: {
+      context: {
+        title: 'Metzner UK',
+        description: 'German-engineered cutting machines and peripherals for repeatable, accurate cuts across hose, profile, tubing and cable applications.',
+        style: 'Technical and detailed, with practical examples',
+        tone: 'Professional yet approachable'
+      },
+      experimental: {
+        collectionContext: true // Enable AI Tab
+      }
     }
   }
 
