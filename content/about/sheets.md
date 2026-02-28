@@ -36,6 +36,10 @@ contentFolderPath: ../../content/
 
 Get the products from Google Sheets and create `.md` files in the `content` folder.
 
-contentFolderPath: <ProseCode>{{ $doc.contentFolderPath }}</ProseCode>
+contentFolderPath: {{ $doc.contentFolderPath }}
 
-::google-sheets{:googleSheets="googleSheets"} ::
+::googleSheetsImportSchemaGuide{}
+::
+
+::googleSheetsImportSource{:google-sheets="googleSheets"}
+::

@@ -3,6 +3,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   modules: [
+    './modules/google-sheets-import',
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxtjs/sitemap',
@@ -69,6 +70,18 @@ export default defineNuxtConfig({
         commaDangle: 'never',
         braceStyle: '1tbs'
       }
+    }
+  },
+
+  googleSheetsImport: {
+    apiBase: '/api/google-sheets-import',
+    googleApiKeyRuntimeKey: 'googleApiKey',
+    defaultContentDir: 'content/data',
+    collectionTypeBySchema: {
+      about: 'page',
+      machines: 'page',
+      peripherals: 'page',
+      materials: 'data'
     }
   },
 
